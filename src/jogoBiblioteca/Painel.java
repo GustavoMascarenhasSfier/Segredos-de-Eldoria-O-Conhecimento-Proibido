@@ -27,6 +27,9 @@ public class Painel extends JPanel {
             escutTeclado = new EscutadorTeclado();
             this.addKeyListener(escutTeclado);
 
+
+            this.cenario = new tileMap();
+
             loopDoJogo = new GameLoop(this, escutTeclado);
             loopDoJogo.start();
 
@@ -46,25 +49,35 @@ public class Painel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-
         Graphics2D g2 = (Graphics2D) g;
 
         switch (posicao) {
-
             case "Centro":
-
                 g2.setColor(getBackground());
                 g2.fillRect(0, 0, getWidth(), getHeight());
-                this.cenario.desenhar(g2);
-                jogador.DesenharPlayer(g2);
 
+                // 1. Desenha o fundo, chão, baú e casa básica
+                this.cenario.desenharChaoECasas(g2);
+
+                // 2. Y-Sorting das árvores superiores com base na linha do baú/árvore (Y = 110)
+                if (jogador.AreaColisao.y < 110) {
+                    // Jogador atrás das árvores do topo
+                    jogador.DesenharPlayer(g2);
+                    this.cenario.desenharArvoresDoTopo(g2);
+                } else {
+                    // Jogador na frente das árvores do topo
+                    this.cenario.desenharArvoresDoTopo(g2);
+                    jogador.DesenharPlayer(g2);
+                }
+
+                // 3. Desenha as árvores de baixo por último (sempre cobrindo quem está acima)
+                // Caso o jogador ande para baixo, ele passará naturalmente por trás das folhas delas
+                this.cenario.desenharArvoresDeBaixo(g2);
                 break;
 
             case "Sul":
-
                 g2.setColor(getBackground());
                 g2.fillRect(0, 0, getWidth(), getHeight());
-
                 break;
         }
     }

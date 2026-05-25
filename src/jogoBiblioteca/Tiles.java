@@ -5,10 +5,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Tiles {
+
     private final int largura = 48, altura = 48;
     private int posX, posY;
+
     private Image imgAtual;
-    private Image imgGrass, imgSand, imgWall, imgWater, imgWhite, imgGray;
+    private Image imgGrass, imgSand, imgWall, imgWater, imgWhite, imgGray, imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5;
     private boolean colisao;
 
     public Tiles() {
@@ -16,43 +18,42 @@ public class Tiles {
     }
 
     private void carregaImagemTile() {
-        imgGrass = new ImageIcon("res/TILES/grass1.png").getImage();
+
         imgSand  = new ImageIcon("res/TILES/sand1.png").getImage();
         imgWater = new ImageIcon("res/TILES/water1.png").getImage();
         imgWall  = new ImageIcon("res/TILES/wall1.png").getImage();
         imgWhite = new ImageIcon("res/TILES/white.png").getImage();
         imgGray  = new ImageIcon("res/TILES/gray.png").getImage();
+
+        imgGrass = new ImageIcon("res/TILES/grass1.png").getImage();
+        imgGrass1  = new ImageIcon("res/TILES/GrassDecoration1.png").getImage();
+        imgGrass2  = new ImageIcon("res/TILES/GrassDecoration2.png").getImage();
+        imgGrass3  = new ImageIcon("res/TILES/grass2.png").getImage();
+        imgGrass4  = new ImageIcon("res/TILES/grass3.png").getImage();
+        imgGrass5  = new ImageIcon("res/TILES/grass4.png").getImage();
+
     }
+
     public void carregaPecaDaMatriz(int valor) {
-        if (valor == 0) {
-            imgAtual = imgWall;
-            this.colisao = true;}
-        else if (valor == 1) {
-            imgAtual = imgSand;
-            this.colisao = false;}
-        else if (valor == 2) {
-            imgAtual = imgWater;
-            this.colisao = true;}
-        else if (valor == 3) {
-            imgAtual = imgGrass;
-            this.colisao = false;}
-        else if (valor == 4) {
-            imgAtual = imgWhite;
-            this.colisao = false;}
-        else if (valor == 5) {
-            imgAtual = imgGray;
-            this.colisao = true;}
+        if (valor == 0) { imgAtual = imgWall; colisao = true; }
+        else if (valor == 1) { imgAtual = imgSand; colisao = false; }
+        else if (valor == 2) { imgAtual = imgWater; colisao = true; }
+        else if (valor == 3) { imgAtual = imgGrass; colisao = false; }
+        else if (valor == 4) { imgAtual = imgWhite; colisao = false; }
+        else if (valor == 5) { imgAtual = imgGray; colisao = true; }
+
+        else if (valor == 6) { imgAtual = imgGrass1; colisao = false; } // DECORAÇÃO
+        else if (valor == 7) { imgAtual = imgGrass2; colisao = false; } // DECORAÇÃO
+        else if (valor == 8) { imgAtual = imgGrass3; colisao = false; }
+        else if (valor == 9) { imgAtual = imgGrass4; colisao = false; }
+        else if (valor == 10) { imgAtual = imgGrass5; colisao = false; }
     }
 
-    public boolean isColisao() {
-        return colisao;
-    }
-
+    public boolean isColisao() { return colisao; }
 
     public void desenhaTile(Graphics2D desenho, int linha, int coluna) {
-        this.posX = coluna * largura;
-        this.posY = linha * altura;
-
+        posX = coluna * largura;
+        posY = linha * altura;
         desenho.drawImage(imgAtual, posX, posY, largura, altura, null);
     }
 }

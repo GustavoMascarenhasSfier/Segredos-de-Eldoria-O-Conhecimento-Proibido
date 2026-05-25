@@ -90,13 +90,13 @@ public class Player {
 
     public void atualizaPosicaoJogador(boolean ME, boolean MC, boolean MD, boolean MB) {
 
-        this.AreaColisao.x = this.posX + 3;
-        this.AreaColisao.y = this.posY + this.Altu/2;
-
         if (ME) this.posX -= passo;
         else if (MD) this.posX += passo;
         else if (MC) this.posY -= passo;
         else if (MB) this.posY += passo;
+
+        this.AreaColisao.x = this.posX + 3;
+        this.AreaColisao.y = this.posY + this.Altu / 2;
 
         this.atualizaSprite(ME, MC, MD, MB);
     }
