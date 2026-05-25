@@ -40,6 +40,11 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
 
             if (tempoDecorrido >= 1) {
 
+                if (this.cenaDoJogo == null || this.cenaDoJogo.jogador == null || this.cenaDoJogo.cenario == null) {
+                    tempoDecorrido = 0;
+                    continue;
+                }
+
                 String direcao = "";
                 if (et.moverPraCima)       direcao = "cima";
                 else if (et.moverPraBaixo) direcao = "baixo";
@@ -47,11 +52,11 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 else if (et.moverPraEsq)   direcao = "esquerda";
 
                 VerificadorDeColisao colisao = new VerificadorDeColisao();
-                boolean bateu = colisao.OcorreuDeColisao(this.cenaDoJogo.jogador, this.cenaDoJogo.cenario,direcao);
+                boolean bateu = colisao.OcorreuDeColisao(this.cenaDoJogo.jogador, this.cenaDoJogo.cenario, direcao);
                 System.out.println("colisao " + bateu);
 
                 if (bateu == false) {
-                    cenaDoJogo.jogador.atualizaPosicaoJogador(et.moverPraEsq,et.moverPraCima,et.moverPraDir, et.moverPraBaixo);
+                    cenaDoJogo.jogador.atualizaPosicaoJogador(et.moverPraEsq, et.moverPraCima, et.moverPraDir, et.moverPraBaixo);
                 }
 
                 cenaDoJogo.repaint();

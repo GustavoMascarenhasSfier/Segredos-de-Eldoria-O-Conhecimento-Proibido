@@ -25,7 +25,6 @@ public class EscutadorTeclado implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -34,19 +33,18 @@ public class EscutadorTeclado implements KeyListener {
         int numTecla = e.getKeyCode();
 
         switch(numTecla) {
-            case 37: //esqueda
+            case KeyEvent.VK_A: // Tecla A (esquerda)
                 this.moverPraEsq = true;
                 break;
-            case 38: //cima
+            case KeyEvent.VK_W: // Tecla W (cima)
                 this.moverPraCima = true;
                 break;
-            case 39: //direita
+            case KeyEvent.VK_D: // Tecla D (direita)
                 this.moverPraDir = true;
                 break;
-            case 40: //baixo
+            case KeyEvent.VK_S: // Tecla S (baixo)
                 this.moverPraBaixo = true;
                 break;
-
         }
     }
 
@@ -55,19 +53,18 @@ public class EscutadorTeclado implements KeyListener {
         int numTecla = e.getKeyCode();
 
         switch(numTecla) {
-            case 37:
+            case KeyEvent.VK_A: // Tecla A (esquerda)
                 this.moverPraEsq = false;
                 break;
-            case 38:
+            case KeyEvent.VK_W: // Tecla W (cima)
                 this.moverPraCima = false;
                 break;
-            case 39:
+            case KeyEvent.VK_D: // Tecla D (direita)
                 this.moverPraDir = false;
                 break;
-            case 40:
+            case KeyEvent.VK_S: // Tecla S (baixo)
                 this.moverPraBaixo = false;
                 break;
         }
     }
-
 }
