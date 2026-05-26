@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 public class Player {
 
@@ -23,7 +22,6 @@ public class Player {
     private int posX, posY;
     private int Larg, Altu;
     public int passo = 3;
-
 
     public Player() {
         this.posX = 200;
