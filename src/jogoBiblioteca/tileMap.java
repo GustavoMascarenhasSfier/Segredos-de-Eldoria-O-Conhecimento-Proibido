@@ -48,15 +48,15 @@ public class tileMap {
     int [][] cenario3DoJogo = {
             //   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
             /* 0*/ {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-            /* 1*/ {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
-            /* 2*/ {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
-            /* 3*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
-            /* 4*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
-            /* 5*/ {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
-            /* 6*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
-            /* 7*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
-            /* 8*/ {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-            /* 9*/ {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}
+            /* 1*/ {0, 4, 4, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 4, 0},
+            /* 2*/ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 3*/ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 4*/ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 5*/ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 6*/ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 7*/ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 8*/ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 9*/ {0, 4, 4, 4, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}
     };
 
     int [][] cenario4DoJogo = {
@@ -137,120 +137,85 @@ public class tileMap {
         }
     }
 
-    // =========================================================
-    //  GUIA DE POSICIONAMENTO — cenário 3
-    //
-    //  Cada tile = 48px. Grade 16×10.
-    //  X = col * 48  |  Y = lin * 48
-    //
-    //  col:  0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
-    //  x:    0   48   96  144  192  240  288  336  384  432  480  528  576  624  672  720
-    //
-    //  lin:  0    1    2    3    4    5    6    7    8    9
-    //  y:    0   48   96  144  192  240  288  336  384  432
-    //
-    //  drawImage(img, X, Y, LARGURA, ALTURA, null)
-    // =========================================================
+    // POSICIONAMENTO — cenário 3
     private void desenharInteriorBiblioteca(Graphics2D d2) {
         final int T = 48;
 
-        // ------------------------------------------------------------------
         // 1. CHÃO — tile chao.png repetido em todo o interior (linhas 1-7, cols 1-14)
-        //    chao.png original: 55x54px → esticado para 48x48 por tile
-        // ------------------------------------------------------------------
+
         if (sprites.imgChaoBiblioteca != null) {
-            for (int lin = 1; lin <= 7; lin++) {
-                for (int col = 1; col <= 14; col++) {
+            for (int lin = 0; lin <= 9; lin++) {
+                for (int col = 0; col <= 14; col++) {
                     d2.drawImage(sprites.imgChaoBiblioteca, col * T, lin * T, T, T, null);
                 }
             }
         }
 
-        // ------------------------------------------------------------------
         // 2. PAREDE DECORADA — topo, atrás da lareira
-        //    parede.png original: 374x157px → 288x96px (6 tiles wide x 2 tiles tall)
-        //    Centralizada: x = (768/2) - (288/2) = 240, y = 0
-        // ------------------------------------------------------------------
+
         if (sprites.imgParede != null) {
             d2.drawImage(sprites.imgParede, 0, 0, 288, 96, null);
             d2.drawImage(sprites.imgParede, 286, 0, 288, 96, null);
             d2.drawImage(sprites.imgParede, 565, 0, 288, 96, null);
 
-            d2.drawImage(sprites.imgEstanteLateral, 0, 110, 48, 150, null);
-            d2.drawImage(sprites.imgEstanteLateral, 0, 250, 48, 150, null);
+            d2.drawImage(sprites.imgEstanteLateral, -10, 110, 48, 150, null);
+            d2.drawImage(sprites.imgEstanteLateral, -10, 300, 48, 150, null);
 
 
         }
 
-        // ------------------------------------------------------------------
         // 3. LAREIRA — topo-centro, sobre a parede decorada
-        //    lareira.png original: 495x504px → 144x148px (3 tiles wide)
-        //    Centralizada: x = (768/2) - (144/2) = 312, y = -20 (sobe na parede)
-        // ------------------------------------------------------------------
+
         if (sprites.imgLareira != null) {
             d2.drawImage(sprites.imgLareira, 312, -20, 144, 148, null);
         }
 
-        // ------------------------------------------------------------------
         // 4. BANDEIRAS — nas paredes laterais (decoração)
-        //    bandeira.png original: 95x183px → 38x72px
-        //    Esquerda:  col 0 borda, linha 2-3 → x=8,  y=96
-        //    Direita:   col 15 borda, linha 2-3 → x=722, y=96
-        // ------------------------------------------------------------------
+
         if (sprites.imgBandeira != null) {
             d2.drawImage(sprites.imgBandeira,   8, 20, 38, 72, null);  // parede esquerda
             d2.drawImage(sprites.imgBandeira, 722, 20, 38, 72, null);  // parede direita
         }
 
-        // ------------------------------------------------------------------
+        if (sprites.imgBicho1 != null && sprites.imgBicho2 != null) {
+            d2.drawImage(sprites.imgBicho1,   50, 20, 48, 48, null);
+            d2.drawImage(sprites.imgBicho2, 670, 20, 48, 48, null);
+        }
+
+
         // 5. PIANO — topo-esquerda (cols 1-2, linha 1-2)
-        //    piano.png original: 124x116px → 96x90px
-        //    x = col1 * 48 = 48,  y = lin1 * 48 - 6 = 42
-        // ------------------------------------------------------------------
+
         if (sprites.imgPiano != null) {
             d2.drawImage(sprites.imgPiano, 88, 42, 126, 90, null);
         }
 
-        // ------------------------------------------------------------------
         // 6. QUADRO — ao lado do piano (col 3, linha 1)
-        //    quadro.png original: 60x30px → 48x24px
-        //    x = col3 * 48 = 144,  y = lin1 * 48 + 10 = 58
-        // ------------------------------------------------------------------
+
         if (sprites.imgQuadro != null) {
-            d2.drawImage(sprites.imgQuadro, 144, 58, 48, 24, null);
+            d2.drawImage(sprites.imgQuadro, 105, 0, 100, 50, null);
         }
 
-        // ------------------------------------------------------------------
         // 7. ESTANTES CHEIAS — 4 unidades
-        //    estante-cheia.png original: 123x115px → 96x90px (2 tiles wide)
-        //
-        //    Esquerda TOPO  → x=96,  y=136  (cols 2-3, linhas 3-4)
-        //    Esquerda BAIXO → x=96,  y=280  (cols 2-3, linhas 6-7)
-        //    Direita  TOPO  → x=576, y=136  (cols 12-13, linhas 3-4)
-        //    Direita  BAIXO → x=576, y=280  (cols 12-13, linhas 6-7)
-        // ------------------------------------------------------------------
         if (sprites.imgEstanteCheia != null) {
             d2.drawImage(sprites.imgEstante,  96, 166, 96, 90, null);
-            d2.drawImage(sprites.imgEstante,  550, 100, 96, 90, null);
-            d2.drawImage(sprites.imgEstanteCheia,  550, 280, 96, 90, null);
+            d2.drawImage(sprites.imgEstanteCheia,  550, 50, 96, 90, null);
+            d2.drawImage(sprites.imgEstanteCheia,  470, 50, 96, 90, null);
+
+            d2.drawImage(sprites.imgEstante,  590, 350, 96, 90, null);
+            d2.drawImage(sprites.imgEstante,  510, 350, 96, 90, null);
+
+            d2.drawImage(sprites.imgEstante,  590, 200, 96, 90, null);
+            d2.drawImage(sprites.imgEstante,  510, 200, 96, 90, null);
 
 
 
         }
 
-        // ------------------------------------------------------------------
         // 8. TAPETE DA MESA CENTRAL — embaixo da mesa redonda
-        //    tapete.png original: 437x146px → 192x64px (4 tiles wide)
-        //    Centralizado com a mesa: x = 384 - 96 = 288,  y = 248
-        // ------------------------------------------------------------------
         if (sprites.imgTapete != null) {
             d2.drawImage(sprites.imgTapete, 288, 195, 192, 124, null);
         }
-
-        // ------------------------------------------------------------------
         // 10. CADEIRAS — ao redor da mesa central
-        //     Mesa ocupa: x=312..456, y=210..340
-        // ------------------------------------------------------------------
         if (sprites.imgCadeiraCima != null) {
             // Acima da mesa (desenhada antes para ficar atrás)
             d2.drawImage(sprites.imgCadeiraCima, 340, 178, 31, 42, null);
@@ -270,47 +235,69 @@ public class tileMap {
             d2.drawImage(sprites.imgCadeiraDireita, 420, 220, 44, 50, null);
         }
 
-        // ------------------------------------------------------------------
         // 9. MESA CENTRAL REDONDA — centro da sala
-        //    mesa-centro.png original: 91x82px → 144x130px
-        //    Centralizada: x = 384 - 72 = 312,  y = 210
-        // ------------------------------------------------------------------
         if (sprites.imgMesaCentro != null) {
             d2.drawImage(sprites.imgMesaCentro, 332, 200, 100, 90, null);
         }
+        // 9. velas CENTRAL REDONDA — centro da sala
 
+        if (sprites.imgVelas != null){
+            d2.drawImage(sprites.imgVelas, 359, 210, 44, 40, null);
 
+        }
 
-        // ------------------------------------------------------------------
+        // 9. Livro Aberto da mesa  CENTRAL REDONDA — centro da sala
+
+        if (sprites.imgLivroFechado != null){
+            d2.drawImage(sprites.imgLivroAberto, 365, 250, 30, 20, null);
+
+        }
+
         // 11. TAPETE DA MESINHA VERDE — canto inferior esquerdo
-        //     tapete2.png original: 263x171px → 96x62px
-        //     x = 44,  y = 296
-        // ------------------------------------------------------------------
         if (sprites.imgTapete2 != null) {
-            d2.drawImage(sprites.imgTapete2, 44, 296, 96, 62, null);
+            d2.drawImage(sprites.imgTapete2, 100, 320, 96, 62, null);
         }
 
-        // ------------------------------------------------------------------
         // 12. MESINHA VERDE + CADEIRAS — canto inferior esquerdo
-        //     Usa mesa-centro em escala menor: 80x72px
-        //     x = 52,  y = 302
-        // ------------------------------------------------------------------
-        if (sprites.imgMesaCentro != null) {
-            d2.drawImage(sprites.imgMesaCentro, 52, 302, 80, 72, null);
-        }
         if (sprites.imgCadeiraCima != null) {
-            d2.drawImage(sprites.imgCadeiraCima,    68, 272, 36, 44, null);
+            d2.drawImage(sprites.imgCadeiraCima,    127, 275, 36, 44, null);
         }
         if (sprites.imgCadeiraBaixo != null) {
-            d2.drawImage(sprites.imgCadeiraBaixo,   68, 360, 36, 38, null);
+            d2.drawImage(sprites.imgCadeiraBaixo,   127, 360, 36, 38, null);
         }
         if (sprites.imgCadeiraEsquerda != null) {
-            d2.drawImage(sprites.imgCadeiraEsquerda, 14, 312, 38, 48, null);
+            d2.drawImage(sprites.imgCadeiraEsquerda, 80, 320, 38, 48, null);
         }
         if (sprites.imgCadeiraDireita != null) {
-            d2.drawImage(sprites.imgCadeiraDireita, 128, 312, 38, 48, null);
+            d2.drawImage(sprites.imgCadeiraDireita, 170, 320, 38, 48, null);
         }
+
+        if (sprites.imgMesaCentro != null) {
+            d2.drawImage(sprites.imgMesaCentro, 105, 305, 80, 72, null);
+        }
+
+        if (sprites.imgLivroFechado != null){
+            d2.drawImage(sprites.imgLivroFechado, 130, 320, 30, 30, null);
+
+        }
+
+        // 12. MESINHA livro inferior
+        if (sprites.imgMesaLivro != null) {
+            d2.drawImage(sprites.imgMesaLivro,    127, 420, 126, 60, null);
+        }
+        // 12. tapetes entradas
+        if (sprites.imgTapeteInferior != null) {
+            d2.drawImage(sprites.imgTapeteInferior,    250, 400, 220, 80, null);
+        }
+        if (sprites.imgTapeteLateral != null) {
+            d2.drawImage(sprites.imgTapeteLateral,    -20, 239, 100, 80, null);
+            d2.drawImage(sprites.imgTapeteLateral,    660, 85, 60, 70, null);
+
+        }
+
+
     }
+
 
     public void desenharArvoresDoTopo(Graphics2D d2) {
         if (cenarioValido == cenario1DoJogo && sprites != null) {
