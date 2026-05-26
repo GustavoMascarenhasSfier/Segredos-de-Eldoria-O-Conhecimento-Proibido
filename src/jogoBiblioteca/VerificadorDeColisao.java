@@ -12,7 +12,6 @@ public class VerificadorDeColisao {
     public boolean OcorreuDeColisao(Player Jogador, tileMap CenaDoJogo, String Direcao) {
         colidiu = false;
 
-        // --- 1. SEU SISTEMA DE RETÂNGULOS FIXOS ---
         Rectangle proximaAreaJogador = new Rectangle(
                 Jogador.AreaColisao.x,
                 Jogador.AreaColisao.y,
@@ -26,24 +25,53 @@ public class VerificadorDeColisao {
         else if (Direcao.equals("esquerda")) proximaAreaJogador.x -= Jogador.passo;
 
         if (CenaDoJogo.cenarioValido == CenaDoJogo.cenario1DoJogo) {
-            // Árvores Médias
-            Rectangle tronco1 = new Rectangle(40, 280, 40, 30); // Arvore do meio esquerdo
-            Rectangle tronco3 = new Rectangle(0, 0, 0, 0); // Arvore do canto inferior esquerdo
-            Rectangle tronco4 = new Rectangle(630, 390, 100, 50); // Arvore da direita inferior
 
-            // ---  ÁRVORES GRANDES DO LADO DO BAÚ  ---
+            // ---------------- ÁRVORES PEQUENAS ----------------
+
+            // Árvore inferior esquerda
+            Rectangle tronco1 = new Rectangle(40, 280, 40, 30);
+
+            // Árvore inutilizada
+            Rectangle tronco3 = new Rectangle(0, 0, 0, 0);
+
+            // Árvore inferior direita
+            Rectangle tronco4 = new Rectangle(630, 390, 100, 50);
+
+            // Árvore superior central
             Rectangle tronco2 = new Rectangle(365, 90, 80, 25);
 
-            // Outras Árvores Grandes
-            Rectangle troncoGrande1 = new Rectangle(220, 400, 70, 30); // Primeira arvore da esquerda inferior
-            Rectangle troncoGrande2 = new Rectangle(460, 340, 60, 40); // Primeira arvore da direita inferior
-            Rectangle troncoGrande3 = new Rectangle(70, 150, 50, 50); // Arvore da esquerda superior
-            Rectangle troncoGrande5 = new Rectangle(240, 20, 50, 50); // Arvore da esquerda superior
-            Rectangle troncoGrande4 = new Rectangle(640, 170, 40, 40); // arvore ao lado direito da casa
 
-            // Estruturas
+            // ---------------- ÁRVORES GRANDES ----------------
+
+            // Primeira árvore inferior esquerda
+            Rectangle troncoGrande1 = new Rectangle(220, 400, 70, 30);
+
+            // Primeira árvore inferior direita
+            Rectangle troncoGrande2 = new Rectangle(460, 340, 60, 40);
+
+            // Árvore superior esquerda
+            Rectangle troncoGrande3 = new Rectangle(70, 150, 50, 50);
+
+            // Árvore atrás do baú
+            Rectangle troncoGrande5 = new Rectangle(240, 20, 50, 50);
+
+            // Árvore superior direita
+            Rectangle troncoGrande4 = new Rectangle(640, 170, 40, 40);
+
+
+            // ---------------- OBJETOS ----------------
+
+            // Casa
             Rectangle hitboxCasa = new Rectangle(480, 40, 170, 90);
+
+            // Baú
             Rectangle hitboxBau = new Rectangle(300, 35, 800, 50);
+
+            // Estátua
+            Rectangle hitboxEstatua = new Rectangle(215, 210, 80, 40);
+
+
+            // ---------------- COLISÃO ----------------
 
             if (proximaAreaJogador.intersects(tronco1) ||
                     proximaAreaJogador.intersects(tronco2) ||
@@ -55,13 +83,15 @@ public class VerificadorDeColisao {
                     proximaAreaJogador.intersects(troncoGrande3) ||
                     proximaAreaJogador.intersects(troncoGrande4) ||
                     proximaAreaJogador.intersects(hitboxCasa) ||
-                    proximaAreaJogador.intersects(hitboxBau)) {
+                    proximaAreaJogador.intersects(hitboxBau) ||
+                    proximaAreaJogador.intersects(hitboxEstatua)
+            ) {
 
                 this.colidiu = true;
+
                 return colidiu;
             }
         }
-
 
         int tamanhoTile = 48;
         if (Direcao.equals("cima")) {
