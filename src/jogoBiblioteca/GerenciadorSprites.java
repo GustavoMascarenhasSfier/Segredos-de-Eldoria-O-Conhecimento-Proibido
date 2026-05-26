@@ -9,6 +9,8 @@ public class GerenciadorSprites {
 
     public BufferedImage[] arvores;
     public BufferedImage imgCasa;
+    public BufferedImage imgCasa1;
+    public BufferedImage imgCasa2;
     public BufferedImage[] baus;
     public BufferedImage imgGirassol;
 
@@ -31,12 +33,18 @@ public class GerenciadorSprites {
 
         // 2. CARREGA A CASA
         try {
+            BufferedImage sheetCasa1 = ImageIO.read(new File("res/OBJECTS/House1.png"));
+            imgCasa1 = sheetCasa1;
+            BufferedImage sheetCasa2 = ImageIO.read(new File("res/OBJECTS/House2.png"));
+            imgCasa2 = sheetCasa2;
+
             BufferedImage sheetCasa = ImageIO.read(new File("res/OBJECTS/House.png"));
             imgCasa = sheetCasa.getSubimage(144, 16, 80, 80);
         } catch (IOException e) {
             System.out.println("Erro ao carregar o arquivo da casa!");
             e.printStackTrace();
         }
+
 
         // 3. CARREGA OS BAÚS
         try {
