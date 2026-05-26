@@ -8,6 +8,9 @@ public class tileMap {
     GerenciadorSprites sprites;
     int[][] cenarioValido;
 
+    // Tile 48x48px | Tela 768x480 | Grade 16 cols x 10 linhas
+    // 0=parede(colisão) 1=areia(passável) 4=white/piso(passável) 5=cinza(colisão)
+
     int [][] cenario1DoJogo = {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,10,9,8,10,9,9,6,10,8,9,10,8,8,9,0},
@@ -32,18 +35,30 @@ public class tileMap {
             {0,3,3,3,3,3,1,1,1,1,3,3,3,3,3,0},
             {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0}
     };
+
+    // =========================================================
+    //  CENÁRIO 3 — Interior da Biblioteca
+    //  Tile 48x48px | 16 cols (0-15) x 10 linhas (0-9)
+    //
+    //  0 = parede (colisão)
+    //  1 = areia  (passável — corredor entrada/saída)
+    //  4 = piso branco (passável — interior)
+    //  5 = cinza  (colisão — área de móvel)
+    // =========================================================
     int [][] cenario3DoJogo = {
-            {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
-            {0,4,4,4,4,4,4,1,1,4,4,4,4,4,4,0},
-            {0,4,5,5,5,4,1,1,1,1,4,5,5,5,4,0},
-            {0,4,5,4,5,4,1,4,4,1,4,5,4,5,4,1},
-            {0,4,5,5,5,4,1,4,4,1,4,5,5,5,4,0},
-            {0,4,4,4,4,4,1,1,1,1,4,4,4,4,4,0},
-            {0,4,5,5,5,4,1,4,4,1,4,5,5,5,4,0},
-            {0,4,4,4,4,4,1,1,1,1,4,4,4,4,4,0},
-            {0,4,4,4,4,4,4,1,1,4,4,4,4,4,4,0},
-            {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0}
+            //   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+            /* 0*/ {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+            /* 1*/ {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 2*/ {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 3*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
+            /* 4*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
+            /* 5*/ {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0},
+            /* 6*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
+            /* 7*/ {0, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 0},
+            /* 8*/ {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+            /* 9*/ {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}
     };
+
     int [][] cenario4DoJogo = {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,4,4,4,1,1,1,0,0,1,1,1,4,4,4,0},
@@ -94,7 +109,7 @@ public class tileMap {
     };
 
     public tileMap() {
-        this.cenarioValido = this.cenario1DoJogo;
+        this.cenarioValido = this.cenario3DoJogo;
         this.sprites = new GerenciadorSprites();
         this.pecaDoCenario = new Tiles();
     }
@@ -111,47 +126,211 @@ public class tileMap {
         }
 
         if (cenarioValido == cenario1DoJogo && sprites != null) {
-
-            // -------------------------- CASA -------------------------------------
-            if (sprites.imgCasa != null) {
+            if (sprites.imgCasa != null)
                 d2.drawImage(sprites.imgCasa, 467, -60, 200, 200, null);
-            }
-
-            // -------------------------- BAÚ ------------------
-            if (sprites.baus != null && sprites.baus[0] != null) {
-                // Desenha o baú com tamanho 48x48 para caber certinho em um bloco do cenário
+            if (sprites.baus != null && sprites.baus[0] != null)
                 d2.drawImage(sprites.baus[0], 270, 35, 140, 50, null);
-            }
+        }
+
+        if (cenarioValido == cenario3DoJogo && sprites != null) {
+            desenharInteriorBiblioteca(d2);
         }
     }
 
-    // Subistitua na sua classe tileMap:
+    // =========================================================
+    //  GUIA DE POSICIONAMENTO — cenário 3
+    //
+    //  Cada tile = 48px. Grade 16×10.
+    //  X = col * 48  |  Y = lin * 48
+    //
+    //  col:  0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
+    //  x:    0   48   96  144  192  240  288  336  384  432  480  528  576  624  672  720
+    //
+    //  lin:  0    1    2    3    4    5    6    7    8    9
+    //  y:    0   48   96  144  192  240  288  336  384  432
+    //
+    //  drawImage(img, X, Y, LARGURA, ALTURA, null)
+    // =========================================================
+    private void desenharInteriorBiblioteca(Graphics2D d2) {
+        final int T = 48;
+
+        // ------------------------------------------------------------------
+        // 1. CHÃO — tile chao.png repetido em todo o interior (linhas 1-7, cols 1-14)
+        //    chao.png original: 55x54px → esticado para 48x48 por tile
+        // ------------------------------------------------------------------
+        if (sprites.imgChaoBiblioteca != null) {
+            for (int lin = 1; lin <= 7; lin++) {
+                for (int col = 1; col <= 14; col++) {
+                    d2.drawImage(sprites.imgChaoBiblioteca, col * T, lin * T, T, T, null);
+                }
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // 2. PAREDE DECORADA — topo, atrás da lareira
+        //    parede.png original: 374x157px → 288x96px (6 tiles wide x 2 tiles tall)
+        //    Centralizada: x = (768/2) - (288/2) = 240, y = 0
+        // ------------------------------------------------------------------
+        if (sprites.imgParede != null) {
+            d2.drawImage(sprites.imgParede, 0, 0, 288, 96, null);
+            d2.drawImage(sprites.imgParede, 286, 0, 288, 96, null);
+            d2.drawImage(sprites.imgParede, 565, 0, 288, 96, null);
+
+            d2.drawImage(sprites.imgEstanteLateral, 0, 110, 48, 150, null);
+            d2.drawImage(sprites.imgEstanteLateral, 0, 250, 48, 150, null);
+
+
+        }
+
+        // ------------------------------------------------------------------
+        // 3. LAREIRA — topo-centro, sobre a parede decorada
+        //    lareira.png original: 495x504px → 144x148px (3 tiles wide)
+        //    Centralizada: x = (768/2) - (144/2) = 312, y = -20 (sobe na parede)
+        // ------------------------------------------------------------------
+        if (sprites.imgLareira != null) {
+            d2.drawImage(sprites.imgLareira, 312, -20, 144, 148, null);
+        }
+
+        // ------------------------------------------------------------------
+        // 4. BANDEIRAS — nas paredes laterais (decoração)
+        //    bandeira.png original: 95x183px → 38x72px
+        //    Esquerda:  col 0 borda, linha 2-3 → x=8,  y=96
+        //    Direita:   col 15 borda, linha 2-3 → x=722, y=96
+        // ------------------------------------------------------------------
+        if (sprites.imgBandeira != null) {
+            d2.drawImage(sprites.imgBandeira,   8, 20, 38, 72, null);  // parede esquerda
+            d2.drawImage(sprites.imgBandeira, 722, 20, 38, 72, null);  // parede direita
+        }
+
+        // ------------------------------------------------------------------
+        // 5. PIANO — topo-esquerda (cols 1-2, linha 1-2)
+        //    piano.png original: 124x116px → 96x90px
+        //    x = col1 * 48 = 48,  y = lin1 * 48 - 6 = 42
+        // ------------------------------------------------------------------
+        if (sprites.imgPiano != null) {
+            d2.drawImage(sprites.imgPiano, 88, 42, 126, 90, null);
+        }
+
+        // ------------------------------------------------------------------
+        // 6. QUADRO — ao lado do piano (col 3, linha 1)
+        //    quadro.png original: 60x30px → 48x24px
+        //    x = col3 * 48 = 144,  y = lin1 * 48 + 10 = 58
+        // ------------------------------------------------------------------
+        if (sprites.imgQuadro != null) {
+            d2.drawImage(sprites.imgQuadro, 144, 58, 48, 24, null);
+        }
+
+        // ------------------------------------------------------------------
+        // 7. ESTANTES CHEIAS — 4 unidades
+        //    estante-cheia.png original: 123x115px → 96x90px (2 tiles wide)
+        //
+        //    Esquerda TOPO  → x=96,  y=136  (cols 2-3, linhas 3-4)
+        //    Esquerda BAIXO → x=96,  y=280  (cols 2-3, linhas 6-7)
+        //    Direita  TOPO  → x=576, y=136  (cols 12-13, linhas 3-4)
+        //    Direita  BAIXO → x=576, y=280  (cols 12-13, linhas 6-7)
+        // ------------------------------------------------------------------
+        if (sprites.imgEstanteCheia != null) {
+            d2.drawImage(sprites.imgEstante,  96, 166, 96, 90, null);
+            d2.drawImage(sprites.imgEstante,  550, 100, 96, 90, null);
+            d2.drawImage(sprites.imgEstanteCheia,  550, 280, 96, 90, null);
+
+
+
+        }
+
+        // ------------------------------------------------------------------
+        // 8. TAPETE DA MESA CENTRAL — embaixo da mesa redonda
+        //    tapete.png original: 437x146px → 192x64px (4 tiles wide)
+        //    Centralizado com a mesa: x = 384 - 96 = 288,  y = 248
+        // ------------------------------------------------------------------
+        if (sprites.imgTapete != null) {
+            d2.drawImage(sprites.imgTapete, 288, 195, 192, 124, null);
+        }
+
+        // ------------------------------------------------------------------
+        // 10. CADEIRAS — ao redor da mesa central
+        //     Mesa ocupa: x=312..456, y=210..340
+        // ------------------------------------------------------------------
+        if (sprites.imgCadeiraCima != null) {
+            // Acima da mesa (desenhada antes para ficar atrás)
+            d2.drawImage(sprites.imgCadeiraCima, 340, 178, 31, 42, null);
+            d2.drawImage(sprites.imgCadeiraCima, 390, 178, 31, 42, null);
+        }
+        if (sprites.imgCadeiraBaixo != null) {
+            // Abaixo da mesa
+            d2.drawImage(sprites.imgCadeiraBaixo, 335, 276, 41, 44, null);
+            d2.drawImage(sprites.imgCadeiraBaixo, 382, 276, 41, 44, null);
+        }
+        if (sprites.imgCadeiraEsquerda != null) {
+            // À esquerda da mesa
+            d2.drawImage(sprites.imgCadeiraEsquerda, 300, 220, 44, 54, null);
+        }
+        if (sprites.imgCadeiraDireita != null) {
+            // À direita da mesa
+            d2.drawImage(sprites.imgCadeiraDireita, 420, 220, 44, 50, null);
+        }
+
+        // ------------------------------------------------------------------
+        // 9. MESA CENTRAL REDONDA — centro da sala
+        //    mesa-centro.png original: 91x82px → 144x130px
+        //    Centralizada: x = 384 - 72 = 312,  y = 210
+        // ------------------------------------------------------------------
+        if (sprites.imgMesaCentro != null) {
+            d2.drawImage(sprites.imgMesaCentro, 332, 200, 100, 90, null);
+        }
+
+
+
+        // ------------------------------------------------------------------
+        // 11. TAPETE DA MESINHA VERDE — canto inferior esquerdo
+        //     tapete2.png original: 263x171px → 96x62px
+        //     x = 44,  y = 296
+        // ------------------------------------------------------------------
+        if (sprites.imgTapete2 != null) {
+            d2.drawImage(sprites.imgTapete2, 44, 296, 96, 62, null);
+        }
+
+        // ------------------------------------------------------------------
+        // 12. MESINHA VERDE + CADEIRAS — canto inferior esquerdo
+        //     Usa mesa-centro em escala menor: 80x72px
+        //     x = 52,  y = 302
+        // ------------------------------------------------------------------
+        if (sprites.imgMesaCentro != null) {
+            d2.drawImage(sprites.imgMesaCentro, 52, 302, 80, 72, null);
+        }
+        if (sprites.imgCadeiraCima != null) {
+            d2.drawImage(sprites.imgCadeiraCima,    68, 272, 36, 44, null);
+        }
+        if (sprites.imgCadeiraBaixo != null) {
+            d2.drawImage(sprites.imgCadeiraBaixo,   68, 360, 36, 38, null);
+        }
+        if (sprites.imgCadeiraEsquerda != null) {
+            d2.drawImage(sprites.imgCadeiraEsquerda, 14, 312, 38, 48, null);
+        }
+        if (sprites.imgCadeiraDireita != null) {
+            d2.drawImage(sprites.imgCadeiraDireita, 128, 312, 38, 48, null);
+        }
+    }
+
     public void desenharArvoresDoTopo(Graphics2D d2) {
         if (cenarioValido == cenario1DoJogo && sprites != null) {
-            // Apenas as árvores que ficam na parte de cima da tela (Y menor que 150)
             d2.drawImage(sprites.arvores[1], 290, -80, 200, 200, null);
             d2.drawImage(sprites.arvores[1], 370, -10, 170, 170, null);
-            d2.drawImage(sprites.arvores[2], 79, 50, 96, 144, null);
-            d2.drawImage(sprites.arvores[2], 600, 10, 170, 200, null);
+            d2.drawImage(sprites.arvores[2],  79,  50,  96, 144, null);
+            d2.drawImage(sprites.arvores[2], 600,  10, 170, 200, null);
         }
     }
 
     public void desenharArvoresDeBaixo(Graphics2D d2) {
         if (cenarioValido == cenario1DoJogo && sprites != null) {
-            // Todas as outras árvores que ficam no meio/inferior da tela
-            d2.drawImage(sprites.arvores[1], 70, 210, 70, 100, null);
-            d2.drawImage(sprites.arvores[1], 30, 260, 100, 170, null);
+            d2.drawImage(sprites.arvores[1],  70, 210,  70, 100, null);
+            d2.drawImage(sprites.arvores[1],  30, 260, 100, 170, null);
             d2.drawImage(sprites.arvores[1], 560, 190, 200, 250, null);
-            d2.drawImage(sprites.arvores[2], 200, 270, 70, 100, null);
+            d2.drawImage(sprites.arvores[2], 200, 270,  70, 100, null);
             d2.drawImage(sprites.arvores[2], 450, 270, 100, 140, null);
         }
-        // Mantém a renderização padrão dos outros cenários que você já tinha:
         else if (cenarioValido == cenario2DoJogo && sprites != null) {
             d2.drawImage(sprites.arvores[1], 300, 150, 72, 108, null);
-        }
-        else if (cenarioValido == cenario3DoJogo && sprites != null) {
-            d2.drawImage(sprites.arvores[0], 100, 250, 48, 72, null);
-            d2.drawImage(sprites.arvores[2], 400, 100, 96, 144, null);
         }
         else if (cenarioValido == cenario4DoJogo && sprites != null) {
             d2.drawImage(sprites.arvores[2], 600, 200, 96, 144, null);

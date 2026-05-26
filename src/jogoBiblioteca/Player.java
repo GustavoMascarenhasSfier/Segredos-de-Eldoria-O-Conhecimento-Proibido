@@ -26,8 +26,8 @@ public class Player {
 
 
     public Player() {
-        this.posX = 200;
-        this.posY = 100;
+        this.posX = 382;
+        this.posY = 382;
         this.Larg = 48;
         this.Altu = 48;
         AreaColisao = new Rectangle();
