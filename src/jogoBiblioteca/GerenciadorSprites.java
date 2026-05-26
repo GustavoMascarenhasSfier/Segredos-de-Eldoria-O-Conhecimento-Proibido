@@ -10,6 +10,7 @@ public class GerenciadorSprites {
     public BufferedImage[] arvores;
     public BufferedImage imgCasa;
     public BufferedImage[] baus;
+    public BufferedImage imgGirassol;
 
     public GerenciadorSprites() {
         carregaImagensDoMundo();
@@ -45,6 +46,17 @@ public class GerenciadorSprites {
             baus[1] = sheetBau.getSubimage(0, 16, 32, 16);
         } catch (IOException e) {
             System.out.println("Erro ao carregar o arquivo do baú!");
+            e.printStackTrace();
+        }
+
+
+        // 4. CARREGA O GIRASSOL
+        try {
+            BufferedImage sheetPlantas = ImageIO.read(new File("res/OBJECTS/Plants.png"));
+            imgGirassol = sheetPlantas.getSubimage(125, 10, 20, 24);
+
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar o arquivo de plantas!");
             e.printStackTrace();
         }
     }

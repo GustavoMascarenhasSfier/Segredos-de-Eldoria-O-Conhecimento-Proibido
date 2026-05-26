@@ -9,16 +9,16 @@ public class tileMap {
     int[][] cenarioValido;
 
     int [][] cenario1DoJogo = {
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,10,9,8,10,9,9,6,10,8,9,10,8,8,9,0},
-            {0,6,8,1,1,1,1,1,1,8,8,10,1,10,9,0},
-            {0,8,10,1,4,4,4,1,1,1,8,1,1,9,8,0},
-            {0,6,9,1,4,5,4,1,1,1,1,1,1,1,8,0},
+            {0,0,3,3,0,0,3,0,3,0,0,3,0,0,3,0},
+            {3,10,9,8,10,9,9,6,10,8,9,10,8,8,9,0},
+            {0,6,8,1,1,1,1,1,1,8,8,10,1,10,9,3},
+            {3,8,10,1,4,4,4,1,1,1,8,1,1,9,8,0},
+            {3,6,9,1,4,5,4,1,1,1,1,1,1,1,8,3},
             {0,9,8,1,4,4,4,1,1,1,1,1,1,1,1,1},
             {0,8,9,1,1,1,1,1,1,1,1,1,10,1,8,0},
-            {0,9,8,9,8,10,8,1,1,10,8,8,10,10,6,0},
-            {0,10,8,10,9,8,1,1,1,9,10,9,8,9,8,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+            {3,9,8,9,8,10,8,1,1,10,8,8,10,10,6,0},
+            {0,10,8,10,9,8,1,1,1,9,10,9,8,9,8,3},
+            {0,0,3,0,0,3,3,0,3,0,0,3,0,0,3,3}
     };
     int [][] cenario2DoJogo = {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -120,32 +120,43 @@ public class tileMap {
             // -------------------------- BAÚ ------------------
             if (sprites.baus != null && sprites.baus[0] != null) {
                 // Desenha o baú com tamanho 48x48 para caber certinho em um bloco do cenário
+                d2.drawImage(sprites.arvores[2], 180, -170, 200, 250, null); // Arvores esquerda superior
                 d2.drawImage(sprites.baus[0], 270, 35, 140, 50, null);
             }
+            // -------------------------- GIRASSOL------------------
+            if (sprites.imgGirassol != null) {
+                d2.drawImage(sprites.imgGirassol, 150, 350, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 150, 40, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 500, 380, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 490, 130, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 700, 140, 40, 50, null);
+
+            }
+
         }
     }
 
-    // Subistitua na sua classe tileMap:
     public void desenharArvoresDoTopo(Graphics2D d2) {
         if (cenarioValido == cenario1DoJogo && sprites != null) {
-            // Apenas as árvores que ficam na parte de cima da tela (Y menor que 150)
-            d2.drawImage(sprites.arvores[1], 290, -80, 200, 200, null);
-            d2.drawImage(sprites.arvores[1], 370, -10, 170, 170, null);
-            d2.drawImage(sprites.arvores[2], 79, 50, 96, 144, null);
+            d2.drawImage(sprites.arvores[1], 280, -120, 250, 250, null);
+            d2.drawImage(sprites.arvores[2], -20, -40, 200, 250, null); // Arvores esquerda superior
             d2.drawImage(sprites.arvores[2], 600, 10, 170, 200, null);
         }
     }
 
     public void desenharArvoresDeBaixo(Graphics2D d2) {
         if (cenarioValido == cenario1DoJogo && sprites != null) {
-            // Todas as outras árvores que ficam no meio/inferior da tela
-            d2.drawImage(sprites.arvores[1], 70, 210, 70, 100, null);
-            d2.drawImage(sprites.arvores[1], 30, 260, 100, 170, null);
-            d2.drawImage(sprites.arvores[1], 560, 190, 200, 250, null);
-            d2.drawImage(sprites.arvores[2], 200, 270, 70, 100, null);
-            d2.drawImage(sprites.arvores[2], 450, 270, 100, 140, null);
+            // ------------------------------- Esquerda ---------------------------------
+
+            d2.drawImage(sprites.arvores[2], 180, 250, 150, 180, null); // Primeira arvore da Esquerda inferior
+            d2.drawImage(sprites.arvores[1], -60, 80, 200, 250, null); // Arvore do meio esquerda
+            d2.drawImage(sprites.arvores[1], -60, 200, 250, 300, null); // Arvore do canto esquero inferior
+
+            // -------------------------------- DIREITA --------------------------------
+            d2.drawImage(sprites.arvores[2], 420, 180, 150, 200, null); // Primeira arvore da Direita inferior
+            d2.drawImage(sprites.arvores[1], 560, 190, 200, 250, null); // Segunda arvore da Direita inferior
         }
-        // Mantém a renderização padrão dos outros cenários que você já tinha:
+
         else if (cenarioValido == cenario2DoJogo && sprites != null) {
             d2.drawImage(sprites.arvores[1], 300, 150, 72, 108, null);
         }

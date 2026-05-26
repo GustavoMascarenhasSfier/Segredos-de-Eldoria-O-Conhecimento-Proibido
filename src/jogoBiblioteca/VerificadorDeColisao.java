@@ -27,20 +27,19 @@ public class VerificadorDeColisao {
 
         if (CenaDoJogo.cenarioValido == CenaDoJogo.cenario1DoJogo) {
             // Árvores Médias
-            Rectangle tronco1 = new Rectangle(85, 280, 40, 30);
-            Rectangle tronco3 = new Rectangle(50, 390, 60, 40);
-            Rectangle tronco4 = new Rectangle(610, 390, 100, 50);
+            Rectangle tronco1 = new Rectangle(40, 280, 40, 30); // Arvore do meio esquerdo
+            Rectangle tronco3 = new Rectangle(0, 0, 0, 0); // Arvore do canto inferior esquerdo
+            Rectangle tronco4 = new Rectangle(630, 390, 100, 50); // Arvore da direita inferior
 
             // ---  ÁRVORES GRANDES DO LADO DO BAÚ  ---
-            Rectangle tronco2 = new Rectangle(365, 80, 50, 25);
-            Rectangle troncoNovaArvore = new Rectangle(435, 130, 42, 25);
-
+            Rectangle tronco2 = new Rectangle(365, 90, 80, 25);
 
             // Outras Árvores Grandes
-            Rectangle troncoGrande1 = new Rectangle(215, 340, 40, 30);
-            Rectangle troncoGrande2 = new Rectangle(475, 370, 50, 40);
-            Rectangle troncoGrande3 = new Rectangle(100, 160, 50, 34);
-            Rectangle troncoGrande4 = new Rectangle(640, 170, 90, 40);
+            Rectangle troncoGrande1 = new Rectangle(220, 400, 70, 30); // Primeira arvore da esquerda inferior
+            Rectangle troncoGrande2 = new Rectangle(460, 340, 60, 40); // Primeira arvore da direita inferior
+            Rectangle troncoGrande3 = new Rectangle(70, 150, 50, 50); // Arvore da esquerda superior
+            Rectangle troncoGrande5 = new Rectangle(240, 20, 50, 50); // Arvore da esquerda superior
+            Rectangle troncoGrande4 = new Rectangle(640, 170, 40, 40); // arvore ao lado direito da casa
 
             // Estruturas
             Rectangle hitboxCasa = new Rectangle(480, 40, 170, 90);
@@ -48,9 +47,9 @@ public class VerificadorDeColisao {
 
             if (proximaAreaJogador.intersects(tronco1) ||
                     proximaAreaJogador.intersects(tronco2) ||
-                    proximaAreaJogador.intersects(troncoNovaArvore) ||
                     proximaAreaJogador.intersects(tronco3) ||
                     proximaAreaJogador.intersects(tronco4) ||
+                    proximaAreaJogador.intersects(troncoGrande5) ||
                     proximaAreaJogador.intersects(troncoGrande1) ||
                     proximaAreaJogador.intersects(troncoGrande2) ||
                     proximaAreaJogador.intersects(troncoGrande3) ||
