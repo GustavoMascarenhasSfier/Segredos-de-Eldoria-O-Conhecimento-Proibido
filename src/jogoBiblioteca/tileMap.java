@@ -12,13 +12,85 @@ public class tileMap {
             {0,0,3,3,0,0,3,0,3,0,0,3,0,0,3,0},
             {3,10,9,8,10,9,9,6,10,8,9,10,8,8,9,0},
             {0,6,8,1,1,1,1,1,1,8,8,10,1,10,9,3},
-            {3,8,10,1,1,1,1,1,1,1,8,1,1,9,8,0},
-            {3,6,9,1,1,5,1,1,1,1,1,1,1,1,8,3},
-            {0,9,8,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {3,8,10,1,4,4,4,1,1,1,8,1,1,9,8,0},
+            {3,6,9,1,4,5,4,1,1,1,1,1,1,1,8,3},
+            {0,9,8,1,4,4,4,1,1,1,1,1,1,1,1,1},
             {0,8,9,1,1,1,1,1,1,1,1,1,10,1,8,0},
             {3,9,8,9,8,10,8,1,1,10,8,8,10,10,6,0},
             {0,10,8,10,9,8,1,1,1,9,10,9,8,9,8,3},
             {0,0,3,0,0,3,3,0,3,0,0,3,0,0,3,3}
+    };
+    int [][] cenario2DoJogo = {
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,5,5,5,3,3,3,3,3,3,3,3,5,5,5,0},
+            {0,5,4,5,3,3,1,4,4,1,3,3,5,4,5,0},
+            {0,5,5,5,3,3,1,1,1,1,3,3,5,5,5,0},
+            {0,3,3,3,3,3,1,4,4,1,3,3,3,3,3,0},
+            {1,1,1,1,1,1,1,4,4,1,3,3,3,3,3,0},
+            {0,3,3,3,3,3,1,1,1,1,3,3,3,3,3,0},
+            {0,5,5,5,3,3,1,4,4,1,3,3,5,5,5,0},
+            {0,3,3,3,3,3,1,1,1,1,3,3,3,3,3,0},
+            {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0}
+    };
+    int [][] cenario3DoJogo = {
+            {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
+            {0,4,4,4,4,4,4,1,1,4,4,4,4,4,4,0},
+            {0,4,5,5,5,4,1,1,1,1,4,5,5,5,4,0},
+            {0,4,5,4,5,4,1,4,4,1,4,5,4,5,4,1},
+            {0,4,5,5,5,4,1,4,4,1,4,5,5,5,4,0},
+            {0,4,4,4,4,4,1,1,1,1,4,4,4,4,4,0},
+            {0,4,5,5,5,4,1,4,4,1,4,5,5,5,4,0},
+            {0,4,4,4,4,4,1,1,1,1,4,4,4,4,4,0},
+            {0,4,4,4,4,4,4,1,1,4,4,4,4,4,4,0},
+            {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0}
+    };
+    int [][] cenario4DoJogo = {
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,4,4,4,1,1,1,0,0,1,1,1,4,4,4,0},
+            {0,4,5,4,1,4,1,1,1,1,4,1,4,5,4,0},
+            {1,1,1,1,1,4,4,0,0,4,4,1,1,1,1,0},
+            {0,0,0,1,4,4,1,1,1,1,4,4,1,0,0,0},
+            {0,1,1,1,4,5,1,4,4,1,5,4,1,1,1,0},
+            {0,4,5,4,1,4,1,1,1,1,4,1,4,5,4,0},
+            {0,4,4,4,1,1,1,0,0,1,1,1,4,4,4,0},
+            {0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    };
+    int [][] cenario5DoJogo = {
+            {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
+            {0,4,4,4,4,4,4,1,1,4,4,4,4,4,4,0},
+            {0,4,5,5,5,5,5,1,1,5,5,5,5,5,4,0},
+            {0,4,5,1,1,1,1,1,1,1,1,1,5,5,4,0},
+            {0,4,5,1,4,4,4,4,4,4,4,1,1,1,1,1},
+            {0,4,5,1,1,1,1,1,1,1,1,1,5,5,4,0},
+            {0,4,5,5,5,5,5,5,5,5,5,5,5,5,4,0},
+            {0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0},
+            {0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    };
+    int [][] cenario6DoJogo = {
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0},
+            {0,4,5,5,5,5,5,1,1,5,5,5,5,5,4,0},
+            {0,4,5,4,4,4,1,1,1,1,4,4,4,5,4,0},
+            {1,1,1,1,1,1,1,4,4,1,1,1,4,5,4,0},
+            {0,4,5,4,1,4,4,5,5,4,4,1,4,5,4,0},
+            {0,4,5,4,1,1,1,4,4,1,1,1,4,5,4,0},
+            {0,4,5,5,5,5,1,1,1,1,5,5,5,5,4,0},
+            {0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    };
+    int [][] cenario7DoJogo = {
+            {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1},
+            {0,1,1,1,1,1,1,1,1,2,2,2,1,1,0,0},
+            {1,1,1,1,1,1,1,1,1,0,3,3,3,2,2,0},
+            {0,1,0,0,1,1,1,1,1,1,3,3,3,3,1,0},
+            {0,1,1,1,1,1,1,1,1,3,3,3,3,3,1,0},
+            {0,1,1,1,1,3,3,2,3,2,2,2,1,1,1,0},
+            {0,1,1,1,1,3,3,2,3,2,2,2,1,1,0,0},
+            {0,1,1,1,1,1,1,1,1,0,3,3,3,2,2,0},
+            {0,0,1,0,0,0,0,0,0,0,0,0,3,0,0,0}
     };
 
     public tileMap() {
@@ -27,124 +99,82 @@ public class tileMap {
         this.pecaDoCenario = new Tiles();
     }
 
-    // ------------------------- MAPA BASE -------------------------
-
-    public void desenharCenario(Graphics2D d2) {
-
+    public void desenharChaoECasas(Graphics2D d2) {
         int pecaDaMatriz;
 
         for (int lin = 0; lin < this.cenarioValido.length; lin++) {
-
             for (int col = 0; col < this.cenarioValido[0].length; col++) {
-
                 pecaDaMatriz = this.cenarioValido[lin][col];
-
                 this.pecaDoCenario.carregaPecaDaMatriz(pecaDaMatriz);
-
                 this.pecaDoCenario.desenhaTile(d2, lin, col);
             }
         }
 
-        // ---------------- CASA ----------------
+        if (cenarioValido == cenario1DoJogo && sprites != null) {
 
-        if (sprites.imgCasa != null) {
-            d2.drawImage(sprites.imgCasa, 467, -60, 200, 200, null);
-        }
-
-        // ---------------- ÁRVORE ATRÁS DO BAÚ ----------------
-
-        d2.drawImage(sprites.arvores[2], 180, -170, 200, 250, null);
-
-        // ---------------- BAÚ ----------------
-
-        if (sprites.baus != null && sprites.baus[0] != null) {
-            d2.drawImage(sprites.baus[0], 270, 35, 140, 50, null);
-        }
-
-        // ---------------- GIRASSOL ----------------
-
-        if (sprites.imgGirassol != null) {
-
-            d2.drawImage(sprites.imgGirassol, 150, 350, 40, 50, null);
-            d2.drawImage(sprites.imgGirassol, 150, 40, 40, 50, null);
-            d2.drawImage(sprites.imgGirassol, 500, 380, 40, 50, null);
-            d2.drawImage(sprites.imgGirassol, 490, 130, 40, 50, null);
-            d2.drawImage(sprites.imgGirassol, 700, 140, 40, 50, null);
-        }
-
-        // ---------------- BANCOS ----------------
-
-        if (sprites.bancos != null) {
-
-            if (sprites.bancos[0] != null) {
-                d2.drawImage(sprites.bancos[0], 170, 50, 80, 60, null);
+            // -------------------------- CASA -------------------------------------
+            if (sprites.imgCasa != null) {
+                d2.drawImage(sprites.imgCasa, 467, -60, 200, 200, null);
             }
 
-            if (sprites.bancos[1] != null) {
-                d2.drawImage(sprites.bancos[1], 397, 350, 50, 60, null);
+            // -------------------------- BAÚ ------------------
+            if (sprites.baus != null && sprites.baus[0] != null) {
+                // Desenha o baú com tamanho 48x48 para caber certinho em um bloco do cenário
+                d2.drawImage(sprites.arvores[2], 180, -170, 200, 250, null); // Arvores esquerda superior
+                d2.drawImage(sprites.baus[0], 270, 35, 140, 50, null);
             }
+            // -------------------------- GIRASSOL------------------
+            if (sprites.imgGirassol != null) {
+                d2.drawImage(sprites.imgGirassol, 150, 350, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 150, 40, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 500, 380, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 490, 130, 40, 50, null);
+                d2.drawImage(sprites.imgGirassol, 700, 140, 40, 50, null);
+
+            }
+
         }
     }
 
-    // ------------------ ÁRVORES DO TOPO ------------------
-
-    public void desenharArvoresTopo(Graphics2D d2) {
-
-        if (sprites.arvores != null) {
-
-            // Árvore central do topo
+    public void desenharArvoresDoTopo(Graphics2D d2) {
+        if (cenarioValido == cenario1DoJogo && sprites != null) {
             d2.drawImage(sprites.arvores[1], 280, -120, 250, 250, null);
-
-            // Árvore canto superior esquerdo
-            d2.drawImage(sprites.arvores[2], -20, -40, 200, 250, null);
-
-            // Árvore canto superior direito
+            d2.drawImage(sprites.arvores[2], -20, -40, 200, 250, null); // Arvores esquerda superior
             d2.drawImage(sprites.arvores[2], 600, 10, 170, 200, null);
-
         }
     }
 
-    // ------------------ ESTÁTUA ------------------
+    public void desenharArvoresDeBaixo(Graphics2D d2) {
+        if (cenarioValido == cenario1DoJogo && sprites != null) {
+            // ------------------------------- Esquerda ---------------------------------
 
-    public void desenharEstatua(Graphics2D d2) {
+            d2.drawImage(sprites.arvores[2], 180, 250, 150, 180, null); // Primeira arvore da Esquerda inferior
+            d2.drawImage(sprites.arvores[1], -60, 80, 200, 250, null); // Arvore do meio esquerda
+            d2.drawImage(sprites.arvores[1], -60, 200, 250, 300, null); // Arvore do canto esquero inferior
 
-        if (sprites.imgEstatua != null) {
-
-            d2.drawImage(sprites.imgEstatua, 200, 90, 110, 170, null);
+            // -------------------------------- DIREITA --------------------------------
+            d2.drawImage(sprites.arvores[2], 420, 180, 150, 200, null); // Primeira arvore da Direita inferior
+            d2.drawImage(sprites.arvores[1], 560, 190, 200, 250, null); // Segunda arvore da Direita inferior
         }
-    }
 
-    // ------------------ DECORAÇÕES DA FRENTE ------------------
-
-    public void desenharDecoracoesFrente(Graphics2D d2) {
-
-        if (sprites.arvores != null) {
-
-            // ---------------- ÁRVORES INFERIORES ESQUERDA ----------------
-
-            // Primeira árvore inferior esquerda
-            d2.drawImage(sprites.arvores[2], 180, 250, 150, 180, null);
-
-            // Árvore meio esquerda
-            d2.drawImage(sprites.arvores[1], -60, 80, 200, 250, null);
-
-            // Árvore canto inferior esquerdo
-            d2.drawImage(sprites.arvores[1], -60, 200, 250, 300, null);
-
-            // ---------------- ÁRVORES INFERIORES DIREITA ----------------
-
-            // Primeira árvore inferior direita
-            d2.drawImage(sprites.arvores[2], 420, 180, 150, 200, null);
-
-            // Segunda árvore inferior direita
-            d2.drawImage(sprites.arvores[1], 560, 190, 200, 250, null);
-
-            // PILAR
-
-            if (sprites.imgPilar != null) {
-
-                d2.drawImage(sprites.imgPilar, 650, 180, 60, 60, null);
-            }
+        else if (cenarioValido == cenario2DoJogo && sprites != null) {
+            d2.drawImage(sprites.arvores[1], 300, 150, 72, 108, null);
+        }
+        else if (cenarioValido == cenario3DoJogo && sprites != null) {
+            d2.drawImage(sprites.arvores[0], 100, 250, 48, 72, null);
+            d2.drawImage(sprites.arvores[2], 400, 100, 96, 144, null);
+        }
+        else if (cenarioValido == cenario4DoJogo && sprites != null) {
+            d2.drawImage(sprites.arvores[2], 600, 200, 96, 144, null);
+        }
+        else if (cenarioValido == cenario5DoJogo && sprites != null) {
+            d2.drawImage(sprites.arvores[1], 250, 300, 72, 108, null);
+        }
+        else if (cenarioValido == cenario6DoJogo && sprites != null) {
+            d2.drawImage(sprites.arvores[0], 350, 120, 48, 72, null);
+        }
+        else if (cenarioValido == cenario7DoJogo && sprites != null) {
+            d2.drawImage(sprites.arvores[2], 500, 250, 96, 144, null);
         }
     }
 }

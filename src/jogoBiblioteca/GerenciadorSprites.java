@@ -11,9 +11,6 @@ public class GerenciadorSprites {
     public BufferedImage imgCasa;
     public BufferedImage[] baus;
     public BufferedImage imgGirassol;
-    public BufferedImage[] bancos;
-    public BufferedImage imgEstatua;
-    public BufferedImage imgPilar;
 
     public GerenciadorSprites() {
         carregaImagensDoMundo();
@@ -60,31 +57,6 @@ public class GerenciadorSprites {
 
         } catch (IOException e) {
             System.out.println("Erro ao carregar o arquivo de plantas!");
-            e.printStackTrace();
-        }
-
-        // 5. CARREGA DECORAÇÕES
-        try {
-            BufferedImage sheetDecor = ImageIO.read(
-                    new File("res/OBJECTS/BancoEstatua.png")
-            );
-
-            bancos = new BufferedImage[2];
-
-            // Banco horizontal
-            bancos[0] = sheetDecor.getSubimage(0, 0, 80, 60);
-
-            // Banco vertical
-            bancos[1] = sheetDecor.getSubimage(100, 0, 40, 60);
-
-            // Estátua
-            imgEstatua = sheetDecor.getSubimage(156, 20, 50, 80);
-
-            // Pilarzinho
-            imgPilar = sheetDecor.getSubimage(166, 112, 42, 42);
-
-        } catch (IOException e) {
-            System.out.println("Erro ao carregar decorações!");
             e.printStackTrace();
         }
     }
