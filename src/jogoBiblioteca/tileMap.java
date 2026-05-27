@@ -26,7 +26,7 @@ public class tileMap {
     private final Map<int[][], DesenhistaCenario> desenhistas = new HashMap<>();
 
     public tileMap() {
-        this.cenarioValido = this.cenario3DoJogo;
+        this.cenarioValido = this.cenario1DoJogo;
         this.sprites = new GerenciadorSprites();
         this.pecaDoCenario = new Tiles();
 

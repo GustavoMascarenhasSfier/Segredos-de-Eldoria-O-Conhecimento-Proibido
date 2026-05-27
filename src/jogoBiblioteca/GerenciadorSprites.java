@@ -7,12 +7,14 @@ import javax.imageio.ImageIO;
 
 public class GerenciadorSprites {
 
-    // Cenário 1 — Mundo exterior
+    // Cenário 1 — Mundo exterior (Constantes de Caminho)
     private static final String CAMINHO_ARVORES  = "res/cenarios/cenario1/Trees.png";
     private static final String CAMINHO_CASA     = "res/cenarios/cenario1/House.png";
     private static final String CAMINHO_BAU      = "res/cenarios/cenario1/chest.png";
+    private static final String CAMINHO_PLANTAS  = "res/cenarios/cenario1/Plants.png";
+    private static final String CAMINHO_DECOR    = "res/cenarios/cenario1/BancoEstatua.png";
 
-    // Cenário 3 — Biblioteca
+    // Cenário 3 — Biblioteca (Constantes de Caminho)
     private static final String CAMINHO_ESTANTE         = "res/cenarios/cenario3_biblioteca/estante.png";
     private static final String CAMINHO_ESTANTE_LATERAL = "res/cenarios/cenario3_biblioteca/estante-lateral.png";
     private static final String CAMINHO_ESTANTE_CHEIA   = "res/cenarios/cenario3_biblioteca/estante-cheia.png";
@@ -39,9 +41,14 @@ public class GerenciadorSprites {
     private static final String CAMINHO_TAPETE_INFERIOR = "res/cenarios/cenario3_biblioteca/tapeteInferior.png";
     private static final String CAMINHO_TAPETE_LATERAL  = "res/cenarios/cenario3_biblioteca/tapeteLateral.png";
 
+    // Sprites do cenário 1
     public BufferedImage[] arvores;
     public BufferedImage   imgCasa;
     public BufferedImage[] baus;
+    public BufferedImage   imgGirassol;
+    public BufferedImage[] bancos;
+    public BufferedImage   imgEstatua;
+    public BufferedImage   imgPilar;
 
     // Sprites do cenário 3
     public BufferedImage imgEstante;
@@ -71,26 +78,62 @@ public class GerenciadorSprites {
     public BufferedImage imgTapeteLateral;
 
     public GerenciadorSprites() {
-        carregaImagensDoMundo();
+        carregaImagensMundoExterior();
+        carregaImagensBiblioteca();
     }
 
-    private void carregaImagensDoMundo() {
-        arvores = carregarSprites(CAMINHO_ARVORES, new int[][]{
-                {32,  0, 32, 48},
-                {64,  0, 32, 48},
-                {96,  0, 32, 48},
-        });
+    private void carregaImagensMundoExterior() {
+        // 1. ÁRVORES
+        try {
+            BufferedImage sheet = ImageIO.read(new File(CAMINHO_ARVORES));
+            arvores = new BufferedImage[3];
+            arvores[0] = sheet.getSubimage(32, 0, 32, 48);  // Pequena
+            arvores[1] = sheet.getSubimage(64, 0, 32, 48);  // Média
+            arvores[2] = sheet.getSubimage(96, 0, 32, 48);  // Grande
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar o arquivo de árvores: " + e.getMessage());
+        }
 
-        BufferedImage sheetCasa = carregarSheet(CAMINHO_CASA);
-        if (sheetCasa != null)
+        // 2. CASA
+        try {
+            BufferedImage sheetCasa = ImageIO.read(new File(CAMINHO_CASA));
             imgCasa = sheetCasa.getSubimage(144, 16, 80, 80);
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar o arquivo da casa: " + e.getMessage());
+        }
 
-        baus = carregarSprites(CAMINHO_BAU, new int[][]{
-                {0,  0, 32, 16},
-                {0, 16, 32, 16},
-        });
+        // 3. BAÚS
+        try {
+            BufferedImage sheetBau = ImageIO.read(new File(CAMINHO_BAU));
+            baus = new BufferedImage[2];
+            baus[0] = sheetBau.getSubimage(0, 0, 32, 16);
+            baus[1] = sheetBau.getSubimage(0, 16, 32, 16);
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar o arquivo do baú: " + e.getMessage());
+        }
 
-        // Biblioteca
+        // 4. GIRASSOL
+        try {
+            BufferedImage sheetPlantas = ImageIO.read(new File(CAMINHO_PLANTAS));
+            imgGirassol = sheetPlantas.getSubimage(125, 10, 20, 24);
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar o arquivo de plantas: " + e.getMessage());
+        }
+
+        // 5. DECORAÇÕES
+        try {
+            BufferedImage sheetDecor = ImageIO.read(new File(CAMINHO_DECOR));
+            bancos = new BufferedImage[2];
+            bancos[0] = sheetDecor.getSubimage(0, 0, 80, 60);    // Banco horizontal
+            bancos[1] = sheetDecor.getSubimage(100, 0, 40, 60);  // Banco vertical
+            imgEstatua = sheetDecor.getSubimage(156, 20, 50, 80);
+            imgPilar = sheetDecor.getSubimage(166, 112, 42, 42);
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar decorações: " + e.getMessage());
+        }
+    }
+
+    private void carregaImagensBiblioteca() {
         imgEstante         = carregarSheet(CAMINHO_ESTANTE);
         imgEstanteLateral  = carregarSheet(CAMINHO_ESTANTE_LATERAL);
         imgEstanteCheia    = carregarSheet(CAMINHO_ESTANTE_CHEIA);
@@ -118,6 +161,7 @@ public class GerenciadorSprites {
         imgTapeteInferior  = carregarSheet(CAMINHO_TAPETE_INFERIOR);
     }
 
+    // Método utilitário caso precise recortar vetores de uma mesma folha futuramente
     private BufferedImage[] carregarSprites(String caminho, int[][] regioes) {
         BufferedImage sheet = carregarSheet(caminho);
         if (sheet == null) return null;

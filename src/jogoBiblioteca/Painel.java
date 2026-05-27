@@ -60,15 +60,8 @@ public class Painel extends JPanel {
                 this.cenario.desenharChaoECasas(g2);
 
                 // 2. Y-Sorting das árvores superiores com base na linha do baú/árvore (Y = 110)
-                if (jogador.AreaColisao.y < 110) {
-                    // Jogador atrás das árvores do topo
-                    jogador.DesenharPlayer(g2);
-                    this.cenario.desenharArvoresDoTopo(g2);
-                } else {
-                    // Jogador na frente das árvores do topo
-                    this.cenario.desenharArvoresDoTopo(g2);
-                    jogador.DesenharPlayer(g2);
-                }
+
+                jogador.DesenharPlayer(g2);
 
                 // 3. Desenha as árvores de baixo por último (sempre cobrindo quem está acima)
                 // Caso o jogador ande para baixo, ele passará naturalmente por trás das folhas delas
