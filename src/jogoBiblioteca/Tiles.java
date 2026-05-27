@@ -10,7 +10,7 @@ public class Tiles {
     private int posX, posY;
 
     private Image imgAtual;
-    private Image imgGrass, imgSand, imgWall, imgWater, imgWhite, imgGray, imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5, imgWall1, imgWall2;
+    private Image imgGrass, imgSand, imgWall, imgWater, imgWhite, imgGray, imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5;
     private boolean colisao;
 
     public Tiles() {
@@ -32,16 +32,13 @@ public class Tiles {
         imgGrass4  = new ImageIcon("res/TILES/grass3.png").getImage();
         imgGrass5  = new ImageIcon("res/TILES/grass4.png").getImage();
 
-        imgWall1 = new ImageIcon("res/TILES/MuroDoMundo1.png").getImage();
-        imgWall2 = new ImageIcon("res/TILES/MuroDoMundo2.png").getImage();
-
     }
 
     public void carregaPecaDaMatriz(int valor) {
-        if (valor == 0) { imgAtual = imgWall1; colisao = true; }
+        if (valor == 0) { imgAtual = imgWall; colisao = true; }
         else if (valor == 1) { imgAtual = imgSand; colisao = false; }
         else if (valor == 2) { imgAtual = imgWater; colisao = true; }
-        else if (valor == 3) { imgAtual = imgWall2; colisao = true; }
+        else if (valor == 3) { imgAtual = imgGrass; colisao = false; }
         else if (valor == 4) { imgAtual = imgWhite; colisao = false; }
         else if (valor == 5) { imgAtual = imgGray; colisao = true; }
 
