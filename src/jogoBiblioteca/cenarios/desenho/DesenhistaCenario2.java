@@ -14,7 +14,7 @@ public class DesenhistaCenario2 implements DesenhistaCenario {
     }
 
     @Override
-    public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites) {
+    public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites, int peJogador) {
         if (sprites.arvores != null)
             d2.drawImage(sprites.arvores[1], 300, 150, 72, 108, null);
     }

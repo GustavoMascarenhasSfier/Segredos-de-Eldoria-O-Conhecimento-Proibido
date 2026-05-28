@@ -1,6 +1,6 @@
 package jogoBiblioteca.cenarios;
 
-public class Cenario2 {
+public class Cenario2{
     public static final int[][] MAPA = {
             {0,5,5,5,8,9,10,11,8,9,10,5,5,5,5,0},
             {0,5,4,5,8,9,1,4,4,1,10,5,5,5,5,0},
@@ -12,5 +12,5 @@ public class Cenario2 {
             {0,8,9,10,11,8,1,1,1,1,9,10,11,8,9,0},
             {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0}
     };
-    };
+};
 

@@ -14,6 +14,7 @@ public class Painel extends JPanel {
     private EscutadorTeclado escutTeclado;
     private SpriteLoop SpriteLoop;
     tileMap cenario;
+    private RenderizadorCena renderizador;  // <- novo
 
     public Painel(String posicao) {
         this.posicao = posicao;
@@ -27,16 +28,14 @@ public class Painel extends JPanel {
             escutTeclado = new EscutadorTeclado();
             this.addKeyListener(escutTeclado);
 
-
             this.cenario = new tileMap();
+            this.renderizador = new RenderizadorCena();  // <- novo
 
             loopDoJogo = new GameLoop(this, escutTeclado);
             loopDoJogo.start();
 
             SpriteLoop = new SpriteLoop(this, escutTeclado);
             SpriteLoop.start();
-
-            this.cenario = new tileMap();
 
             this.setFocusable(true);
             this.requestFocusInWindow();
@@ -55,17 +54,7 @@ public class Painel extends JPanel {
             case "Centro":
                 g2.setColor(getBackground());
                 g2.fillRect(0, 0, getWidth(), getHeight());
-
-                // 1. Desenha o fundo, chão, baú e casa básica
-                this.cenario.desenharChaoECasas(g2);
-
-                // 2. Y-Sorting das árvores superiores com base na linha do baú/árvore (Y = 110)
-
-                jogador.DesenharPlayer(g2);
-
-                // 3. Desenha as árvores de baixo por último (sempre cobrindo quem está acima)
-                // Caso o jogador ande para baixo, ele passará naturalmente por trás das folhas delas
-                this.cenario.desenharArvoresDeBaixo(g2);
+                renderizador.renderizar(g2, cenario, jogador);  // <- novo
                 break;
 
             case "Sul":

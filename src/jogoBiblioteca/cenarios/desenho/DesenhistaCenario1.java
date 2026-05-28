@@ -44,14 +44,18 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
                 d2.drawImage(sprites.bancos[1], 397, 350, 50, 60, null);
             }
         }
+    }
 
-        // ---------------- ÁRVORES DO TOPO (Atrás do Player) ----------------
+    @Override
+    public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites, int peJogador) {
+        // sempre desenha tudo, sem condição de sumir
+
+        // ------------------ ESTÁTUA ------------------
+        if (sprites.imgEstatua != null) {
+            d2.drawImage(sprites.imgEstatua, 200, 90, 110, 170, null);
+        }
+
         if (sprites.arvores != null) {
-            // Árvore central do topo
-            if (sprites.arvores[1] != null) {
-                d2.drawImage(sprites.arvores[1], 280, -120, 250, 250, null);
-            }
-
             // Árvore canto superior esquerdo
             if (sprites.arvores[2] != null) {
                 d2.drawImage(sprites.arvores[2], -20, -40, 200, 250, null);
@@ -59,20 +63,12 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
 
             // Árvore canto superior direito
             if (sprites.arvores[2] != null) {
-                d2.drawImage(sprites.arvores[2], 600, 10, 170, 200, null);
+                d2.drawImage(sprites.arvores[2], 600, 0, 170, 200, null);
             }
-        }
-    }
 
-    @Override
-    public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites) {
-        if (sprites.arvores != null) {
-
-            // ------------------ ESTÁTUA ------------------
-
-            if (sprites.imgEstatua != null) {
-
-                d2.drawImage(sprites.imgEstatua, 200, 90, 110, 170, null);
+            // Árvore central do topo
+            if (sprites.arvores[1] != null) {
+                d2.drawImage(sprites.arvores[1], 280, -120, 250, 250, null);
             }
 
             // ---------------- ÁRVORES INFERIORES ESQUERDA ----------------
