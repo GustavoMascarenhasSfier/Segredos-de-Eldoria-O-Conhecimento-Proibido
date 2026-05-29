@@ -31,6 +31,7 @@ public class Painel extends JPanel {
             this.cenario = new tileMap();
             this.renderizador = new RenderizadorCena();  // <- novo
 
+
             loopDoJogo = new GameLoop(this, escutTeclado);
             loopDoJogo.start();
 

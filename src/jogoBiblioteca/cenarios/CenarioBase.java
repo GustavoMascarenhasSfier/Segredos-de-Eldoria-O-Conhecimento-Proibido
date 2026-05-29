@@ -1,11 +1,15 @@
 package jogoBiblioteca.cenarios;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CenarioBase {
     protected List<Rectangle> hitboxesObjetos = new ArrayList<>();
+
+    public List<Rectangle> getHitboxesObjetos() {
+        return hitboxesObjetos;
+    }
 
     // Método que obriga cada cenário a definir seus próprios objetos sólidos
     protected abstract void inicializarHitboxes();

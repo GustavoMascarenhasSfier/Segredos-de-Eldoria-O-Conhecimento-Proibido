@@ -16,5 +16,8 @@ public class RenderizadorCena {
 
         // 3. Renderiza os elementos da frente (Estátua, árvores e pilares)
         cenario.desenharElementosFrente(g2, pe);
+
+        // 4. Se true desenha as hitbox
+        cenario.desenharHitboxes(g2);
     }
 }

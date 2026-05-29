@@ -1,6 +1,6 @@
 package jogoBiblioteca;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import jogoBiblioteca.cenarios.*;
@@ -11,6 +11,7 @@ public class tileMap {
     Tiles pecaDoCenario;
     GerenciadorSprites sprites;
     int[][] cenarioValido;
+    public static boolean MOSTRAR_HITBOXES = true;
 
     // Armazena o cenário lógico atual para o VerificadorDeColisao consultar
     public CenarioBase cenarioAtualInstancia;
@@ -41,7 +42,25 @@ public class tileMap {
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // Inicializa o jogo no cenário 1
-        mudarCenario(3);
+        mudarCenario(2);
+    }
+
+    public void desenharHitboxes(Graphics2D g2) {
+
+        if (!MOSTRAR_HITBOXES || cenarioAtualInstancia == null)
+            return;
+
+        g2.setColor(new Color(255, 0, 0, 100));
+
+        for (Rectangle r : cenarioAtualInstancia.getHitboxesObjetos()) {
+            g2.fillRect(r.x, r.y, r.width, r.height);
+        }
+
+        g2.setColor(Color.RED);
+
+        for (Rectangle r : cenarioAtualInstancia.getHitboxesObjetos()) {
+            g2.drawRect(r.x, r.y, r.width, r.height);
+        }
     }
 
     public DesenhistaCenario getDesenhistaAtual() {
@@ -56,6 +75,7 @@ public class tileMap {
                 break;
             case 2:
                 this.cenarioValido = this.cenario2DoJogo;
+                this.cenarioAtualInstancia = new Cenario2();
                 break;
             case 3:
                 this.cenarioValido = this.cenario3DoJogo;

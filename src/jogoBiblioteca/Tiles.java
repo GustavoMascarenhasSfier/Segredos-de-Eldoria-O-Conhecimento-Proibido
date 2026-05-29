@@ -10,7 +10,7 @@ public class Tiles {
     private int posX, posY;
 
     private Image imgAtual;
-    private Image imgGrass, imgSand, imgWall, imgWater, imgWhite, imgGray, imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5;
+    private Image imgGrass, imgSand, imgWall, imgWater, imgWhite, imgGray, imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5, imgGrass6;
     private boolean colisao;
 
     public Tiles() {
@@ -31,6 +31,9 @@ public class Tiles {
         imgGrass3  = new ImageIcon("res/TILES/grass2.png").getImage();
         imgGrass4  = new ImageIcon("res/TILES/grass3.png").getImage();
         imgGrass5  = new ImageIcon("res/TILES/grass4.png").getImage();
+        imgGrass6  = new ImageIcon("res/TILES/grass5.png").getImage();
+        imgGrass6  = new ImageIcon("res/TILES/grass6.png").getImage();
+
 
     }
 
@@ -47,6 +50,8 @@ public class Tiles {
         else if (valor == 8) { imgAtual = imgGrass3; colisao = false; }
         else if (valor == 9) { imgAtual = imgGrass4; colisao = false; }
         else if (valor == 10) { imgAtual = imgGrass5; colisao = false; }
+        else if (valor == 11) { imgAtual = imgGrass6; colisao = false; }
+        else if (valor == 12) { imgAtual = imgGrass6; colisao = false; }
     }
 
     public boolean isColisao() { return colisao; }

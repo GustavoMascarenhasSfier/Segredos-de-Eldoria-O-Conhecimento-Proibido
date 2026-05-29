@@ -14,6 +14,21 @@ public class GerenciadorSprites {
     private static final String CAMINHO_PLANTAS  = "res/cenarios/cenario1/Plants.png";
     private static final String CAMINHO_DECOR    = "res/cenarios/cenario1/BancoEstatua.png";
 
+    // ---------------------------------
+    // CENARIO 2
+    // ---------------------------------
+
+    // CASAS
+    private static final String CAMINHO_C2_House_1 = "res/cenarios/cenario2/house1.png";
+    private static final String CAMINHO_C2_House_2 = "res/cenarios/cenario2/house2.png";
+    private static final String CAMINHO_C2_House_3 = "res/cenarios/cenario2/house3.png";
+    private static final String CAMINHO_C2_House_4 = "res/cenarios/cenario2/house4.png";
+
+    // CHAFARIZ
+    private static final String CAMINHO_C2_Chafariz_1 = "res/cenarios/cenario2/chafariz.png";
+
+
+
     // Cenário 3 — Biblioteca (Constantes de Caminho)
     private static final String CAMINHO_ESTANTE         = "res/cenarios/cenario3_biblioteca/estante.png";
     private static final String CAMINHO_ESTANTE_LATERAL = "res/cenarios/cenario3_biblioteca/estante-lateral.png";
@@ -50,6 +65,22 @@ public class GerenciadorSprites {
     public BufferedImage   imgEstatua;
     public BufferedImage   imgPilar;
 
+    //-------------------------
+    // Sprites
+    //-------------------------
+
+    // Casas
+    public BufferedImage   imgCasa1;
+    public BufferedImage   imgCasa2;
+    public BufferedImage   imgCasa3;
+    public BufferedImage   imgCasa4;
+
+    //Chafariz
+    public BufferedImage   imgChafariz1;
+
+
+
+
     // Sprites do cenário 3
     public BufferedImage imgEstante;
     public BufferedImage imgEstanteLateral;
@@ -80,6 +111,7 @@ public class GerenciadorSprites {
     public GerenciadorSprites() {
         carregaImagensMundoExterior();
         carregaImagensBiblioteca();
+        carregaObjetos();
     }
 
     private void carregaImagensMundoExterior() {
@@ -131,6 +163,17 @@ public class GerenciadorSprites {
         } catch (IOException e) {
             System.err.println("Erro ao carregar decorações: " + e.getMessage());
         }
+    }
+
+    private void carregaObjetos() {
+        // CASAS
+        imgCasa1           = carregarSheet(CAMINHO_C2_House_1);
+        imgCasa2           = carregarSheet(CAMINHO_C2_House_2);
+        imgCasa3           = carregarSheet(CAMINHO_C2_House_3);
+        imgCasa4           = carregarSheet(CAMINHO_C2_House_4);
+        // CHAFARIZ
+        imgChafariz1       = carregarSheet(CAMINHO_C2_Chafariz_1);
+
     }
 
     private void carregaImagensBiblioteca() {
