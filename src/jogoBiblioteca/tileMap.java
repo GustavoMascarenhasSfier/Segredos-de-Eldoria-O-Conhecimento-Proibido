@@ -1,9 +1,8 @@
 package jogoBiblioteca;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-
 import jogoBiblioteca.cenarios.*;
 import jogoBiblioteca.cenarios.desenho.*;
 
@@ -12,8 +11,12 @@ public class tileMap {
     Tiles pecaDoCenario;
     GerenciadorSprites sprites;
     int[][] cenarioValido;
+    public static boolean MOSTRAR_HITBOXES = true;
 
-    // Referências para os mapas de tiles (usadas para trocar de cenário)
+    // Armazena o cenário lógico atual para o VerificadorDeColisao consultar
+    public CenarioBase cenarioAtualInstancia;
+
+    // Referências para os mapas de tiles
     public final int[][] cenario1DoJogo = Cenario1.MAPA;
     public final int[][] cenario2DoJogo = Cenario2.MAPA;
     public final int[][] cenario3DoJogo = Cenario3.MAPA;
@@ -22,7 +25,7 @@ public class tileMap {
     public final int[][] cenario6DoJogo = Cenario6.MAPA;
     public final int[][] cenario7DoJogo = Cenario7.MAPA;
 
-    // Mapa de desenhistas: cada int[][] aponta para seu desenhista
+    // Mapa de desenhistas
     private final Map<int[][], DesenhistaCenario> desenhistas = new HashMap<>();
 
     public tileMap() {
@@ -38,11 +41,67 @@ public class tileMap {
         desenhistas.put(cenario5DoJogo, new DesenhistaCenario5());
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
+
+        // Inicializa o jogo no cenário 1
+        mudarCenario(2);
+    }
+
+    public void desenharHitboxes(Graphics2D g2) {
+
+        if (!MOSTRAR_HITBOXES || cenarioAtualInstancia == null)
+            return;
+
+        g2.setColor(new Color(255, 0, 0, 100));
+
+        for (Rectangle r : cenarioAtualInstancia.getHitboxesObjetos()) {
+            g2.fillRect(r.x, r.y, r.width, r.height);
+        }
+
+        g2.setColor(Color.RED);
+
+        for (Rectangle r : cenarioAtualInstancia.getHitboxesObjetos()) {
+            g2.drawRect(r.x, r.y, r.width, r.height);
+        }
+    }
+
+    public DesenhistaCenario getDesenhistaAtual() {
+        return desenhistas.get(cenarioValido);
+    }
+
+    public void mudarCenario(int numeroCenario) {
+        switch (numeroCenario) {
+            case 1:
+                this.cenarioValido = this.cenario1DoJogo;
+                this.cenarioAtualInstancia = new Cenario1();
+                break;
+            case 2:
+                this.cenarioValido = this.cenario2DoJogo;
+                this.cenarioAtualInstancia = new Cenario2();
+                break;
+            case 3:
+                this.cenarioValido = this.cenario3DoJogo;
+                this.cenarioAtualInstancia = new Cenario3();
+                break;
+            case 4:
+                this.cenarioValido = this.cenario4DoJogo;
+                break;
+            case 5:
+                this.cenarioValido = this.cenario5DoJogo;
+                break;
+            case 6:
+                this.cenarioValido = this.cenario6DoJogo;
+                break;
+            case 7:
+                this.cenarioValido = this.cenario7DoJogo;
+                break;
+            default:
+                System.out.println("Cenário inválido!");
+                break;
+        }
     }
 
     /** Desenha os tiles do mapa + elementos de fundo do cenário atual. */
     public void desenharChaoECasas(Graphics2D d2) {
-        // 1. Tiles da matriz
         for (int lin = 0; lin < cenarioValido.length; lin++) {
             for (int col = 0; col < cenarioValido[0].length; col++) {
                 pecaDoCenario.carregaPecaDaMatriz(cenarioValido[lin][col]);
@@ -50,24 +109,18 @@ public class tileMap {
             }
         }
 
-        // 2. Elementos extras de fundo do cenário atual
         DesenhistaCenario desenhista = desenhistas.get(cenarioValido);
         if (desenhista != null) {
             desenhista.desenharFundo(d2, sprites);
         }
     }
 
-    /** Desenha elementos que ficam na frente do player (ex: topos de árvore). */
-    public void desenharArvoresDoTopo(Graphics2D d2) {
-        // Mantido por compatibilidade com o Painel.
-        // O topo (fundo) já é desenhado em desenharChaoECasas().
-    }
-
-    /** Desenha elementos sobrepostos ao player. */
-    public void desenharArvoresDeBaixo(Graphics2D d2) {
+    /** Desenha os elementos que ficam por cima ou na frente (Árvores, estátuas, etc). */
+    public void desenharElementosFrente(Graphics2D d2, int peJogador) {
         DesenhistaCenario desenhista = desenhistas.get(cenarioValido);
         if (desenhista != null) {
-            desenhista.desenharFrente(d2, sprites);
+            // AQUI: Chama o método correto existente na Interface e no DesenhistaCenario1
+            desenhista.desenharFrente(d2, sprites, peJogador);
         }
     }
 }

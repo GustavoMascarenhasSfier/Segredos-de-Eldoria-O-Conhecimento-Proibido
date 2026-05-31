@@ -21,7 +21,7 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
     }
 
     @Override
-    public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites) {
+    public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites, int peJogador) {
         // Elementos que sobrepõem o player (ex: topo de estantes altas)
         // Adicionar conforme necessário
     }

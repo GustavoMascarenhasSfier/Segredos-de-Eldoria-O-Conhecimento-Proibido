@@ -27,6 +27,7 @@ public class Painel extends JPanel {
     private EscutadorTeclado escutTeclado;
     private SpriteLoop SpriteLoop;
     tileMap cenario;
+    private RenderizadorCena renderizador;  // <- novo
 
     // Referência ao painel Sul para forçar repaint quando o inventário muda
     private static Painel painelSul;
@@ -44,14 +45,14 @@ public class Painel extends JPanel {
             this.addKeyListener(escutTeclado);
 
             this.cenario = new tileMap();
+            this.renderizador = new RenderizadorCena();  // <- novo
+
 
             loopDoJogo = new GameLoop(this, escutTeclado);
             loopDoJogo.start();
 
             SpriteLoop = new SpriteLoop(this, escutTeclado);
             SpriteLoop.start();
-
-            this.cenario = new tileMap();
 
             this.setFocusable(true);
             this.requestFocusInWindow();
@@ -92,6 +93,7 @@ public class Painel extends JPanel {
 
                 // 3. Árvores de baixo sempre por cima
                 this.cenario.desenharArvoresDeBaixo(g2);
+                renderizador.renderizar(g2, cenario, jogador);  // <- novo
                 break;
 
             case "Sul":
