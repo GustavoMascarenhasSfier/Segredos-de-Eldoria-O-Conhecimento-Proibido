@@ -29,7 +29,7 @@ public class tileMap {
     private final Map<int[][], DesenhistaCenario> desenhistas = new HashMap<>();
 
     public tileMap() {
-        this.cenarioValido = this.cenario1DoJogo;
+        this.cenarioValido = this.cenario3DoJogo;
         this.sprites = new GerenciadorSprites();
         this.pecaDoCenario = new Tiles();
 
@@ -42,8 +42,6 @@ public class tileMap {
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
-        // Inicializa o jogo no cenário 1
-        mudarCenario(2);
     }
 
     public void desenharHitboxes(Graphics2D g2) {
