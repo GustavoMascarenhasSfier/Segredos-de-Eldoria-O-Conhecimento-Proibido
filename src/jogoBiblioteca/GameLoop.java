@@ -11,40 +11,48 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
     private long contadorDeFPS;
 
     private Painel cenaDoJogo;
+    private PainelSul painelSul;
     private EscutadorTeclado et;
 
-    public GameLoop(Painel cenaDoJogo, EscutadorTeclado eT) {
+    // Debounce — impede que segurar a tecla navegue vários slots por segundo
+    private boolean anteriorProcessado = false;
+    private boolean proximoProcessado  = false;
+    private boolean usarProcessado     = false;
+
+    public GameLoop(Painel cenaDoJogo, PainelSul painelSul, EscutadorTeclado eT) {
         System.out.println("GameLoop instanciado!");
         this.cenaDoJogo = cenaDoJogo;
-        this.et = eT;
+        this.painelSul  = painelSul;
+        this.et         = eT;
+    }
+
+    /** Permite que a Moldura injete o PainelSul após a construção */
+    public void setPainelSul(PainelSul ps) {
+        this.painelSul = ps;
     }
 
     @Override
     public void run() {
-
         this.contadorDeFPS = 0;
         this.controleDoTempoDoJogo = new Timer(1000, this);
         this.controleDoTempoDoJogo.start();
 
         double frameRate = 1000000000.0 / this.FPS;
         double tempoDecorrido = 0;
-
-        long tempoUltimaMedidaDoLoop = System.nanoTime();
-        long tempoAtualDoLoop;
+        long tempoUltimaMedida = System.nanoTime();
 
         while (this.isAlive()) {
-
-            tempoAtualDoLoop = System.nanoTime();
-            tempoDecorrido += (tempoAtualDoLoop - tempoUltimaMedidaDoLoop) / frameRate;
-            tempoUltimaMedidaDoLoop = tempoAtualDoLoop;
+            long agora = System.nanoTime();
+            tempoDecorrido += (agora - tempoUltimaMedida) / frameRate;
+            tempoUltimaMedida = agora;
 
             if (tempoDecorrido >= 1) {
-
-                if (this.cenaDoJogo == null || this.cenaDoJogo.jogador == null || this.cenaDoJogo.cenario == null) {
+                if (cenaDoJogo == null || cenaDoJogo.jogador == null || cenaDoJogo.cenario == null) {
                     tempoDecorrido = 0;
                     continue;
                 }
 
+                // ── MOVIMENTO ─────────────────────────────────────────────
                 String direcao = "";
                 if (et.moverPraCima)       direcao = "cima";
                 else if (et.moverPraBaixo) direcao = "baixo";
@@ -52,12 +60,43 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 else if (et.moverPraEsq)   direcao = "esquerda";
 
                 VerificadorDeColisao colisao = new VerificadorDeColisao();
-                boolean bateu = colisao.OcorreuDeColisao(this.cenaDoJogo.jogador, this.cenaDoJogo.cenario, direcao);
-                System.out.println("colisao " + bateu);
+                boolean bateu = colisao.OcorreuDeColisao(cenaDoJogo.jogador, cenaDoJogo.cenario, direcao);
 
-                if (bateu == false) {
+                if (!bateu)
                     cenaDoJogo.jogador.atualizaPosicaoJogador(et.moverPraEsq, et.moverPraCima, et.moverPraDir, et.moverPraBaixo);
+
+                // ── INVENTÁRIO ────────────────────────────────────────────
+                Inventario inv = cenaDoJogo.inventario;
+                boolean mudouInventario = false;
+
+                // Tecla Q — slot anterior (debounce: só uma vez por pressão)
+                if (et.inventarioAnterior && !anteriorProcessado) {
+                    inv.selecionarAnterior();
+                    anteriorProcessado = true;
+                    mudouInventario = true;
                 }
+                if (!et.inventarioAnterior) anteriorProcessado = false;
+
+                // Tecla E — próximo slot
+                if (et.inventarioProximo && !proximoProcessado) {
+                    inv.selecionarProximo();
+                    proximoProcessado = true;
+                    mudouInventario = true;
+                }
+                if (!et.inventarioProximo) proximoProcessado = false;
+
+                // Tecla F — usar item selecionado
+                if (et.inventarioUsar && !usarProcessado) {
+                    inv.removerItem(inv.getSlotSelecionado());
+                    usarProcessado = true;
+                    mudouInventario = true;
+                }
+                if (!et.inventarioUsar) usarProcessado = false;
+
+                // Repintar painel sul somente quando inventário mudou
+                if (mudouInventario && painelSul != null)
+                    painelSul.repaint();
+                // ─────────────────────────────────────────────────────────
 
                 cenaDoJogo.repaint();
                 this.contadorDeFPS++;

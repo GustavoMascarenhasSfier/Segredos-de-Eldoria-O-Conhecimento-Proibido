@@ -42,7 +42,7 @@ public class tileMap {
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // Inicializa o jogo no cenário 1
-        mudarCenario(2);
+        mudarCenario(1);
     }
 
     public void desenharHitboxes(Graphics2D g2) {
