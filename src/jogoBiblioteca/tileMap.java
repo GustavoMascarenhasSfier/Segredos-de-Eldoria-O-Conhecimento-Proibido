@@ -11,12 +11,16 @@ public class tileMap {
     Tiles pecaDoCenario;
     GerenciadorSprites sprites;
     int[][] cenarioValido;
+
     public static boolean MOSTRAR_HITBOXES = true;
 
-    // Armazena o cenário lógico atual para o VerificadorDeColisao consultar
     public CenarioBase cenarioAtualInstancia;
 
-    // Referências para os mapas de tiles
+    // SPAWN DO PLAYER
+    private int spawnX = 0;
+    private int spawnY = 0;
+
+    // MAPAS
     public final int[][] cenario1DoJogo = Cenario1.MAPA;
     public final int[][] cenario2DoJogo = Cenario2.MAPA;
     public final int[][] cenario3DoJogo = Cenario3.MAPA;
@@ -25,14 +29,13 @@ public class tileMap {
     public final int[][] cenario6DoJogo = Cenario6.MAPA;
     public final int[][] cenario7DoJogo = Cenario7.MAPA;
 
-    // Mapa de desenhistas
     private final Map<int[][], DesenhistaCenario> desenhistas = new HashMap<>();
 
     public tileMap() {
+
         this.sprites = new GerenciadorSprites();
         this.pecaDoCenario = new Tiles();
 
-        // Registra um desenhista para cada cenário
         desenhistas.put(cenario1DoJogo, new DesenhistaCenario1());
         desenhistas.put(cenario2DoJogo, new DesenhistaCenario2());
         desenhistas.put(cenario3DoJogo, new DesenhistaCenario3());
@@ -41,10 +44,112 @@ public class tileMap {
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
-        // Inicializa o jogo no cenário 1
+        // CENÁRIO INICIAL
         mudarCenario(1);
     }
 
+    // =========================
+    // TROCA DE CENÁRIO
+    // =========================
+    public void mudarCenario(int numeroCenario) {
+
+        switch (numeroCenario) {
+
+            case 1:
+                cenarioValido = cenario1DoJogo;
+                cenarioAtualInstancia = new Cenario1();
+
+                spawnX = 700;//posiocao fixa de cada cenario para verificar passagem
+                spawnY = 220;//posiocao fixa de cada cenario para verificar passagem
+                break;
+
+            case 2:
+                cenarioValido = cenario2DoJogo;
+                cenarioAtualInstancia = new Cenario2();
+
+                spawnX = 20;
+                spawnY = 190;
+                break;
+
+            case 3:
+                cenarioValido = cenario3DoJogo;
+                cenarioAtualInstancia = new Cenario3();
+
+                spawnX = 100;
+                spawnY = 200;
+                break;
+
+            case 4:
+                cenarioValido = cenario4DoJogo;
+
+                spawnX = 200;
+                spawnY = 200;
+                break;
+
+            case 5:
+                cenarioValido = cenario5DoJogo;
+
+                spawnX = 200;
+                spawnY = 200;
+                break;
+
+            case 6:
+                cenarioValido = cenario6DoJogo;
+
+                spawnX = 200;
+                spawnY = 200;
+                break;
+
+            case 7:
+                cenarioValido = cenario7DoJogo;
+
+                spawnX = 200;
+                spawnY = 200;
+                break;
+        }
+    }
+
+    // =========================
+    // TRANSIÇÃO
+    // =========================
+    public void verificarTransicao(Player jogador) {
+
+        if (cenarioAtualInstancia instanceof Cenario1) {
+
+            if (jogador.getX() >= 720) {
+
+                mudarCenario(2);
+                jogador.teleportar(spawnX, spawnY);
+            }
+
+            // volta do CENÁRIO 2
+            if (jogador.getY() >= 432) {
+
+                mudarCenario(2);
+                jogador.teleportar(spawnX, spawnY);
+            }
+        }
+
+        else if (cenarioAtualInstancia instanceof Cenario2) {
+
+            // volta pro CENÁRIO 1 (esquerda)
+            if (jogador.getX() <= 0) {
+
+                mudarCenario(1);
+                jogador.teleportar(spawnX, spawnY);
+            }
+
+            if (jogador.getY() >= 432) {
+
+                mudarCenario(1);
+                jogador.teleportar(spawnX, spawnY);
+            }
+        }
+    }
+
+    // =========================
+    // HITBOX
+    // =========================
     public void desenharHitboxes(Graphics2D g2) {
 
         if (!MOSTRAR_HITBOXES || cenarioAtualInstancia == null)
@@ -67,42 +172,14 @@ public class tileMap {
         return desenhistas.get(cenarioValido);
     }
 
-    public void mudarCenario(int numeroCenario) {
-        switch (numeroCenario) {
-            case 1:
-                this.cenarioValido = this.cenario1DoJogo;
-                this.cenarioAtualInstancia = new Cenario1();
-                break;
-            case 2:
-                this.cenarioValido = this.cenario2DoJogo;
-                this.cenarioAtualInstancia = new Cenario2();
-                break;
-            case 3:
-                this.cenarioValido = this.cenario3DoJogo;
-                this.cenarioAtualInstancia = new Cenario3();
-                break;
-            case 4:
-                this.cenarioValido = this.cenario4DoJogo;
-                break;
-            case 5:
-                this.cenarioValido = this.cenario5DoJogo;
-                break;
-            case 6:
-                this.cenarioValido = this.cenario6DoJogo;
-                break;
-            case 7:
-                this.cenarioValido = this.cenario7DoJogo;
-                break;
-            default:
-                System.out.println("Cenário inválido!");
-                break;
-        }
-    }
-
-    /** Desenha os tiles do mapa + elementos de fundo do cenário atual. */
+    // =========================
+    // DESENHO
+    // =========================
     public void desenharChaoECasas(Graphics2D d2) {
+
         for (int lin = 0; lin < cenarioValido.length; lin++) {
             for (int col = 0; col < cenarioValido[0].length; col++) {
+
                 pecaDoCenario.carregaPecaDaMatriz(cenarioValido[lin][col]);
                 pecaDoCenario.desenhaTile(d2, lin, col);
             }
@@ -114,11 +191,11 @@ public class tileMap {
         }
     }
 
-    /** Desenha os elementos que ficam por cima ou na frente (Árvores, estátuas, etc). */
     public void desenharElementosFrente(Graphics2D d2, int peJogador) {
+
         DesenhistaCenario desenhista = desenhistas.get(cenarioValido);
+
         if (desenhista != null) {
-            // AQUI: Chama o método correto existente na Interface e no DesenhistaCenario1
             desenhista.desenharFrente(d2, sprites, peJogador);
         }
     }

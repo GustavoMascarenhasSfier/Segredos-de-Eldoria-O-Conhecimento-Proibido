@@ -26,7 +26,6 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
         this.et         = eT;
     }
 
-    /** Permite que a Moldura injete o PainelSul após a construção */
     public void setPainelSul(PainelSul ps) {
         this.painelSul = ps;
     }
@@ -47,6 +46,7 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
             tempoUltimaMedida = agora;
 
             if (tempoDecorrido >= 1) {
+
                 if (cenaDoJogo == null || cenaDoJogo.jogador == null || cenaDoJogo.cenario == null) {
                     tempoDecorrido = 0;
                     continue;
@@ -60,16 +60,28 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 else if (et.moverPraEsq)   direcao = "esquerda";
 
                 VerificadorDeColisao colisao = new VerificadorDeColisao();
-                boolean bateu = colisao.OcorreuDeColisao(cenaDoJogo.jogador, cenaDoJogo.cenario, direcao);
+                boolean bateu = colisao.OcorreuDeColisao(
+                        cenaDoJogo.jogador,
+                        cenaDoJogo.cenario,
+                        direcao
+                );
 
-                if (!bateu)
-                    cenaDoJogo.jogador.atualizaPosicaoJogador(et.moverPraEsq, et.moverPraCima, et.moverPraDir, et.moverPraBaixo);
+                if (!bateu) {
+                    cenaDoJogo.jogador.atualizaPosicaoJogador(
+                            et.moverPraEsq,
+                            et.moverPraCima,
+                            et.moverPraDir,
+                            et.moverPraBaixo
+                    );
+
+                    // ✔️ AQUI É ONDE A TRANSIÇÃO ACONTECE
+                    cenaDoJogo.cenario.verificarTransicao(cenaDoJogo.jogador);
+                }
 
                 // ── INVENTÁRIO ────────────────────────────────────────────
                 Inventario inv = cenaDoJogo.inventario;
                 boolean mudouInventario = false;
 
-                // Tecla Q — slot anterior (debounce: só uma vez por pressão)
                 if (et.inventarioAnterior && !anteriorProcessado) {
                     inv.selecionarAnterior();
                     anteriorProcessado = true;
@@ -77,7 +89,6 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 }
                 if (!et.inventarioAnterior) anteriorProcessado = false;
 
-                // Tecla E — próximo slot
                 if (et.inventarioProximo && !proximoProcessado) {
                     inv.selecionarProximo();
                     proximoProcessado = true;
@@ -85,7 +96,6 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 }
                 if (!et.inventarioProximo) proximoProcessado = false;
 
-                // Tecla F — usar item selecionado
                 if (et.inventarioUsar && !usarProcessado) {
                     inv.removerItem(inv.getSlotSelecionado());
                     usarProcessado = true;
@@ -93,10 +103,8 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 }
                 if (!et.inventarioUsar) usarProcessado = false;
 
-                // Repintar painel sul somente quando inventário mudou
                 if (mudouInventario && painelSul != null)
                     painelSul.repaint();
-                // ─────────────────────────────────────────────────────────
 
                 cenaDoJogo.repaint();
                 this.contadorDeFPS++;
