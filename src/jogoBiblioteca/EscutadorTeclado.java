@@ -18,21 +18,29 @@ public class EscutadorTeclado implements KeyListener {
     public boolean getMoverPraCima()  { return moverPraCima; }
     public boolean getMoverPraBaixo() { return moverPraBaixo; }
 
-    @Override public void keyTyped(KeyEvent e) {}
+    @Override public void keyTyped(KeyEvent e) {
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            // Movimento (WASD)
-            case KeyEvent.VK_A: moverPraEsq   = true; break;
-            case KeyEvent.VK_W: moverPraCima  = true; break;
-            case KeyEvent.VK_D: moverPraDir   = true; break;
+
+            // Movimento
+            case KeyEvent.VK_A: moverPraEsq = true; break;
+            case KeyEvent.VK_W: moverPraCima = true; break;
+            case KeyEvent.VK_D: moverPraDir = true; break;
             case KeyEvent.VK_S: moverPraBaixo = true; break;
 
-            // Inventário — teclas que não conflitam com WASD
+            // Inventário
             case KeyEvent.VK_Q: inventarioAnterior = true; break;
-            case KeyEvent.VK_E: inventarioProximo  = true; break;
-            case KeyEvent.VK_F: inventarioUsar     = true; break;
+            case KeyEvent.VK_E: inventarioProximo = true; break;
+            case KeyEvent.VK_F: inventarioUsar = true; break;
+
+            // Hitboxes
+            case KeyEvent.VK_V:
+                tileMap.MOSTRAR_HITBOXES = !tileMap.MOSTRAR_HITBOXES;
+                System.out.println("Hitboxes: " + tileMap.MOSTRAR_HITBOXES);
+                break;
         }
     }
 
@@ -46,7 +54,6 @@ public class EscutadorTeclado implements KeyListener {
 
             case KeyEvent.VK_Q: inventarioAnterior = false; break;
             case KeyEvent.VK_E: inventarioProximo  = false; break;
-            case KeyEvent.VK_F: inventarioUsar     = false; break;
         }
     }
 }

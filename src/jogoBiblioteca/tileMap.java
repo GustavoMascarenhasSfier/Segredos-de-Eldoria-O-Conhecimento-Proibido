@@ -12,7 +12,7 @@ public class tileMap {
     GerenciadorSprites sprites;
     int[][] cenarioValido;
 
-    public static boolean MOSTRAR_HITBOXES = true;
+    public static boolean MOSTRAR_HITBOXES = false;
 
     public CenarioBase cenarioAtualInstancia;
 
@@ -45,7 +45,7 @@ public class tileMap {
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // CENÁRIO INICIAL
-        mudarCenario(1);
+        mudarCenario(2);
     }
 
     // =========================

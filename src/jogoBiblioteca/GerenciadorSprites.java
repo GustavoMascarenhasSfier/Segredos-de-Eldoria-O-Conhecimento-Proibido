@@ -27,6 +27,16 @@ public class GerenciadorSprites {
     // CHAFARIZ
     private static final String CAMINHO_C2_Chafariz_1 = "res/cenarios/cenario2/chafariz.png";
 
+    // MOITA
+    private static final String CAMINHO_C2_Moita = "res/cenarios/cenario2/moita.png";
+    private static final String CAMINHO_C2_Moita2 = "res/cenarios/cenario2/moita2.png";
+    private static final String CAMINHO_C2_Moita3 = "res/cenarios/cenario2/moita3.png";
+    private static final String CAMINHO_C2_Moita4 = "res/cenarios/cenario2/moita4.png";
+    // Cerca
+    private static final String CAMINHO_C2_Cerca = "res/cenarios/cenario2/cerca.png";
+    private static final String CAMINHO_C2_Poste = "res/cenarios/cenario2/poste.png";
+    private static final String CAMINHO_C2_Poste2 = "res/cenarios/cenario2/poste2.png";
+
 
 
     // Cenário 3 — Biblioteca (Constantes de Caminho)
@@ -78,6 +88,16 @@ public class GerenciadorSprites {
     //Chafariz
     public BufferedImage   imgChafariz1;
 
+    //Moita
+    public BufferedImage   imgMoita;
+    public BufferedImage   imgMoita2;
+    public BufferedImage   imgMoita3;
+    public BufferedImage   imgMoita4;
+
+    //Cerca
+    public BufferedImage   imgCerca;
+    public BufferedImage   imgPoste;
+    public BufferedImage   imgPoste2;
 
 
 
@@ -173,6 +193,17 @@ public class GerenciadorSprites {
         imgCasa4           = carregarSheet(CAMINHO_C2_House_4);
         // CHAFARIZ
         imgChafariz1       = carregarSheet(CAMINHO_C2_Chafariz_1);
+        // MOITA
+        imgMoita           = carregarSheet(CAMINHO_C2_Moita);
+        imgMoita2           = carregarSheet(CAMINHO_C2_Moita2);
+        imgMoita3           = carregarSheet(CAMINHO_C2_Moita3);
+        imgMoita4           = carregarSheet(CAMINHO_C2_Moita4);
+        // Cerca
+        imgCerca          = carregarSheet(CAMINHO_C2_Cerca);
+        imgPoste          = carregarSheet(CAMINHO_C2_Poste);
+        imgPoste2          = carregarSheet(CAMINHO_C2_Poste2);
+
+
 
     }
 
