@@ -44,8 +44,8 @@ public class tileMap {
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
-        // CENÁRIO INICIAL
-        mudarCenario(2);
+        // Inicializa o jogo no cenário 1
+        mudarCenario(1);
     }
 
     // =========================

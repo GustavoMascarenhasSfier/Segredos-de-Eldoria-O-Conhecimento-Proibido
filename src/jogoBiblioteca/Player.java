@@ -24,7 +24,7 @@ public class Player {
     public int passo = 3;
 
     public Player() {
-        this.posX = 382;
+        this.posX = 352;
         this.posY = 382;
         this.Larg = 48;
         this.Altu = 48;
