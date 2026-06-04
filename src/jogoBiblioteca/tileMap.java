@@ -17,8 +17,10 @@ public class tileMap {
     public CenarioBase cenarioAtualInstancia;
 
     // SPAWN DO PLAYER
-    private int spawnX = 0;
-    private int spawnY = 0;
+    public int spawnX1 = 0;
+    public int spawnY1 = 0;
+    public int spawnX2 = 0;
+    public int spawnY2 = 0;
 
     // MAPAS
     public final int[][] cenario1DoJogo = Cenario1.MAPA;
@@ -44,7 +46,7 @@ public class tileMap {
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
-        // CENÁRIO INICIAL
+        // Inicializa o jogo no cenário 1
         mudarCenario(2);
     }
 
@@ -59,52 +61,70 @@ public class tileMap {
                 cenarioValido = cenario1DoJogo;
                 cenarioAtualInstancia = new Cenario1();
 
-                spawnX = 700;//posiocao fixa de cada cenario para verificar passagem
-                spawnY = 220;//posiocao fixa de cada cenario para verificar passagem
+                spawnX2 = 700;
+                spawnY2 = 230;
                 break;
 
             case 2:
                 cenarioValido = cenario2DoJogo;
                 cenarioAtualInstancia = new Cenario2();
 
-                spawnX = 20;
-                spawnY = 190;
+                spawnX1 = 20;
+                spawnY1 = 230;
+
+                spawnX2 = 700;
+                spawnY2 = 230;
                 break;
 
             case 3:
                 cenarioValido = cenario3DoJogo;
                 cenarioAtualInstancia = new Cenario3();
 
-                spawnX = 100;
-                spawnY = 200;
+                spawnX1 = 20;
+                spawnY1 = 230;
+
+                spawnX2 = 700;
+                spawnY2 = 220;
                 break;
 
             case 4:
                 cenarioValido = cenario4DoJogo;
 
-                spawnX = 200;
-                spawnY = 200;
+                spawnX1 = 20;
+                spawnY1 = 220;
+
+                spawnX2 = 700;
+                spawnY2 = 240;
                 break;
 
             case 5:
                 cenarioValido = cenario5DoJogo;
 
-                spawnX = 200;
-                spawnY = 200;
+                spawnX1 = 20;
+                spawnY1 = 190;
+
+                spawnX2 = 700;
+                spawnY2 = 240;
                 break;
 
             case 6:
                 cenarioValido = cenario6DoJogo;
 
-                spawnX = 200;
-                spawnY = 200;
+                spawnX1 = 20;
+                spawnY1 = 190;
+
+                spawnX2 = 700;
+                spawnY2 = 240;
                 break;
 
             case 7:
                 cenarioValido = cenario7DoJogo;
 
-                spawnX = 200;
-                spawnY = 200;
+                spawnX1 = 20;
+                spawnY1 = 190;
+
+                spawnX2 = 700;
+                spawnY2 = 240;
                 break;
         }
     }
@@ -115,34 +135,45 @@ public class tileMap {
     public void verificarTransicao(Player jogador) {
 
         if (cenarioAtualInstancia instanceof Cenario1) {
-
+            //Vai pro cenário 2 (Direita) //
             if (jogador.getX() >= 720) {
 
                 mudarCenario(2);
-                jogador.teleportar(spawnX, spawnY);
+                jogador.teleportar(spawnX1, spawnY1);
             }
 
-            // volta do CENÁRIO 2
-            if (jogador.getY() >= 432) {
-
-                mudarCenario(2);
-                jogador.teleportar(spawnX, spawnY);
-            }
         }
 
         else if (cenarioAtualInstancia instanceof Cenario2) {
 
-            // volta pro CENÁRIO 1 (esquerda)
+            // volta pro CENÁRIO 1 (esquerda) //
             if (jogador.getX() <= 0) {
 
                 mudarCenario(1);
-                jogador.teleportar(spawnX, spawnY);
+                jogador.teleportar(spawnX2, spawnY2);
+            }
+            // vai pro CENÁRIO 3 (direita) //
+            if (jogador.getX() >= 720) {
+
+                mudarCenario(3);
+                jogador.teleportar(spawnX1, spawnY1);
+            }
+        }
+
+        else if (cenarioAtualInstancia instanceof Cenario3) {
+
+            // vai pro CENÁRIO 4 (direita)
+            if (jogador.getX() >= 768) {
+
+                mudarCenario(3);
+                jogador.teleportar(spawnX1, spawnY1);
             }
 
-            if (jogador.getY() >= 432) {
+            // volta pro CENÁRIO 2 (esquerda)
+            if (jogador.getX() <= 0) {
 
-                mudarCenario(1);
-                jogador.teleportar(spawnX, spawnY);
+                mudarCenario(2);
+                jogador.teleportar(spawnX2, spawnY2);
             }
         }
     }

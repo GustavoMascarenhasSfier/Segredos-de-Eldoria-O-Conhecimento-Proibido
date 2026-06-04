@@ -235,18 +235,6 @@ public class GerenciadorSprites {
         imgTapeteInferior  = carregarSheet(CAMINHO_TAPETE_INFERIOR);
     }
 
-    // Método utilitário caso precise recortar vetores de uma mesma folha futuramente
-    private BufferedImage[] carregarSprites(String caminho, int[][] regioes) {
-        BufferedImage sheet = carregarSheet(caminho);
-        if (sheet == null) return null;
-        BufferedImage[] sprites = new BufferedImage[regioes.length];
-        for (int i = 0; i < regioes.length; i++) {
-            int[] r = regioes[i];
-            sprites[i] = sheet.getSubimage(r[0], r[1], r[2], r[3]);
-        }
-        return sprites;
-    }
-
     private BufferedImage carregarSheet(String caminho) {
         try {
             return ImageIO.read(new File(caminho));

@@ -24,17 +24,18 @@ public class Player {
     public int passo = 3;
 
     public Player() {
-        this.posX = 382;
+        this.posX = 352;
         this.posY = 382;
         this.Larg = 48;
         this.Altu = 48;
 
         AreaColisao = new Rectangle();
 
-        this.AreaColisao.x = this.posX + 3;
-        this.AreaColisao.y = this.posY + this.Altu / 2;
-        this.AreaColisao.width = this.Larg - 20;
-        this.AreaColisao.height = this.Altu / 2;
+        this.AreaColisao.width = 20;
+        this.AreaColisao.height = 18;
+
+        this.AreaColisao.x = this.posX + (this.Larg - this.AreaColisao.width) / 2;
+        this.AreaColisao.y = this.posY + this.Altu - this.AreaColisao.height - 2;
 
         CorFundo = Color.white;
 
@@ -94,8 +95,8 @@ public class Player {
         else if (MB)
             this.posY += passo;
 
-        this.AreaColisao.x = this.posX + 3;
-        this.AreaColisao.y = this.posY + this.Altu / 2;
+        this.AreaColisao.x = this.posX + (this.Larg - this.AreaColisao.width) / 2;
+        this.AreaColisao.y = this.posY + this.Altu - this.AreaColisao.height - 2;
 
         this.atualizaSprite(ME, MC, MD, MB);
     }
@@ -117,7 +118,7 @@ public class Player {
         this.posX = x;
         this.posY = y;
 
-        this.AreaColisao.x = this.posX + 3;
-        this.AreaColisao.y = this.posY + this.Altu / 2;
+        this.AreaColisao.x = this.posX + (this.Larg - this.AreaColisao.width) / 2;
+        this.AreaColisao.y = this.posY + this.Altu - this.AreaColisao.height - 2;
     }
 }

@@ -92,13 +92,12 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
 
             if (sprites.arvores[1] != null) {
                 // Segunda árvore inferior direita
-                d2.drawImage(sprites.arvores[1], 560, 190, 200, 250, null);
+                d2.drawImage(sprites.arvores[1], 560, 190, 250, 300, null);
             }
-        }
-
-        // ---------------- PILAR ----------------
-        if (sprites.imgPilar != null) {
-            d2.drawImage(sprites.imgPilar, 650, 180, 60, 60, null);
+            // ---------------- PILAR ----------------
+            if (sprites.imgPilar != null) {
+                d2.drawImage(sprites.imgPilar, 650, 180, 60, 60, null);
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class SpriteLoop extends Thread implements Runnable, ActionListener{
-    private int FPS = 5;
+    final int FPS = 5;
     private Timer ControleDoTempoDoJogo;
     private long contadorDeFPS;
     private Painel cenaDoJogo;

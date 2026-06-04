@@ -6,7 +6,7 @@ import javax.swing.Timer;
 
 public class GameLoop extends Thread implements Runnable, ActionListener {
 
-    private int FPS = 60;
+    final int FPS = 60;
     private Timer controleDoTempoDoJogo;
     private long contadorDeFPS;
 
