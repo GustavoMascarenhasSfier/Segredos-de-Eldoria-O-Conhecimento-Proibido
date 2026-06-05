@@ -44,6 +44,11 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
                 d2.drawImage(sprites.bancos[1], 397, 350, 50, 60, null);
             }
         }
+
+        // ---------------- PILAR ----------------
+        if (sprites.imgPilar != null) {
+            d2.drawImage(sprites.imgPilar, 650, 180, 60, 60, null);
+        }
     }
 
     @Override
@@ -63,7 +68,7 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
 
             // Árvore canto superior direito
             if (sprites.arvores[2] != null) {
-                d2.drawImage(sprites.arvores[2], 600, 0, 170, 200, null);
+                d2.drawImage(sprites.arvores[2], 600, -10, 170, 200, null);
             }
 
             // Árvore central do topo
@@ -93,10 +98,6 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
             if (sprites.arvores[1] != null) {
                 // Segunda árvore inferior direita
                 d2.drawImage(sprites.arvores[1], 560, 190, 250, 300, null);
-            }
-            // ---------------- PILAR ----------------
-            if (sprites.imgPilar != null) {
-                d2.drawImage(sprites.imgPilar, 650, 180, 60, 60, null);
             }
         }
     }

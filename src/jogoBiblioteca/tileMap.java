@@ -81,17 +81,17 @@ public class tileMap {
                 cenarioAtualInstancia = new Cenario3();
 
                 spawnX1 = 20;
-                spawnY1 = 230;
+                spawnY1 = 240;
 
                 spawnX2 = 700;
-                spawnY2 = 220;
+                spawnY2 = 240;
                 break;
 
             case 4:
                 cenarioValido = cenario4DoJogo;
 
                 spawnX1 = 20;
-                spawnY1 = 220;
+                spawnY1 = 240;
 
                 spawnX2 = 700;
                 spawnY2 = 240;

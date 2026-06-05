@@ -11,10 +11,10 @@ public abstract class CenarioBase {
         return hitboxesObjetos;
     }
 
-    // Método que obriga cada cenário a definir seus próprios objetos sólidos
+    // Metodo que obriga cada cenário a definir seus próprios hitboxes
     protected abstract void inicializarHitboxes();
 
-    // Varre a lista de hitboxes para ver se o jogador encostou em algo
+    // Percorre a lista de hitboxes para ver se o jogador encostou em algo
     public boolean colideComObjetos(Rectangle proximaAreaJogador) {
         for (Rectangle hitbox : hitboxesObjetos) {
             if (proximaAreaJogador.intersects(hitbox)) {
