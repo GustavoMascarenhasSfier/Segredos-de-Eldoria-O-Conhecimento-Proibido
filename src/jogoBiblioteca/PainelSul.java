@@ -84,8 +84,8 @@ public class PainelSul extends JPanel {
 
         // Fundo gradiente
         GradientPaint gp = sel
-            ? new GradientPaint(x, y, SEL_FILL,  x, y + CELL_SIZE, new Color(28, 20, 8))
-            : new GradientPaint(x, y, SLOT_FILL, x, y + CELL_SIZE, new Color(22, 15, 8));
+                ? new GradientPaint(x, y, SEL_FILL,  x, y + CELL_SIZE, new Color(28, 20, 8))
+                : new GradientPaint(x, y, SLOT_FILL, x, y + CELL_SIZE, new Color(22, 15, 8));
         g2.setPaint(gp);
         g2.fill(new RoundRectangle2D.Float(x, y, CELL_SIZE, CELL_SIZE, arc, arc));
 
