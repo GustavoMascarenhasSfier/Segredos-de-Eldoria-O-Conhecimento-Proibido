@@ -54,7 +54,7 @@ public class tileMap {
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
-        mudarCenario(5);
+        mudarCenario(1);
     }
 
 
@@ -79,6 +79,7 @@ public class tileMap {
             case 1:
                 cenarioValido = cenario1DoJogo;
                 cenarioAtualInstancia = new Cenario1();
+                spawnX1 = 352; spawnY1 = 300; // centro do mapa, área livre
                 spawnX2 = 700; spawnY2 = 230;
                 break;
             case 2:
