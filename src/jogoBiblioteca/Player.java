@@ -17,13 +17,11 @@ public class Player {
 
     private Image imgPlayer;
     private int frameJogador = 0;
-    private long lastnow = 0;
-    private String lastDirection = "";
 
     Rectangle AreaColisao;
     private int posX, posY;
     private int Larg, Altu;
-    public int passo = 2;
+    public int passo = 3;
 
     public Player() {
         this.posX = 352;
@@ -39,7 +37,7 @@ public class Player {
         this.AreaColisao.x = this.posX + (this.Larg - this.AreaColisao.width) / 2;
         this.AreaColisao.y = this.posY + this.Altu - this.AreaColisao.height - 2;
 
-        CorFundo = new Color(0,0,0,0);
+        CorFundo = Color.white;
 
         for (int i = 0; i < 3; i++) {
             this.imgPlayerDown[i] = new ImageIcon("res/PLAYERS/down" + (i + 1) + ".png").getImage();
@@ -51,49 +49,30 @@ public class Player {
         this.imgPlayer = this.imgPlayerDown[0];
     }
 
-    public void atualizaSprite(String direcao) {
-
-        //Tempo Atual//
-        long now = System.currentTimeMillis();
-
-        //Se a animação for para uma direção diferente ele reseta o cooldown na hora//
-        if (!direcao.equals(lastDirection)) {
-            lastDirection = direcao;
-            lastnow = 0;
-            frameJogador = 0;
-        }
-        //Verifica se tem cooldown para atualizar o frame
-        if (now - lastnow > (200/passo)) {
-            lastnow = now;
-        } else return;
+    public void atualizaSprite(boolean moveEsq, boolean moveCima, boolean moveDir, boolean moveBaixo) {
 
         this.frameJogador++;
 
-        switch (direcao) {
-            case "esquerda" -> {
-                if (frameJogador >= this.imgPlayerLeft.length)
-                    frameJogador = 0;
+        if (moveEsq) {
+            if (frameJogador >= this.imgPlayerLeft.length)
+                frameJogador = 0;
 
-                this.imgPlayer = this.imgPlayerLeft[frameJogador];
-            }
-            case "direita" -> {
-                if (frameJogador >= this.imgPlayerRight.length)
-                    frameJogador = 0;
+            this.imgPlayer = this.imgPlayerLeft[frameJogador];
+        } else if (moveDir) {
+            if (frameJogador >= this.imgPlayerRight.length)
+                frameJogador = 0;
 
-                this.imgPlayer = this.imgPlayerRight[frameJogador];
-            }
-            case "cima" -> {
-                if (frameJogador >= this.imgPlayerUp.length)
-                    frameJogador = 0;
+            this.imgPlayer = this.imgPlayerRight[frameJogador];
+        } else if (moveCima) {
+            if (frameJogador >= this.imgPlayerUp.length)
+                frameJogador = 0;
 
-                this.imgPlayer = this.imgPlayerUp[frameJogador];
-            }
-            case "baixo" -> {
-                if (frameJogador >= this.imgPlayerDown.length)
-                    frameJogador = 0;
+            this.imgPlayer = this.imgPlayerUp[frameJogador];
+        } else if (moveBaixo) {
+            if (frameJogador >= this.imgPlayerDown.length)
+                frameJogador = 0;
 
-                this.imgPlayer = this.imgPlayerDown[frameJogador];
-            }
+            this.imgPlayer = this.imgPlayerDown[frameJogador];
         }
     }
 
@@ -105,19 +84,21 @@ public class Player {
         d2.drawImage(imgPlayer, posX, posY, Larg, Altu, null);
     }
 
-    public void atualizaPosicaoJogador(String direcao) {
+    public void atualizaPosicaoJogador(boolean ME, boolean MC, boolean MD, boolean MB) {
 
-        if (direcao.equals("cima"))
-            this.posY -= passo;
-        else if (direcao.equals("direita"))
-            this.posX += passo;
-        else if (direcao.equals("esquerda"))
+        if (ME)
             this.posX -= passo;
-        else if (direcao.equals("baixo"))
+        else if (MD)
+            this.posX += passo;
+        else if (MC)
+            this.posY -= passo;
+        else if (MB)
             this.posY += passo;
 
         this.AreaColisao.x = this.posX + (this.Larg - this.AreaColisao.width) / 2;
         this.AreaColisao.y = this.posY + this.Altu - this.AreaColisao.height - 2;
+
+        this.atualizaSprite(ME, MC, MD, MB);
     }
 
     public int getX() {
