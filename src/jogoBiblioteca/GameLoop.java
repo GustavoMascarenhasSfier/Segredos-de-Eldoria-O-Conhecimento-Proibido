@@ -58,21 +58,15 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 else if (et.moverPraBaixo) direcao = "baixo";
                 else if (et.moverPraDir)   direcao = "direita";
                 else if (et.moverPraEsq)   direcao = "esquerda";
-
+                cenaDoJogo.jogador.atualizaSprite(direcao);
                 VerificadorDeColisao colisao = new VerificadorDeColisao();
                 boolean bateu = colisao.OcorreuDeColisao(
                         cenaDoJogo.jogador,
                         cenaDoJogo.cenario,
                         direcao
                 );
-
                 if (!bateu) {
-                    cenaDoJogo.jogador.atualizaPosicaoJogador(
-                            et.moverPraEsq,
-                            et.moverPraCima,
-                            et.moverPraDir,
-                            et.moverPraBaixo
-                    );
+                    cenaDoJogo.jogador.atualizaPosicaoJogador(direcao);
 
                     // ✔️ AQUI É ONDE A TRANSIÇÃO ACONTECE
                     cenaDoJogo.cenario.verificarTransicao(cenaDoJogo.jogador);

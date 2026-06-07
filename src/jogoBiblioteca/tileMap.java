@@ -31,6 +31,14 @@ public class tileMap {
     public final int[][] cenario6DoJogo = Cenario6.MAPA;
     public final int[][] cenario7DoJogo = Cenario7.MAPA;
 
+    private final Cenario1 cenario1 = new Cenario1();
+    private final Cenario2 cenario2 = new Cenario2();
+    private final Cenario3 cenario3 = new Cenario3();
+    private final Cenario4 cenario4 = new Cenario4();
+    private final Cenario5 cenario5 = new Cenario5();
+    private final Cenario6 cenario6 = new Cenario6();
+
+
     private final Map<int[][], DesenhistaCenario> desenhistas = new HashMap<>();
 
     private boolean perguntaEmAndamento = false;
@@ -54,7 +62,7 @@ public class tileMap {
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
-        mudarCenario(1);
+        mudarCenario(6);
     }
 
 
@@ -78,37 +86,39 @@ public class tileMap {
         switch (numeroCenario) {
             case 1:
                 cenarioValido = cenario1DoJogo;
-                cenarioAtualInstancia = new Cenario1();
+                cenarioAtualInstancia = cenario1;
                 spawnX1 = 352; spawnY1 = 300; // centro do mapa, área livre
                 spawnX2 = 700; spawnY2 = 230;
                 break;
             case 2:
                 cenarioValido = cenario2DoJogo;
-                cenarioAtualInstancia = new Cenario2();
+                cenarioAtualInstancia = cenario2;
                 spawnX1 = 20;  spawnY1 = 230;
                 spawnX2 = 700; spawnY2 = 230;
                 break;
             case 3:
                 cenarioValido = cenario3DoJogo;
-                cenarioAtualInstancia = new Cenario3();
+                cenarioAtualInstancia = cenario3;
                 spawnX1 = 20;  spawnY1 = 230;
                 spawnX2 = 700; spawnY2 = 220;
                 break;
             case 4:
                 cenarioValido = cenario4DoJogo;
+                cenarioAtualInstancia = cenario4;
                 spawnX1 = 20;  spawnY1 = 220;
                 spawnX2 = 700; spawnY2 = 240;
                 break;
             case 5:
                 cenarioValido = cenario5DoJogo;
-                cenarioAtualInstancia = new Cenario5();
+                cenarioAtualInstancia = cenario5;
                 spawnX1 = Cenario5.ENTRADA_X;  // 48
                 spawnY1 = Cenario5.ENTRADA_Y;  // 240
-                spawnX2 = 700; spawnY2 = 240;
+                spawnX2 = 335; spawnY2 = 380;
                 break;
             case 6:
                 cenarioValido = cenario6DoJogo;
-                spawnX1 = 20;  spawnY1 = 190;
+                cenarioAtualInstancia = cenario6;
+                spawnX1 = 335;  spawnY1 = 20;
                 spawnX2 = 700; spawnY2 = 240;
                 break;
             case 7:
@@ -203,6 +213,14 @@ public class tileMap {
                 }
             }
         }
+
+        else if (cenarioValido == cenario6DoJogo) {
+            if (jogador.getY() <= 0) {
+                mudarCenario(5);
+                jogador.teleportar(spawnX2, spawnY2);
+
+            }
+        }
     }
 
     // =========================
@@ -212,6 +230,7 @@ public class tileMap {
         if (perguntaEmAndamento || painel == null) return;
         if (!(cenarioAtualInstancia instanceof Cenario5 c5)) return;
         if (c5.isSolDesbloqueada()) return;
+        System.out.println(c5.isSolDesbloqueada());
 
         perguntaEmAndamento = true;
         jogadorPendente = jogador;

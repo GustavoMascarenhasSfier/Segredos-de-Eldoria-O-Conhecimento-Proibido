@@ -86,7 +86,6 @@ public class Cenario5 extends CenarioBase {
 
     @Override
     protected void inicializarHitboxes() {
-        solDesbloqueada = false;
 
         hitboxLua     = new Rectangle(96,  430, 48, 34);
         hitboxSol     = new Rectangle(336, 430, 48, 34);
