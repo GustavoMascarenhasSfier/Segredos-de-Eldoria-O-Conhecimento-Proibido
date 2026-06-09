@@ -22,11 +22,30 @@ public class Cenario3 extends CenarioBase {
     // Zona de interação: mesa pequena (canto inferior esquerdo)
     public static final Rectangle ZONA_MESA_LIVRO2 = new Rectangle(80, 300, 120, 90);
 
+
     // Zona de interação: javali (bicho2) desenhado em (670, 20) tamanho 48x48
     public static final Rectangle ZONA_JAVALI = new Rectangle(648, 10, 100, 80);// javali x=670 y=20
 
     // Ao abrir, removemos a hitbox e marcamos passagemAberta para desenho
     public static final Rectangle HITBOX_PASSAGEM = new Rectangle(672, 48, 48, 48);  // tile [1][14] embaixo da bandeira direita
+
+    // --------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------ PORTA PARA O CENARIO 5 --------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------
+
+    public static final Rectangle ZONA_PORTA_C5 = new Rectangle(288, 420, 144, 60);
+
+    private boolean portaC5Aberta = false;
+    public boolean isPortaC5Aberta() { return portaC5Aberta; }
+    public void abrirPortaC5() {
+        portaC5Aberta = true;
+        hitboxesObjetos.remove(hitboxPortaCentral);
+    }
+
+
+    // Campo para referenciar a hitbox da porta
+    private final Rectangle hitboxPortaCentral = new Rectangle(330, 470, 100, 20);
+
 
     public static final int[][] MAPA = {
             //  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
@@ -81,11 +100,17 @@ public class Cenario3 extends CenarioBase {
         hitboxesObjetos.add(new Rectangle(  0, 48,  48, 48));   // Parede lin1 col0
         hitboxesObjetos.add(new Rectangle(144, 48, 144, 48));   // Parede lin1 cols 3-5
 
+        // -- PAREDE INFERIOR -----------------------------------------------------
+
+        hitboxesObjetos.add(new Rectangle(430, 470, 300, 20)); // PAREDE INFERIOR DIREITA
+        hitboxesObjetos.add(new Rectangle(0, 470, 330, 20)); // PAREDE INFERIOR ESQUERDA
+        hitboxesObjetos.add(hitboxPortaCentral);   // PAREDE INFERIOR CENTRAL
+
         // ── Objetos ────────────────────────────────────────────────────────────
         hitboxesObjetos.add(new Rectangle(318, 0, 132, 110));   // Lareira
         hitboxesObjetos.add(new Rectangle(90, 70, 120, 60));    // Piano
-        hitboxesObjetos.add(new Rectangle(0, 110, 20, 150));    // Estante Lateral Cima
-        hitboxesObjetos.add(new Rectangle(0, 300, 20, 150));    // Estante Lateral Baixo
+        hitboxesObjetos.add(new Rectangle(0, 100, 20, 150));    // Estante Lateral Cima
+        hitboxesObjetos.add(new Rectangle(0, 300, 20, 170));    // Estante Lateral Baixo
         hitboxesObjetos.add(new Rectangle(96, 185, 96, 34));    // Estante Esq Topo
         hitboxesObjetos.add(new Rectangle(470, 90, 96, 50));    // Estante Topo Dir Esq
         hitboxesObjetos.add(new Rectangle(550, 90, 96, 50));    // Estante Topo Dir Dir

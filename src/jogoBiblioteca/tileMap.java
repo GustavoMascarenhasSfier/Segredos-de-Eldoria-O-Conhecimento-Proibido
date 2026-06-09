@@ -78,12 +78,15 @@ public class tileMap {
         DesenhistaCenario3 d3 = new DesenhistaCenario3();
         d3.setCenario3(cenario3);
         desenhistas.put(cenario3DoJogo, d3);
-        desenhistas.put(cenario4DoJogo, new DesenhistaCenario4());
+        DesenhistaCenario4 d4 = new DesenhistaCenario4();
+        d4.setCenario4(cenario4);
+        desenhistas.put(cenario4DoJogo, d4);
         desenhistas.put(cenario5DoJogo, new DesenhistaCenario5());
         desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
-        mudarCenario(3);
+        // CENÁRIO INICIAL
+        mudarCenario(5);
     }
 
     /** Chamado pelo Painel logo após construção */
@@ -135,14 +138,14 @@ public class tileMap {
                 spawnX2 = 700; spawnY2 = 240; // spawn2: borda DIREITA            (voltando do cenário 5)
                 break;
 
-            case 5: // ── Corredor das Portas ──────────────────────────────────
+            case 5: // ── Câmara do Sol ─────────────────────────────────────────
                 cenarioValido = cenario5DoJogo;
                 cenarioAtualInstancia = cenario5;
-                spawnX1 = 20;  spawnY1 = 240; // spawn1: borda ESQUERDA  (vindo do cenário 4)
-                spawnX2 = 700; spawnY2 = 240; // spawn2: borda DIREITA   (voltando do cenário 6)
+                spawnX1 = 360; spawnY1 = 20;  // spawn1: TOPO centro (vindo do cenário 3 pela porta inferior)
+                spawnX2 = 336;  spawnY2 = 380; // spawn2: borda ESQUERDA (voltando do cenário 4)
                 break;
 
-            case 6: // ── Câmara do Sol ─────────────────────────────────────────
+            case 6: // ── SALA FINAL ───────────────────────────────────────────
                 cenarioValido = cenario6DoJogo;
                 cenarioAtualInstancia = cenario6;
                 spawnX1 = 335; spawnY1 = 20;  // spawn1: TOPO centro  (vindo do cenário 5 pela porta do Sol)
@@ -160,6 +163,7 @@ public class tileMap {
     // =========================================================================
     // TRANSIÇÃO ENTRE CENÁRIOS
     // =========================================================================
+
     public void verificarTransicao(Player jogador) {
 
         // ── CENÁRIO 1 → 2 ────────────────────────────────────────────────────
@@ -182,50 +186,60 @@ public class tileMap {
             }
         }
 
-        // ── CENÁRIO 3 → 4 / 3 ← 2 ───────────────────────────────────────────
+        // ── CENÁRIO 3 ↔ 2 / 3 → 4 (passagem) / 3 → 5 (porta) ───────────────
         else if (cenarioAtualInstancia instanceof Cenario3 c3) {
-            // Borda DIREITA + Y < 120 + passagem aberta
+
+            // Passagem secreta → Cenário 4 (borda direita, Y < 120)
             if (c3.isPassagemAberta() && jogador.getX() >= 720 && jogador.getY() < 120) {
                 mudarCenario(4);
                 jogador.teleportar(spawnX1, spawnY1);
                 return;
             }
-            // Tentativa de entrar na passagem sem ela estar aberta
             if (!c3.isPassagemAberta() && jogador.getX() >= 700 && jogador.getY() < 120) {
                 mostrarMensagem("A passagem está bloqueada. Encontre os dois livros!");
                 return;
             }
-            // Borda ESQUERDA: volta para o cenário 2
+
+            // Porta inferior → Cenário 5 (borda sul, cols 6-8)
+            if (jogador.getY() >= 415 && jogador.getX() >= 288 && jogador.getX() <= 432) {
+                if (c3.isPortaC5Aberta()) {
+                    mudarCenario(5);
+                    jogador.teleportar(spawnX1, spawnY1);
+                    return;
+                } else {
+                    mostrarMensagem("A porta está trancada. Use a chave!");
+                    return;
+                }
+            }
+            // Borda esquerda → Cenário 2
             if (jogador.getX() <= 0) {
                 mudarCenario(2);
                 jogador.teleportar(spawnX2, spawnY2);
             }
         }
 
-        // ── CENÁRIO 4 ← 3 / 4 → 5 ───────────────────────────────────────────
-        else if (cenarioValido == cenario4DoJogo) {
+        // ── CENÁRIO 4 ↔ 3 ────────────────────────────────────────────────────
+        else if (cenarioAtualInstancia instanceof Cenario4) {
+            // Borda esquerda, Y < 120 → volta pro Cenário 3 (passagem secreta)
             if (jogador.getX() <= 0 && jogador.getY() < 120) {
                 mudarCenario(3);
                 jogador.teleportar(spawnX2, spawnY2);
-                return;
-            }
-            if (jogador.getX() >= 720) {
-                mudarCenario(5);
-                jogador.teleportar(spawnX1, spawnY1);
             }
         }
 
-        // ── CENÁRIO 5 ← 4 / 5 → 6 (porta do Sol) ────────────────────────────
+        // ── CENÁRIO 5 ↔ 3 / 5 → 6 (porta do Sol) ────────────────────────────
         else if (cenarioAtualInstancia instanceof Cenario5) {
             Cenario5 c5 = (Cenario5) cenarioAtualInstancia;
             final int TILE = 48;
 
-            if (jogador.getX() <= 0) {
-                mudarCenario(4);
-                jogador.teleportar(spawnX2, spawnY2);
+            // Borda superior → volta pro Cenário 3 (pela porta inferior do C3)
+            if (jogador.getY() <= 0) {
+                mudarCenario(3);
+                jogador.teleportar(336, 410);
                 return;
             }
 
+            // Borda sul → porta do Sol → Cenário 6
             if (jogador.getY() >= Cenario5.Y_PORTA - TILE) {
                 int centroJog = jogador.getX() + 24;
                 int colJog    = centroJog / TILE;
@@ -354,7 +368,6 @@ public class tileMap {
     // MECÂNICA DE INVENTÁRIO — CENÁRIO 3
     // =========================================================================
     public void processarInteracao(Player jogador, Inventario inventario) {
-        if (!(cenarioAtualInstancia instanceof jogoBiblioteca.cenarios.Cenario3 c3)) return;
 
         java.awt.Rectangle areaJogador = jogador.getAreaColisao();
         java.awt.Rectangle alcance = new java.awt.Rectangle(
@@ -362,60 +375,105 @@ public class tileMap {
                 areaJogador.width + 64, areaJogador.height + 64
         );
 
-        // Perto da mesa central e livro ainda não coletado → pega o livro (slot 1)
-        if (!c3.isLivroColetado() && alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_MESA_LIVRO)) {
-            c3.coletarLivro();
-            inventario.adicionarItem(new Item("livro_proibido1", "Livro proibido "));
-            mostrarMensagem("Livro proibido coletado!");
-            if (painel != null) painel.repaint();
-            return;
-        }
+        // ── CENÁRIO 3 ─────────────────────────────────────────────────────────
+        if (cenarioAtualInstancia instanceof jogoBiblioteca.cenarios.Cenario3 c3) {
 
-        // Perto da mesa pequena e segundo livro ainda não coletado → pega o livro (slot 2)
-        if (!c3.isLivro2Coletado() && alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_MESA_LIVRO2)) {
-            c3.coletarLivro2();
-            inventario.adicionarItem(new Item("livro_proibido2", "Livro proibido 2"));
-            mostrarMensagem("Livro proibido 2 coletado!");
-            if (painel != null) painel.repaint();
-            return;
-        }
-
-        // Perto do javali → tenta abrir a passagem
-        if (!c3.isPassagemAberta() && alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_JAVALI)) {
-
-            // Verifica o que o jogador tem no inventário agora (fonte da verdade)
-            boolean temLivro1 = false;
-            boolean temLivro2 = false;
-
-            for (int i = 0; i < inventario.getQuantidade(); i++) {
-                Item it = inventario.getItem(i);
-                if (it != null && it.getNome().equalsIgnoreCase("livro_proibido1")) temLivro1 = true;
-                if (it != null && it.getNome().equalsIgnoreCase("livro_proibido2")) temLivro2 = true;
+            // ── Livro 1 — mesa central ─────────────────────────────────────────
+            if (!c3.isLivroColetado() && alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_MESA_LIVRO)) {
+                c3.coletarLivro();
+                inventario.adicionarItem(new Item("livro_proibido1", "Livro proibido "));
+                mostrarMensagem("Livro proibido coletado!");
+                if (painel != null) painel.repaint();
+                return;
             }
 
-            if (temLivro1 && temLivro2) {
-                // Remove os dois do inventário e abre a passagem
-                for (int i = inventario.getQuantidade() - 1; i >= 0; i--) {
+            // ── Livro 2 — mesa pequena ─────────────────────────────────────────
+            if (!c3.isLivro2Coletado() && alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_MESA_LIVRO2)) {
+                c3.coletarLivro2();
+                inventario.adicionarItem(new Item("livro_proibido2", "Livro proibido 2"));
+                mostrarMensagem("Livro proibido 2 coletado!");
+                if (painel != null) painel.repaint();
+                return;
+            }
+
+            // ── Item para ir pro cenário 4 — javali (passagem secreta) ────────
+            if (!c3.isPassagemAberta() && alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_JAVALI)) {
+
+                boolean temLivro1 = false;
+                boolean temLivro2 = false;
+
+                for (int i = 0; i < inventario.getQuantidade(); i++) {
                     Item it = inventario.getItem(i);
-                    if (it != null && (it.getNome().equalsIgnoreCase("livro_proibido1")
-                            || it.getNome().equalsIgnoreCase("livro_proibido2"))) {
-                        inventario.removerItem(i);
+                    if (it != null && it.getNome().equalsIgnoreCase("livro_proibido1")) temLivro1 = true;
+                    if (it != null && it.getNome().equalsIgnoreCase("livro_proibido2")) temLivro2 = true;
+                }
+
+                if (temLivro1 && temLivro2) {
+                    for (int i = inventario.getQuantidade() - 1; i >= 0; i--) {
+                        Item it = inventario.getItem(i);
+                        if (it != null && (it.getNome().equalsIgnoreCase("livro_proibido1")
+                                || it.getNome().equalsIgnoreCase("livro_proibido2"))) {
+                            inventario.removerItem(i);
+                        }
+                    }
+                    c3.depositarLivroNoJavali();
+                    mostrarMensagem("A passagem secreta foi aberta!");
+                    if (painel != null) {
+                        painel.repaint();
+                        if (painel.painelSul != null) painel.painelSul.repaint();
+                    }
+                } else if (!temLivro1 && !temLivro2) {
+                    mostrarMensagem("O javali aguarda... Procure os livros na biblioteca.");
+                } else if (!temLivro1) {
+                    mostrarMensagem("Ainda falta o livro proibido 1!");
+                } else {
+                    mostrarMensagem("Ainda falta o livro proibido 2!");
+                }
+                return;
+            }
+
+            // ── Item para ir pro cenário 5 — porta com chave ───────────────────
+            if (alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_PORTA_C5)) {
+
+                boolean temChave = false;
+                for (int i = 0; i < inventario.getQuantidade(); i++) {
+                    Item it = inventario.getItem(i);
+                    if (it != null && it.getNome().equalsIgnoreCase("chave")) {
+                        temChave = true;
+                        break;
                     }
                 }
-                c3.depositarLivroNoJavali();
-                mostrarMensagem("A passagem secreta foi aberta!");
-                if (painel != null) {
-                    painel.repaint();
-                    if (painel.painelSul != null) painel.painelSul.repaint();
+
+                if (temChave) {
+                    for (int i = inventario.getQuantidade() - 1; i >= 0; i--) {
+                        Item it = inventario.getItem(i);
+                        if (it != null && it.getNome().equalsIgnoreCase("chave")) {
+                            inventario.removerItem(i);
+                            break;
+                        }
+                    }
+                    c3.abrirPortaC5();
+                    mostrarMensagem("A porta foi aberta com a chave!");
+                    if (painel != null) painel.repaint();
+                } else {
+                    mostrarMensagem("A porta está trancada. Você precisa de uma chave!");
                 }
-            } else if (!temLivro1 && !temLivro2) {
-                mostrarMensagem("O javali aguarda... Procure os livros na biblioteca.");
-            } else if (!temLivro1) {
-                mostrarMensagem("Ainda falta o livro proibido 1 !");
-            } else {
-                mostrarMensagem("Ainda falta o livro proibido 2!");
+                return;
             }
+
             return;
+        }
+
+        // ── CENÁRIO 4 ─────────────────────────────────────────────────────────
+        if (cenarioAtualInstancia instanceof Cenario4 c4) {
+
+            if (!c4.isChaveColetada() && alcance.intersects(Cenario4.ZONA_MESA_CHAVE)) {
+                c4.coletarChave();
+                inventario.adicionarItem(new Item("chave", "Chave"));
+                mostrarMensagem("Chave coletada!");
+                if (painel != null) painel.repaint();
+                return;
+            }
         }
     }
 

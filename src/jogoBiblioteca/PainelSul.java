@@ -138,11 +138,13 @@ public class PainelSul extends JPanel {
     }
 
     private String iconePorNome(String nome) {
-        String n = nome.toLowerCase();
-        if (n.contains("livro") || n.contains("tomo"))                           return "📖";
-
-        return "◆";
+        return switch (nome.toLowerCase()) {
+            case "livro", "tomo"          -> "📖";
+            case "chave"                  -> "🗝️";
+            default                       -> "◆";
+        };
     }
+
 
     private void desenharDicas(Graphics2D g2) {
         g2.setFont(new Font("Arial", Font.PLAIN, 9));

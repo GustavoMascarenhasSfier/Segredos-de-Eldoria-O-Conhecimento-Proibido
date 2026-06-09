@@ -138,7 +138,7 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
 
     private void desenharTapetes(Graphics2D d2, GerenciadorSprites sprites) {
         if (sprites.imgTapeteInferior != null)
-            d2.drawImage(sprites.imgTapeteInferior, 250, 400, 220, 80, null);
+            d2.drawImage(sprites.imgTapeteInferior, 310, 400, 150, 80, null);
 
         if (sprites.imgTapeteLateral != null) {
             d2.drawImage(sprites.imgTapeteLateral, -20, 239, 100, 80, null);
