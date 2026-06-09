@@ -86,7 +86,7 @@ public class tileMap {
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // CENÁRIO INICIAL
-        mudarCenario(5);
+        mudarCenario(1);
     }
 
     /** Chamado pelo Painel logo após construção */
@@ -375,7 +375,7 @@ public class tileMap {
                 areaJogador.width + 64, areaJogador.height + 64
         );
 
-        // ── CENÁRIO 3 ─────────────────────────────────────────────────────────
+        // ── CENÁRIO 3 ─────── ──────────────────────────────────────────────────
         if (cenarioAtualInstancia instanceof jogoBiblioteca.cenarios.Cenario3 c3) {
 
             // ── Livro 1 — mesa central ─────────────────────────────────────────
