@@ -44,11 +44,6 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
                 d2.drawImage(sprites.bancos[1], 397, 350, 50, 60, null);
             }
         }
-
-        // ---------------- PILAR ----------------
-        if (sprites.imgPilar != null) {
-            d2.drawImage(sprites.imgPilar, 650, 180, 60, 60, null);
-        }
     }
 
     @Override

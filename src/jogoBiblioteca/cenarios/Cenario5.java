@@ -53,16 +53,16 @@ public class Cenario5 extends CenarioBase {
      *
      * Nas colunas COL_LUA, COL_SOL, COL_ESTRELA da row 9
      * usamos tile 0 (sem colisão de tile) para abrir o vão.
-     * A colisão real das portas é feita por hitboxesObjetos.
+     * A colisão real das portas é feita por hitboxesObjetos.a
      */
     public static final int[][] MAPA = {
             //  0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
-            {   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5,   5 }, // row 0 norte
+            {   5,   5,   5,   5,   5,   5,   5,   24,   24,   5,   5,   5,   5,   5,   5,   5 }, // row 0 norte
             {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 1
             {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 2
             {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 3
             {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 4
-            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 5 saída esq
+            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 5 saída esq
             {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 6
             {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 7
             {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 8

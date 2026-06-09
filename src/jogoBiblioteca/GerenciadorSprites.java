@@ -88,6 +88,7 @@ public class GerenciadorSprites {
     private static final String Teia4 = "res/cenarios/cenario4/Teia4.png";
     private static final String Teia5 = "res/cenarios/cenario4/Teia5.png";
     private static final String TrofeuDeCervo = "res/cenarios/cenario4/TrofeuDeCervo.png";
+    private static final String ChaveItem = "res/cenarios/cenario4/Golden Key.png";
 
 
     // Sprites do cenário 1
@@ -174,6 +175,7 @@ public class GerenciadorSprites {
     public BufferedImage imgTeia4;
     public BufferedImage imgTeia5;
     public BufferedImage imgTrofeuDeCervo;
+    public BufferedImage imgChaveItem;
 
 
 
@@ -303,6 +305,7 @@ public class GerenciadorSprites {
         imgTeia4 = carregarSheet(Teia4);
         imgTeia5 = carregarSheet(Teia5);
         imgTrofeuDeCervo = carregarSheet(TrofeuDeCervo);
+        imgChaveItem = carregarSheet(ChaveItem);
 
     }
 
