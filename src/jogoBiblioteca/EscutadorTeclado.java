@@ -9,34 +9,59 @@ public class EscutadorTeclado implements KeyListener {
     public boolean moverPraBaixo, moverPraCima, moverPraEsq, moverPraDir;
 
     // Inventário — Q: anterior  |  E: próximo  |  F: usar
-    public boolean inventarioAnterior;  // Q
-    public boolean inventarioProximo;   // E
-    public boolean inventarioUsar;      // F
+    public boolean inventarioAnterior;
+    public boolean inventarioProximo;
+    public boolean inventarioUsar;
+    public boolean interagir;   // tecla R — pegar/usar item no cenário
+
+    // Quando true, ignora todas as teclas (ex: durante um dialog)
+    private boolean pausado = false;
+    private Runnable acaoEsc;
+
+    public void pausar() {
+        pausado = true;
+        // Zera tudo imediatamente para o personagem parar
+        moverPraBaixo = false;
+        moverPraCima  = false;
+        moverPraEsq   = false;
+        moverPraDir   = false;
+    }
+
+    public void retomar() {
+        pausado = false;
+    }
+
+    public void setAcaoEsc(Runnable acao) {
+        this.acaoEsc = acao;
+    }
 
     public boolean getMoverPraEsq()   { return moverPraEsq; }
     public boolean getMoverPraDir()   { return moverPraDir; }
     public boolean getMoverPraCima()  { return moverPraCima; }
     public boolean getMoverPraBaixo() { return moverPraBaixo; }
 
-    @Override public void keyTyped(KeyEvent e) {
-    }
+    @Override public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE && acaoEsc != null) {
+            acaoEsc.run();
+            return;
+        }
 
-            // Movimento
+        if (pausado) return;
+
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_A: moverPraEsq = true; break;
             case KeyEvent.VK_W: moverPraCima = true; break;
             case KeyEvent.VK_D: moverPraDir = true; break;
             case KeyEvent.VK_S: moverPraBaixo = true; break;
 
-            // Inventário
             case KeyEvent.VK_Q: inventarioAnterior = true; break;
-            case KeyEvent.VK_E: inventarioProximo = true; break;
-            case KeyEvent.VK_F: inventarioUsar = true; break;
+            case KeyEvent.VK_E: inventarioProximo  = true; break;
 
-            // Hitboxes
+            case KeyEvent.VK_F: interagir = true; break;
+
             case KeyEvent.VK_V:
                 tileMap.MOSTRAR_HITBOXES = !tileMap.MOSTRAR_HITBOXES;
                 System.out.println("Hitboxes: " + tileMap.MOSTRAR_HITBOXES);
@@ -46,6 +71,8 @@ public class EscutadorTeclado implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (pausado) return;
+
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A: moverPraEsq   = false; break;
             case KeyEvent.VK_W: moverPraCima  = false; break;
@@ -54,6 +81,7 @@ public class EscutadorTeclado implements KeyListener {
 
             case KeyEvent.VK_Q: inventarioAnterior = false; break;
             case KeyEvent.VK_E: inventarioProximo  = false; break;
+            case KeyEvent.VK_F: interagir          = false; break;
         }
     }
 }

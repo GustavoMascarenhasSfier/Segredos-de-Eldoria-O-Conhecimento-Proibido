@@ -58,21 +58,15 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 else if (et.moverPraBaixo) direcao = "baixo";
                 else if (et.moverPraDir)   direcao = "direita";
                 else if (et.moverPraEsq)   direcao = "esquerda";
-
+                cenaDoJogo.jogador.atualizaSprite(direcao);
                 VerificadorDeColisao colisao = new VerificadorDeColisao();
                 boolean bateu = colisao.OcorreuDeColisao(
                         cenaDoJogo.jogador,
                         cenaDoJogo.cenario,
                         direcao
                 );
-
                 if (!bateu) {
-                    cenaDoJogo.jogador.atualizaPosicaoJogador(
-                            et.moverPraEsq,
-                            et.moverPraCima,
-                            et.moverPraDir,
-                            et.moverPraBaixo
-                    );
+                    cenaDoJogo.jogador.atualizaPosicaoJogador(direcao);
 
                     // ✔️ AQUI É ONDE A TRANSIÇÃO ACONTECE
                     cenaDoJogo.cenario.verificarTransicao(cenaDoJogo.jogador);
@@ -102,6 +96,14 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                     mudouInventario = true;
                 }
                 if (!et.inventarioUsar) usarProcessado = false;
+
+                // ── INTERAGIR (tecla R) — pegar/depositar item no cenário ─────
+                if (et.interagir && !cenaDoJogo.cenario.isInteracaoProcessada()) {
+                    cenaDoJogo.cenario.processarInteracao(cenaDoJogo.jogador, inv);
+                    cenaDoJogo.cenario.setInteracaoProcessada(true);
+                    mudouInventario = true;
+                }
+                if (!et.interagir) cenaDoJogo.cenario.setInteracaoProcessada(false);
 
                 if (mudouInventario && painelSul != null)
                     painelSul.repaint();

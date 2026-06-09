@@ -14,7 +14,7 @@ public class Tiles {
             imgSandD,imgSandSL,imgSandSR,imgSandIL,imgSandIR,
             imgSandH,imgSandV, imgWall, imgWater, imgWhite, imgGray,
             imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5,
-            imgGrass6, imgGrass7, imgGrass8, imgGrass9, imgChao4;
+            imgGrass6, imgGrass7, imgGrass8, imgGrass9, imgChao4, imgTileChao;
 
     private boolean colisao;
 
@@ -36,6 +36,9 @@ public class Tiles {
         imgSandSR  = new ImageIcon("res/TILES/sandSR.png").getImage();
         imgSandIL  = new ImageIcon("res/TILES/sandIL.png").getImage();
         imgSandIR  = new ImageIcon("res/TILES/sandIR.png").getImage();
+
+        //Tile Chão
+        imgTileChao = new ImageIcon("res/TILES/chao.png").getImage();
 
         imgWater = new ImageIcon("res/TILES/water1.png").getImage();
         imgWall  = new ImageIcon("res/TILES/wall1.png").getImage();
@@ -85,9 +88,10 @@ public class Tiles {
         else if (valor == 10) { imgAtual = imgGrass5; colisao = false; }
         else if (valor == 11) { imgAtual = imgGrass6; colisao = false;}
         else if (valor == 12) { imgAtual = imgGrass8; colisao = true;} // Muro1
-        else if (valor == 23) { imgAtual = imgGrass9; colisao = true;} // Muro2
+        else if (valor == 25) { imgAtual = imgGrass9; colisao = true;} // Muro2
 
         else if (valor == 24) { imgAtual = imgChao4; colisao = false;}
+        else if (valor == 23) { imgAtual = imgTileChao; colisao = false; }
     }
 
     public boolean isColisao() { return colisao; }

@@ -24,10 +24,9 @@ public class VerificadorDeColisao {
         else if (Direcao.equals("baixo"))    proximaAreaJogador.y += Jogador.passo;
         else if (Direcao.equals("direita"))  proximaAreaJogador.x += Jogador.passo;
         else if (Direcao.equals("esquerda")) proximaAreaJogador.x -= Jogador.passo;
+        else return true;
 
         // ==================== COLISÃO POR OBJETOS DO CENÁRIO ====================
-        // O verificador não quer saber quais objetos existem, ele apenas delega a checagem
-        // para a instância do cenário que estiver ativo no momento no seu tileMap.
         if (CenaDoJogo.cenarioAtualInstancia != null) {
             if (CenaDoJogo.cenarioAtualInstancia.colideComObjetos(proximaAreaJogador)) {
                 this.colidiu = true;

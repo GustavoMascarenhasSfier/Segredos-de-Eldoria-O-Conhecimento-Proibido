@@ -1,7 +1,9 @@
 package jogoBiblioteca.cenarios.desenho;
 
 import java.awt.Graphics2D;
+import java.awt.Color;
 import jogoBiblioteca.GerenciadorSprites;
+import jogoBiblioteca.cenarios.Cenario3;
 
 /**
  * Cenário 3 — Interior da Biblioteca.
@@ -10,6 +12,9 @@ import jogoBiblioteca.GerenciadorSprites;
 public class DesenhistaCenario3 implements DesenhistaCenario {
 
     private static final int T = 48;
+    private Cenario3 cenario3ref;
+
+    public void setCenario3(Cenario3 c3) { this.cenario3ref = c3; }
 
     @Override
     public void desenharFundo(Graphics2D d2, GerenciadorSprites sprites) {
@@ -18,6 +23,7 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         desenharDecoracao(d2, sprites);
         desenharMesas(d2, sprites);
         desenharTapetes(d2, sprites);
+        desenharPassagem(d2, sprites);
     }
 
     @Override
@@ -92,7 +98,8 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         if (sprites.imgVelas != null)
             d2.drawImage(sprites.imgVelas, 359, 210, 44, 40, null);
 
-        if (sprites.imgLivroFechado != null)
+        // Livro só aparece na mesa enquanto não foi coletado
+        if (sprites.imgLivroAberto != null && (cenario3ref == null || !cenario3ref.isLivroColetado()))
             d2.drawImage(sprites.imgLivroAberto, 365, 250, 30, 20, null);
 
         if (sprites.imgCadeiraCima != null) {
@@ -115,7 +122,8 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         if (sprites.imgMesaCentro != null)
             d2.drawImage(sprites.imgMesaCentro, 105, 305, 80, 72, null);
 
-        if (sprites.imgLivroFechado != null)
+        // Livro só aparece na mesa enquanto não foi coletado
+        if (sprites.imgLivroFechado != null && (cenario3ref == null || !cenario3ref.isLivro2Coletado()))
             d2.drawImage(sprites.imgLivroFechado, 130, 320, 30, 30, null);
 
         if (sprites.imgCadeiraCima != null)
@@ -137,4 +145,18 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
             d2.drawImage(sprites.imgTapeteLateral, 660,  85,  60, 70, null);
         }
     }
+
+    /** Desenha o tile de passagem aberta quando desbloqueado. */
+    private void desenharPassagem(Graphics2D d2, GerenciadorSprites sprites) {
+        if (cenario3ref == null || !cenario3ref.isPassagemAberta()) return;
+        // Tile [1][14]: x=672, y=48, 48x48 — embaixo da bandeira direita
+        // Desenha o piso de biblioteca por cima do tile de parede para mostrar a passagem
+        if (sprites.imgChaoBiblioteca != null)
+            d2.drawImage(sprites.imgChaoBiblioteca, 720, 98, 48, 48, null);
+        // Borda sutil dourada para indicar que é uma passagem
+        d2.setColor(new Color(255, 215, 0, 180));
+        d2.setStroke(new java.awt.BasicStroke(2));
+        d2.drawRect(720, 98, 46, 46);
+    }
+
 }

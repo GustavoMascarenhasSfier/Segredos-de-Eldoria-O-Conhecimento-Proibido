@@ -1,8 +1,9 @@
 package jogoBiblioteca.cenarios;
 
-public class Cenario4 {
+public class Cenario4 extends CenarioBase {
     public static final int[][] MAPA = {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+
             {0,24,24,24,24,24,24,0,0,24,24,24,24,24,24,24},
             {0,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24},
             {24,24,24,24,24,24,24,0,0,24,24,24,24,24,24,24},
@@ -13,4 +14,10 @@ public class Cenario4 {
             {0,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24},
             {0,0,0,0,0,0,0,0,0,24,24,24,24,24,24,24}
     };
+
+
+    @Override
+    protected void inicializarHitboxes() {
+
+    }
 }
