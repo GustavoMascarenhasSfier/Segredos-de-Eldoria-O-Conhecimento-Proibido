@@ -66,6 +66,30 @@ public class GerenciadorSprites {
     private static final String CAMINHO_TAPETE_INFERIOR = "res/cenarios/cenario3_biblioteca/tapeteInferior.png";
     private static final String CAMINHO_TAPETE_LATERAL  = "res/cenarios/cenario3_biblioteca/tapeteLateral.png";
 
+    //Cenario 4
+
+    private static final String Balcao  = "res/cenarios/cenario4/Balcao.png";
+    private static final String Lustre1  = "res/cenarios/cenario4/Luz.png";
+    private static final String Lustre2 = "res/cenarios/cenario4/Luz1.png";
+    private static final String Lustre3  = "res/cenarios/cenario4/Luz2.png";
+    private static final String MesaRedonda  = "res/cenarios/cenario4/MesaRedonda.png";
+    private static final String Globo  = "res/cenarios/cenario4/Globo.png";
+    private static final String ArvoreDecoracao = "res/cenarios/cenario4/ArvoreDecoracao.png";
+    private static final String CadeiraD = "res/cenarios/cenario4/CadeiraD.png";
+    private static final String CadeiraL = "res/cenarios/cenario4/CadeiraL.png";
+    private static final String CadeiraR = "res/cenarios/cenario4/CadeiraR.png";
+    private static final String CadeiraT = "res/cenarios/cenario4/CadeiraT.png";
+    private static final String MesaLateral = "res/cenarios/cenario4/MesaLateral.png";
+    private static final String QuadroC4 = "res/cenarios/cenario4/Quadro.png";
+    private static final String Quadro1C4 = "res/cenarios/cenario4/Quadro1.png";
+    private static final String Teia1 = "res/cenarios/cenario4/Teia1.png";
+    private static final String Teia2 = "res/cenarios/cenario4/Teia2.png";
+    private static final String Teia3 = "res/cenarios/cenario4/Teia3.png";
+    private static final String Teia4 = "res/cenarios/cenario4/Teia4.png";
+    private static final String Teia5 = "res/cenarios/cenario4/Teia5.png";
+    private static final String TrofeuDeCervo = "res/cenarios/cenario4/TrofeuDeCervo.png";
+
+
     // Sprites do cenário 1
     public BufferedImage[] arvores;
     public BufferedImage   imgCasa;
@@ -128,10 +152,36 @@ public class GerenciadorSprites {
     public BufferedImage imgTapeteInferior;
     public BufferedImage imgTapeteLateral;
 
+    // Cenario 4
+
+    public BufferedImage imgBalcao;
+    public BufferedImage imgLustre1;
+    public BufferedImage imgLustre2;
+    public BufferedImage imgLustre3;
+    public BufferedImage imgMesaRedonda;
+    public BufferedImage imgGlobo;
+    public BufferedImage imgArvoreDecoracao;
+    public BufferedImage imgCadeiraD;
+    public BufferedImage imgCadeiraL;
+    public BufferedImage imgCadeiraR;
+    public BufferedImage imgCadeiraT;
+    public BufferedImage imgMesaLateral;
+    public BufferedImage imgQuadroC4;
+    public BufferedImage imgQuadro1C4;
+    public BufferedImage imgTeia1;
+    public BufferedImage imgTeia2;
+    public BufferedImage imgTeia3;
+    public BufferedImage imgTeia4;
+    public BufferedImage imgTeia5;
+    public BufferedImage imgTrofeuDeCervo;
+
+
+
     public GerenciadorSprites() {
         carregaImagensMundoExterior();
         carregaImagensBiblioteca();
         carregaObjetos();
+        carregaImagensBibliotecaCenario4();
     }
 
     private void carregaImagensMundoExterior() {
@@ -202,9 +252,6 @@ public class GerenciadorSprites {
         imgCerca          = carregarSheet(CAMINHO_C2_Cerca);
         imgPoste          = carregarSheet(CAMINHO_C2_Poste);
         imgPoste2          = carregarSheet(CAMINHO_C2_Poste2);
-
-
-
     }
 
     private void carregaImagensBiblioteca() {
@@ -233,6 +280,30 @@ public class GerenciadorSprites {
         imgTapete2         = carregarSheet(CAMINHO_TAPETE2);
         imgTapeteLateral   = carregarSheet(CAMINHO_TAPETE_LATERAL);
         imgTapeteInferior  = carregarSheet(CAMINHO_TAPETE_INFERIOR);
+    }
+
+    private void carregaImagensBibliotecaCenario4() {
+        imgBalcao = carregarSheet(Balcao);
+        imgLustre1 = carregarSheet(Lustre1);
+        imgLustre2 = carregarSheet(Lustre2);
+        imgLustre3 = carregarSheet(Lustre3);
+        imgMesaRedonda = carregarSheet(MesaRedonda);
+        imgGlobo = carregarSheet(Globo);
+        imgArvoreDecoracao = carregarSheet(ArvoreDecoracao);
+        imgCadeiraD = carregarSheet(CadeiraD);
+        imgCadeiraL = carregarSheet(CadeiraL);
+        imgCadeiraR = carregarSheet(CadeiraR);
+        imgCadeiraT = carregarSheet(CadeiraT);
+        imgMesaLateral = carregarSheet(MesaLateral);
+        imgQuadroC4 = carregarSheet(QuadroC4);
+        imgQuadro1C4 = carregarSheet(Quadro1C4);
+        imgTeia1 = carregarSheet(Teia1);
+        imgTeia2 = carregarSheet(Teia2);
+        imgTeia3 = carregarSheet(Teia3);
+        imgTeia4 = carregarSheet(Teia4);
+        imgTeia5 = carregarSheet(Teia5);
+        imgTrofeuDeCervo = carregarSheet(TrofeuDeCervo);
+
     }
 
     private BufferedImage carregarSheet(String caminho) {

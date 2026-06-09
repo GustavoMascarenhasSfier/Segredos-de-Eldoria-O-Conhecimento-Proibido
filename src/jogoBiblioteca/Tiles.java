@@ -10,7 +10,12 @@ public class Tiles {
     private int posX, posY;
 
     private Image imgAtual;
-    private Image imgGrass, imgSand,imgSandL,imgSandR,imgSandT,imgSandD,imgSandSL,imgSandSR,imgSandIL,imgSandIR,imgSandH,imgSandV, imgWall, imgWater, imgWhite, imgGray, imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5, imgGrass6;
+    private Image imgGrass, imgSand,imgSandL,imgSandR,imgSandT,
+            imgSandD,imgSandSL,imgSandSR,imgSandIL,imgSandIR,
+            imgSandH,imgSandV, imgWall, imgWater, imgWhite, imgGray,
+            imgGrass1, imgGrass2, imgGrass3, imgGrass4, imgGrass5,
+            imgGrass6, imgGrass7, imgGrass8, imgGrass9, imgChao4;
+
     private boolean colisao;
 
     public Tiles() {
@@ -32,8 +37,6 @@ public class Tiles {
         imgSandIL  = new ImageIcon("res/TILES/sandIL.png").getImage();
         imgSandIR  = new ImageIcon("res/TILES/sandIR.png").getImage();
 
-
-
         imgWater = new ImageIcon("res/TILES/water1.png").getImage();
         imgWall  = new ImageIcon("res/TILES/wall1.png").getImage();
         imgWhite = new ImageIcon("res/TILES/white.png").getImage();
@@ -46,8 +49,11 @@ public class Tiles {
         imgGrass4  = new ImageIcon("res/TILES/grass3.png").getImage();
         imgGrass5  = new ImageIcon("res/TILES/grass4.png").getImage();
         imgGrass6  = new ImageIcon("res/TILES/grass5.png").getImage();
-        imgGrass6  = new ImageIcon("res/TILES/grass6.png").getImage();
+        imgGrass7  = new ImageIcon("res/TILES/grass6.png").getImage();
+        imgGrass8 = new ImageIcon("res/TILES/MuroMundo1.png").getImage(); //Grama
+        imgGrass9 = new ImageIcon("res/TILES/MuroMundo2.png").getImage(); //Grama
 
+        imgChao4 = new ImageIcon("res/cenarios/cenario4/chao.png").getImage();
 
     }
 
@@ -78,7 +84,10 @@ public class Tiles {
         else if (valor == 9) { imgAtual = imgGrass4; colisao = false; }
         else if (valor == 10) { imgAtual = imgGrass5; colisao = false; }
         else if (valor == 11) { imgAtual = imgGrass6; colisao = false;}
+        else if (valor == 12) { imgAtual = imgGrass8; colisao = true;} // Muro1
+        else if (valor == 23) { imgAtual = imgGrass9; colisao = true;} // Muro2
 
+        else if (valor == 24) { imgAtual = imgChao4; colisao = false;}
     }
 
     public boolean isColisao() { return colisao; }
