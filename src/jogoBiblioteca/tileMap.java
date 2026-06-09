@@ -53,6 +53,7 @@ public class tileMap {
     // ── Mensagem de feedback ao jogador ──────────────────────────────────────
     private String mensagemFeedback = null;
     private long   mensagemExpira   = 0;
+    private boolean mensagemC3Exibida = false;
 
     /** Retorna a mensagem ativa, ou null se já expirou. */
     public String getMensagemFeedback() {
@@ -66,7 +67,12 @@ public class tileMap {
     private void mostrarMensagem(String texto) {
         mensagemFeedback = texto;
         mensagemExpira   = System.currentTimeMillis() + 3000;
-        if (painel != null) painel.repaint();
+    }
+
+    /** Exibe uma mensagem na tela por tempo customizado (em ms). */
+    private void mostrarMensagem(String texto, long duracaoMs) {
+        mensagemFeedback = texto;
+        mensagemExpira   = System.currentTimeMillis() + duracaoMs;
     }
 
     public tileMap() {
@@ -86,7 +92,7 @@ public class tileMap {
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // CENÁRIO INICIAL
-        mudarCenario(5);
+        mudarCenario(3);
     }
 
     /** Chamado pelo Painel logo após construção */
@@ -124,11 +130,21 @@ public class tileMap {
                 spawnX2 = 700; spawnY2 = 230; // spawn2: borda DIREITA  (voltando do cenário 3)
                 break;
 
-            case 3: // ── Interior da Biblioteca ───────────────────────────────
+            case 3:
                 cenarioValido = cenario3DoJogo;
                 cenarioAtualInstancia = cenario3;
-                spawnX1 = 20;  spawnY1 = 230; // spawn1: borda ESQUERDA          (vindo do cenário 2)
-                spawnX2 = 660; spawnY2 = 72;  // spawn2: borda DIREITA, Y=72     (voltando do cenário 4, ao lado da passagem secreta)
+                spawnX1 = 20;  spawnY1 = 230;
+                spawnX2 = 660; spawnY2 = 72;
+
+                if (!mensagemC3Exibida) {
+                    mensagemC3Exibida = true;
+                    mostrarMensagem("Bem-vindo à biblioteca! Procure os livros proibidos...", 3500);
+                    javax.swing.Timer t = new javax.swing.Timer(4000, e -> {
+                        mostrarMensagem("Entregue os livros ao javali para abrir a passagem secreta!", 4000);
+                    });
+                    t.setRepeats(false);
+                    t.start();
+                }
                 break;
 
             case 4: // ── Sala Secreta ─────────────────────────────────────────

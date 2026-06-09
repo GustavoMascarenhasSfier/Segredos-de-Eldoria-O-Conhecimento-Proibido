@@ -138,11 +138,10 @@ public class PainelSul extends JPanel {
     }
 
     private String iconePorNome(String nome) {
-        return switch (nome.toLowerCase()) {
-            case "livro", "tomo"          -> "📖";
-            case "chave"                  -> "🗝️";
-            default                       -> "◆";
-        };
+        String n = nome.toLowerCase();
+        if (n.startsWith("livro")) return "📖";
+        if (n.equals("chave"))    return "🗝️";
+        return "◆";
     }
 
 

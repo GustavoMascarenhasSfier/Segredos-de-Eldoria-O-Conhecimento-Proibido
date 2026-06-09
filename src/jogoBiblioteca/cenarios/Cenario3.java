@@ -91,14 +91,8 @@ public class Cenario3 extends CenarioBase {
     @Override
     protected void inicializarHitboxes() {
         // ── Paredes ────────────────────────────────────────────────────────────
-        hitboxesObjetos.add(new Rectangle(720,  0, 48, 95));   // Parede direita
-        hitboxesObjetos.add(new Rectangle(720,  98, 48, 48));   // Parede direita passagem secreta
-        hitboxesObjetos.add(new Rectangle(720,  142, 48, 480));   // Parede direita
-        hitboxesObjetos.add(new Rectangle(432,  0, 240, 48));   // Parede sup direita (lin0, cols 9-13)
-        hitboxesObjetos.add(new Rectangle(432, 48, 240, 48));   // Parede lin1, cols 9-13
-        hitboxesObjetos.add(new Rectangle(  0,  0, 288, 48));   // Parede sup esquerda (lin0, cols 0-5)
-        hitboxesObjetos.add(new Rectangle(  0, 48,  48, 48));   // Parede lin1 col0
-        hitboxesObjetos.add(new Rectangle(144, 48, 144, 48));   // Parede lin1 cols 3-5
+        hitboxesObjetos.add(new Rectangle(0,  0, 800, 94));   // Parede direita
+
 
         // -- PAREDE INFERIOR -----------------------------------------------------
 
@@ -108,7 +102,7 @@ public class Cenario3 extends CenarioBase {
 
         // ── Objetos ────────────────────────────────────────────────────────────
         hitboxesObjetos.add(new Rectangle(318, 0, 132, 110));   // Lareira
-        hitboxesObjetos.add(new Rectangle(90, 70, 120, 60));    // Piano
+        hitboxesObjetos.add(new Rectangle(90, 50, 120, 80));    // Piano
         hitboxesObjetos.add(new Rectangle(0, 100, 20, 150));    // Estante Lateral Cima
         hitboxesObjetos.add(new Rectangle(0, 300, 20, 170));    // Estante Lateral Baixo
         hitboxesObjetos.add(new Rectangle(96, 185, 96, 34));    // Estante Esq Topo
