@@ -20,10 +20,6 @@ public class Cenario5 extends CenarioBase {
     public static final int COL_SOL     = 7;
     public static final int COL_ESTRELA = 12;
 
-    // Entrada pela esquerda (row 5 — saída esq)
-    public static final int ROW_ENTRADA_ESQUERDA = 5;
-    public static final int ENTRADA_X = TILE;
-    public static final int ENTRADA_Y = ROW_ENTRADA_ESQUERDA * TILE;
 
     // Linha e posição Y das portas (parede sul)
     public static final int ROW_PORTAS = 9;

@@ -6,6 +6,28 @@ import java.awt.*;
 // Tile 48x48px | 16 cols (0-15) x 10 linhas (0-9)
 // 0=parede(colisão) 1=areia(passável) 4=piso branco(passável) 5=cinza(colisão)
 public class Cenario3 extends CenarioBase {
+
+    // ── Estado da mecânica de inventário ─────────────────────────────────────
+    /** true depois que o jogador pegou o livro da mesa central */
+    private boolean livroColetado = false;
+
+    private boolean livro2Coletado = false;
+
+    /** true depois que o livro foi depositado no javali — tile de passagem abre */
+    private boolean passagemAberta = false;
+
+    // Zona de interação: mesa central (livro aberto em cima)
+    public static final Rectangle ZONA_MESA_LIVRO = new Rectangle(310, 195, 160, 100);
+
+    // Zona de interação: mesa pequena (canto inferior esquerdo)
+    public static final Rectangle ZONA_MESA_LIVRO2 = new Rectangle(80, 300, 120, 90);
+
+    // Zona de interação: javali (bicho2) desenhado em (670, 20) tamanho 48x48
+    public static final Rectangle ZONA_JAVALI = new Rectangle(648, 10, 100, 80);// javali x=670 y=20
+
+    // Ao abrir, removemos a hitbox e marcamos passagemAberta para desenho
+    public static final Rectangle HITBOX_PASSAGEM = new Rectangle(672, 48, 48, 48);  // tile [1][14] embaixo da bandeira direita
+
     public static final int[][] MAPA = {
             //  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
             /* 0*/ {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -24,8 +46,42 @@ public class Cenario3 extends CenarioBase {
         inicializarHitboxes();
     }
 
+    // ── Getters de estado ──────────────────────────────────────────────────────
+    public boolean isLivroColetado()  { return livroColetado; }
+    public boolean isLivro2Coletado() { return livro2Coletado; }
+    public boolean isPassagemAberta() { return passagemAberta; }
+
+    // ── Ações chamadas pelo tileMap ────────────────────────────────────────────
+    /** Jogador coleta o livro da mesa central. */
+    public void coletarLivro() {
+        livroColetado = true;
+    }
+
+    /** Jogador deposita o livro no javali → abre a passagem. */
+    public void depositarLivroNoJavali() {
+        passagemAberta = true;
+        // Remove a hitbox da passagem para o jogador poder passar
+        hitboxesObjetos.removeIf(r -> r.x == 720 && r.y == 98 && r.width == 48 && r.height == 48);
+    }
+
+    /** Jogador coleta o segundo livro da mesa pequena. */
+    public void coletarLivro2() {
+        livro2Coletado = true;
+    }
+
     @Override
     protected void inicializarHitboxes() {
+        // ── Paredes ────────────────────────────────────────────────────────────
+        hitboxesObjetos.add(new Rectangle(720,  0, 48, 95));   // Parede direita
+        hitboxesObjetos.add(new Rectangle(720,  98, 48, 48));   // Parede direita passagem secreta
+        hitboxesObjetos.add(new Rectangle(720,  142, 48, 480));   // Parede direita
+        hitboxesObjetos.add(new Rectangle(432,  0, 240, 48));   // Parede sup direita (lin0, cols 9-13)
+        hitboxesObjetos.add(new Rectangle(432, 48, 240, 48));   // Parede lin1, cols 9-13
+        hitboxesObjetos.add(new Rectangle(  0,  0, 288, 48));   // Parede sup esquerda (lin0, cols 0-5)
+        hitboxesObjetos.add(new Rectangle(  0, 48,  48, 48));   // Parede lin1 col0
+        hitboxesObjetos.add(new Rectangle(144, 48, 144, 48));   // Parede lin1 cols 3-5
+
+        // ── Objetos ────────────────────────────────────────────────────────────
         hitboxesObjetos.add(new Rectangle(318, 0, 132, 110));   // Lareira
         hitboxesObjetos.add(new Rectangle(90, 70, 120, 60));    // Piano
         hitboxesObjetos.add(new Rectangle(0, 110, 20, 150));    // Estante Lateral Cima
@@ -39,5 +95,6 @@ public class Cenario3 extends CenarioBase {
         hitboxesObjetos.add(new Rectangle(590, 368, 96, 34));   // Estante Dir Baixo Dir
         hitboxesObjetos.add(new Rectangle(337, 215, 90, 65));   // Mesa Central
         hitboxesObjetos.add(new Rectangle(108, 318, 72, 52));   // Mesa Pequena
+        hitboxesObjetos.add(HITBOX_PASSAGEM);                   // Passagem fechada (canto sup dir)
     }
 }

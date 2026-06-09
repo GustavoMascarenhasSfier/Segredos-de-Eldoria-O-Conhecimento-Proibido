@@ -12,6 +12,7 @@ public class EscutadorTeclado implements KeyListener {
     public boolean inventarioAnterior;
     public boolean inventarioProximo;
     public boolean inventarioUsar;
+    public boolean interagir;   // tecla R — pegar/usar item no cenário
 
     // Quando true, ignora todas as teclas (ex: durante um dialog)
     private boolean pausado = false;
@@ -58,7 +59,8 @@ public class EscutadorTeclado implements KeyListener {
 
             case KeyEvent.VK_Q: inventarioAnterior = true; break;
             case KeyEvent.VK_E: inventarioProximo  = true; break;
-            case KeyEvent.VK_F: inventarioUsar     = true; break;
+
+            case KeyEvent.VK_F: interagir = true; break;
 
             case KeyEvent.VK_V:
                 tileMap.MOSTRAR_HITBOXES = !tileMap.MOSTRAR_HITBOXES;
@@ -79,6 +81,7 @@ public class EscutadorTeclado implements KeyListener {
 
             case KeyEvent.VK_Q: inventarioAnterior = false; break;
             case KeyEvent.VK_E: inventarioProximo  = false; break;
+            case KeyEvent.VK_F: interagir          = false; break;
         }
     }
 }

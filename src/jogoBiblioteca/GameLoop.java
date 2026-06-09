@@ -97,6 +97,14 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 }
                 if (!et.inventarioUsar) usarProcessado = false;
 
+                // ── INTERAGIR (tecla R) — pegar/depositar item no cenário ─────
+                if (et.interagir && !cenaDoJogo.cenario.isInteracaoProcessada()) {
+                    cenaDoJogo.cenario.processarInteracao(cenaDoJogo.jogador, inv);
+                    cenaDoJogo.cenario.setInteracaoProcessada(true);
+                    mudouInventario = true;
+                }
+                if (!et.interagir) cenaDoJogo.cenario.setInteracaoProcessada(false);
+
                 if (mudouInventario && painelSul != null)
                     painelSul.repaint();
 
