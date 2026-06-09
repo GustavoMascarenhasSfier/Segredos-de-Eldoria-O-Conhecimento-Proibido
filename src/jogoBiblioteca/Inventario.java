@@ -17,8 +17,6 @@ public class Inventario {
     public Inventario() {
         itens = new ArrayList<>();
 
-        // Itens de exemplo — remova ou substitua conforme o jogo
-        itens.add(new Item("livro",  "livro curta de ferro",     1));
     }
 
     // ── Acesso ────────────────────────────────────────────────────────────────

@@ -139,25 +139,15 @@ public class PainelSul extends JPanel {
 
     private String iconePorNome(String nome) {
         String n = nome.toLowerCase();
-        if (n.contains("espada") || n.contains("faca") || n.contains("adaga"))  return "⚔";
-        if (n.contains("arco"))                                                   return "🏹";
-        if (n.contains("poção") || n.contains("pocao") || n.contains("frasco")) return "🧪";
-        if (n.contains("tocha") || n.contains("fogo")  || n.contains("vela"))   return "🕯";
-        if (n.contains("mapa"))                                                   return "🗺";
-        if (n.contains("chave"))                                                  return "🗝";
-        if (n.contains("escudo"))                                                 return "🛡";
-        if (n.contains("capacete") || n.contains("elmo"))                        return "⛑";
         if (n.contains("livro") || n.contains("tomo"))                           return "📖";
-        if (n.contains("ouro") || n.contains("moeda"))                           return "🪙";
-        if (n.contains("gema") || n.contains("cristal"))                         return "💎";
-        if (n.contains("carne") || n.contains("comida"))                         return "🍖";
+
         return "◆";
     }
 
     private void desenharDicas(Graphics2D g2) {
         g2.setFont(new Font("Arial", Font.PLAIN, 9));
         g2.setColor(HINT_COLOR);
-        String dica = "Q ← anterior    E → próximo    F usar";
+        String dica = "Q ← anterior    E → próximo    F Pegar ";
         FontMetrics fm = g2.getFontMetrics();
         g2.drawString(dica, LARGURA - fm.stringWidth(dica) - 10, ALTURA - 5);
     }
