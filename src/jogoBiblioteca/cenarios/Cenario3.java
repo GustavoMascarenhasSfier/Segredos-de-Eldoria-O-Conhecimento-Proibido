@@ -91,8 +91,15 @@ public class Cenario3 extends CenarioBase {
     @Override
     protected void inicializarHitboxes() {
         // ── Paredes ────────────────────────────────────────────────────────────
+        hitboxesObjetos.add(new Rectangle(720,  0, 48, 95));   // Parede direita
+        hitboxesObjetos.add(new Rectangle(720,  98, 48, 48));   // Parede direita passagem secreta
+        hitboxesObjetos.add(new Rectangle(720,  142, 48, 480));   // Parede direita
+        hitboxesObjetos.add(new Rectangle(432,  0, 240, 48));   // Parede sup direita (lin0, cols 9-13)
+        hitboxesObjetos.add(new Rectangle(432, 48, 240, 48));   // Parede lin1, cols 9-13
+        hitboxesObjetos.add(new Rectangle(  0,  0, 288, 48));   // Parede sup esquerda (lin0, cols 0-5)
+        hitboxesObjetos.add(new Rectangle(  0, 48,  48, 48));   // Parede lin1 col0
+        hitboxesObjetos.add(new Rectangle(144, 48, 144, 48));   // Parede lin1 cols 3-5
         hitboxesObjetos.add(new Rectangle(0,  0, 800, 94));   // Parede direita
-
 
         // -- PAREDE INFERIOR -----------------------------------------------------
 
@@ -105,15 +112,18 @@ public class Cenario3 extends CenarioBase {
         hitboxesObjetos.add(new Rectangle(90, 50, 120, 80));    // Piano
         hitboxesObjetos.add(new Rectangle(0, 100, 20, 150));    // Estante Lateral Cima
         hitboxesObjetos.add(new Rectangle(0, 300, 20, 170));    // Estante Lateral Baixo
-        hitboxesObjetos.add(new Rectangle(96, 185, 96, 34));    // Estante Esq Topo
+        hitboxesObjetos.add(new Rectangle(96, 190, 96, 60));    // Estante Esq Topo
         hitboxesObjetos.add(new Rectangle(470, 90, 96, 50));    // Estante Topo Dir Esq
         hitboxesObjetos.add(new Rectangle(550, 90, 96, 50));    // Estante Topo Dir Dir
-        hitboxesObjetos.add(new Rectangle(510, 220, 96, 34));   // Estante Dir Meio Esq
-        hitboxesObjetos.add(new Rectangle(590, 220, 96, 34));   // Estante Dir Meio Dir
-        hitboxesObjetos.add(new Rectangle(510, 368, 96, 34));   // Estante Dir Baixo Esq
-        hitboxesObjetos.add(new Rectangle(590, 368, 96, 34));   // Estante Dir Baixo Dir
+        hitboxesObjetos.add(new Rectangle(510, 230, 96, 50));   // Estante  Meio Esq lado direito do cenario
+        hitboxesObjetos.add(new Rectangle(590, 230, 96, 50));   // Estante Dir Meio Dir
+        hitboxesObjetos.add(new Rectangle(510, 378, 96, 50));   // Estante Dir Baixo Esq
+        hitboxesObjetos.add(new Rectangle(590, 378, 96, 50));   // Estante Dir Baixo Dir
         hitboxesObjetos.add(new Rectangle(337, 215, 90, 65));   // Mesa Central
         hitboxesObjetos.add(new Rectangle(108, 318, 72, 52));   // Mesa Pequena
+        hitboxesObjetos.add(new Rectangle(140, 450, 105, 60));   // Mesa com livro em cima
+
         hitboxesObjetos.add(HITBOX_PASSAGEM);                   // Passagem fechada (canto sup dir)
     }
 }
+

@@ -92,7 +92,7 @@ public class tileMap {
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // CENÁRIO INICIAL
-        mudarCenario(3);
+        mudarCenario(1);
     }
 
     /** Chamado pelo Painel logo após construção */

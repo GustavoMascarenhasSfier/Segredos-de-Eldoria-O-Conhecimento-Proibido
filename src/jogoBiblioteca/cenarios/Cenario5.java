@@ -57,16 +57,16 @@ public class Cenario5 extends CenarioBase {
      */
     public static final int[][] MAPA = {
             //  0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
-            {   5,   5,   5,   5,   5,   5,   5,   24,   24,   5,   5,   5,   5,   5,   5,   5 }, // row 0 norte
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 1
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 2
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 3
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 4
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 5 saída esq
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 6
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 7
-            {   5,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   5 }, // row 8
-            {   5,   5,   0,   5,   5,   5,   5,   0,   5,   5,   5,   5,   0,   5,   5,   5 }, // row 9 sul: 3 vãos
+            {   0,   0,   0,   0,   0,   0,   0,   24,   24,   0,   0,   0,   0,   0,   0,   0 }, // row 0 norte
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 1
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 2
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 3
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 4
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 5 saída esq
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 6
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 7
+            {   0,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,   0 }, // row 8
+            {   0,   5,   0,   5,   5,   5,   5,   0,   5,   5,   5,   5,   0,   5,   5,   0 }, // row 9 sul: 3 vãos
     };
 
     // Hitboxes individuais para podermos remover a do Sol quando o jogador acertar
@@ -83,9 +83,26 @@ public class Cenario5 extends CenarioBase {
     @Override
     protected void inicializarHitboxes() {
 
-        hitboxLua     = new Rectangle(96,  430, 48, 34);
-        hitboxSol     = new Rectangle(336, 430, 48, 34);
-        hitboxEstrela = new Rectangle(576, 430, 48, 34);
+        //  parede superior ESQUERDA
+        hitboxesObjetos.add(new Rectangle(  0,   0, 335,  48));
+        //  parede superior DIREITA
+        hitboxesObjetos.add(new Rectangle(  430,   0, 335,  48));
+
+        // PAREDE ESQUERDA
+        hitboxesObjetos.add(new Rectangle(  0, 0,  48, 480));  // Parede esq
+
+        // PAREDE DIREITA
+        hitboxesObjetos.add(new Rectangle(720,  0,  48, 480));  // PAREDE DIREITA
+
+        // PAREDE INFERIOR — segmentos entre as portas
+        hitboxesObjetos.add(new Rectangle( 48, 432,  48, 48)); //  (esq → Lua)
+        hitboxesObjetos.add(new Rectangle(144, 432, 192, 48)); //  (entre Lua e Sol)
+        hitboxesObjetos.add(new Rectangle(384, 432, 192, 48)); //  (entre Sol e Estrela)
+        hitboxesObjetos.add(new Rectangle(624, 432,  96, 48)); // (após Estrela)
+
+        hitboxLua     = new Rectangle(96,  432, 48, 48);
+        hitboxSol     = new Rectangle(336, 432, 48, 48);
+        hitboxEstrela = new Rectangle(576, 432, 48, 48);
 
         hitboxesObjetos.add(hitboxLua);
         hitboxesObjetos.add(hitboxSol);
@@ -98,8 +115,8 @@ public class Cenario5 extends CenarioBase {
         hitboxesObjetos.add(new Rectangle(192, 44, 96, 50));   // Estante Norte Centro-Esq
         hitboxesObjetos.add(new Rectangle(432, 44, 96, 50));   // Estante Norte Centro-Dir
         hitboxesObjetos.add(new Rectangle(624, 44, 96, 50));   // Estante Norte Dir
-        hitboxesObjetos.add(new Rectangle(190, 332, 96, 54));  // Estante Inferior Esq
-        hitboxesObjetos.add(new Rectangle(430, 332, 96, 54));  // Estante Inferior Dir
+        hitboxesObjetos.add(new Rectangle(190, 342, 96, 50));  // Estante Inferior Esq
+        hitboxesObjetos.add(new Rectangle(430, 342, 96, 50));  // Estante Inferior Dir
     }
 
     /** Remove a hitbox do Sol — jogador pode passar */

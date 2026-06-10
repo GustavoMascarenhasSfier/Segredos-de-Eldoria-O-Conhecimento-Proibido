@@ -36,8 +36,10 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
     private static final int CX_SOL     =  7 * TILE + TILE / 2;
     private static final int CX_ESTRELA = 12 * TILE + TILE / 2;
 
-    // 🔥 AGORA É A PARTE DE BAIXO
     private static final int Y_PORTA_BASE = H - TILE;
+
+    // Pé visual das estantes inferiores: y=312 + h=90 = 402
+    private static final int PE_ESTANTE_INF = 402;
 
     @Override
     public void desenharFundo(Graphics2D g2, GerenciadorSprites sprites) {
@@ -58,15 +60,19 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
 
     @Override
     public void desenharFrente(Graphics2D g2, GerenciadorSprites sprites, int peJogador) {
-        // Pés do jogador acima da linha → ele está atrás; estátua cobre o personagem
+        // Estátua — cobre o jogador quando ele está acima da linha de profundidade
         if (peJogador < Cenario5.ESTATUA_LINHA_Y) {
             desenharEstatua(g2, sprites);
         }
+
+        // Estantes inferiores — cobrem o jogador quando ele está acima delas
+        if (sprites.imgEstante != null && peJogador < PE_ESTANTE_INF) {
+            g2.drawImage(sprites.imgEstante, 190, 312, 96, 90, null); // esquerda
+            g2.drawImage(sprites.imgEstante, 430, 312, 96, 90, null); // direita
+        }
     }
 
-    // Esquema C3 (drawImage direto) + layout simétrico da sala
     private void desenharEstantes(Graphics2D g2, GerenciadorSprites sprites) {
-
         // ---------------- CHEIAS — parede norte ----------------
         if (sprites.imgEstanteCheia != null) {
             g2.drawImage(sprites.imgEstanteCheia,  48, 4, 96, 90, null);
@@ -75,16 +81,17 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
             g2.drawImage(sprites.imgEstanteCheia, 624, 4, 96, 90, null);
         }
 
-        // ---------------- NORMAIS — cantos inferiores ----------------
+        // ---------------- NORMAIS — inferiores (sempre no fundo) ----------------
+        // CORREÇÃO: ambas desenhadas aqui no fundo para não sumirem.
+        // O desenharFrente as redesenha na frente quando o jogador está acima delas.
         if (sprites.imgEstante != null) {
-            g2.drawImage(sprites.imgEstante,  190, 312, 96, 90, null);
-            g2.drawImage(sprites.imgEstante, 430, 312, 96, 90, null);
+            g2.drawImage(sprites.imgEstante, 190, 312, 96, 90, null); // esquerda
+            g2.drawImage(sprites.imgEstante, 430, 312, 96, 90, null); // direita
         }
     }
 
     private void desenharEstatua(Graphics2D g2, GerenciadorSprites sprites) {
         if (sprites.imgEstatua == null) return;
-
         g2.drawImage(
                 sprites.imgEstatua,
                 Cenario5.ESTATUA_X,
@@ -97,7 +104,6 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
 
     // ── PAREDE SUL ───────────────────────────────────────────────────────────
     private void desenharParedeSul(Graphics2D g2) {
-
         g2.setColor(COR_PAREDE);
         g2.fillRect(0, H - TILE, W, TILE);
 
@@ -107,26 +113,26 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
         for (int x = 0; x < W; x += TILE) {
             g2.drawLine(x, H - TILE, x, H);
         }
-
         g2.drawLine(0, H - TILE / 2, W, H - TILE / 2);
 
         int[] centros = {CX_LUA, CX_SOL, CX_ESTRELA};
-
         for (int cx : centros) {
             g2.setColor(new Color(20, 15, 10));
-            g2.fillRect(cx - 20, H - TILE , 40, TILE + 10);
+            g2.fillRect(cx - 20, H - TILE, 40, TILE + 10);
         }
     }
 
     // ── CHÃO ────────────────────────────────────────────────────────────────
     private void desenharChaoDecorado(Graphics2D g2) {
-        for (int row = 1; row < 9; row++) {
-            for (int col = 1; col < 15; col++) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 16; col++) {
+                int tile = Cenario5.MAPA[row][col];
+                if (tile != 4 && tile != 24) continue;
+
                 int x = col * TILE;
                 int y = row * TILE;
 
                 Color base = ((row + col) % 2 == 0) ? COR_CHAO : COR_CHAO_PEDRA;
-
                 g2.setColor(base);
                 g2.fillRect(x, y, TILE, TILE);
 
@@ -138,10 +144,8 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
 
     // ── ARCO ────────────────────────────────────────────────────────────────
     private void desenharArco(Graphics2D g2, int cx, Color cor, Color glow, String rotulo) {
-
         int arcW = 44;
         int arcH = 56;
-
         int arcX = cx - arcW / 2;
         int arcY = Y_PORTA_BASE - arcH / 2;
 
@@ -151,25 +155,19 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
 
         g2.setColor(cor.darker());
         g2.setStroke(new BasicStroke(4f));
-
-        g2.drawLine(arcX, arcY + arcH / 2, arcX, Y_PORTA_BASE);
+        g2.drawLine(arcX,        arcY + arcH / 2, arcX,        Y_PORTA_BASE);
         g2.drawLine(arcX + arcW, arcY + arcH / 2, arcX + arcW, Y_PORTA_BASE);
 
         g2.setFont(new Font("SansSerif", Font.BOLD, 13));
         FontMetrics fm = g2.getFontMetrics();
-
-        int labelX = cx - fm.stringWidth(rotulo) / 2;
-        int labelY = Y_PORTA_BASE - 10;
-
         g2.setColor(COR_ROTULO);
-        g2.drawString(rotulo, labelX, labelY);
+        g2.drawString(rotulo, cx - fm.stringWidth(rotulo) / 2, Y_PORTA_BASE - 10);
 
         g2.setStroke(new BasicStroke(1f));
     }
 
     // ── PLACA ───────────────────────────────────────────────────────────────
     private void desenharPlacaCharada(Graphics2D g2) {
-
         int px = W - 210;
         int py = H / 2 - 60;
         int pw = 190;
@@ -188,15 +186,12 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
 
         g2.setFont(new Font("SansSerif", Font.BOLD, 11));
         g2.setColor(COR_PLACA_BORDA);
-
         String titulo = "─ LEIA A CHARADA ─";
         FontMetrics fmT = g2.getFontMetrics();
-
         g2.drawString(titulo, px + (pw - fmT.stringWidth(titulo)) / 2, py + 18);
 
         g2.setColor(COR_PLACA_TEXTO);
         g2.setFont(new Font("SansSerif", Font.ITALIC, 12));
-
         String[] linhas = {
                 "A sabedoria não",
                 "está na força,",
@@ -205,9 +200,7 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
                 "Brilho durante o dia,",
                 "desapareço à noite."
         };
-
         int y = py + 40;
-
         for (String s : linhas) {
             g2.drawString(s, px + 20, y);
             y += 14;

@@ -2,10 +2,14 @@ package jogoBiblioteca.cenarios.desenho;
 
 import java.awt.Graphics2D;
 import jogoBiblioteca.GerenciadorSprites;
+import jogoBiblioteca.cenarios.Cenario1;
 
 /**
  * Cenário 1 — Mundo exterior.
- * Contém: casa, baú, árvores de topo e de baixo.
+ * Padrão de desenho IGUAL ao Cenário 5:
+ *   - desenharFundo: desenha a estátua SEMPRE (fica atrás do jogador por padrão)
+ *   - desenharFrente: redesenha a estátua na frente SOMENTE se o jogador
+ *     estiver acima da linha de profundidade (peJogador < ESTATUA_LINHA_Y)
  */
 public class DesenhistaCenario1 implements DesenhistaCenario {
 
@@ -26,7 +30,7 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
             d2.drawImage(sprites.baus[0], 270, 35, 140, 50, null);
         }
 
-        // ---------------- GIRASSOL ----------------
+        // ---------------- GIRASSÓIS ----------------
         if (sprites.imgGirassol != null) {
             d2.drawImage(sprites.imgGirassol, 150, 350, 40, 50, null);
             d2.drawImage(sprites.imgGirassol, 150, 40, 40, 50, null);
@@ -44,55 +48,49 @@ public class DesenhistaCenario1 implements DesenhistaCenario {
                 d2.drawImage(sprites.bancos[1], 397, 350, 50, 60, null);
             }
         }
+
+        // ---------------- ESTÁTUA (camada de fundo) ----------------
+        // Sempre desenhada aqui. Quando o jogador estiver ABAIXO da linha,
+        // ela não será redesenhada na frente → jogador aparece na frente dela.
+        if (sprites.imgEstatua != null) {
+            d2.drawImage(sprites.imgEstatua,
+                    Cenario1.ESTATUA_X,
+                    Cenario1.ESTATUA_Y,
+                    Cenario1.ESTATUA_W,
+                    Cenario1.ESTATUA_H,
+                    null);
+        }
     }
 
     @Override
     public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites, int peJogador) {
-        // sempre desenha tudo, sem condição de sumir
 
-        // ------------------ ESTÁTUA ------------------
-        if (sprites.imgEstatua != null) {
-            d2.drawImage(sprites.imgEstatua, 200, 90, 110, 170, null);
+        // ---------------- ESTÁTUA (camada de frente) ----------------
+        // Mesmo padrão do Cenário 5:
+        // Se o pé do jogador está ACIMA da linha de profundidade da estátua,
+        // redesenha ela na frente para cobrir o jogador (ele está "atrás").
+        if (sprites.imgEstatua != null && peJogador < Cenario1.ESTATUA_LINHA_Y) {
+            d2.drawImage(sprites.imgEstatua,
+                    Cenario1.ESTATUA_X,
+                    Cenario1.ESTATUA_Y,
+                    Cenario1.ESTATUA_W,
+                    Cenario1.ESTATUA_H,
+                    null);
         }
 
+        // ---------------- ÁRVORES DA FRENTE ----------------
         if (sprites.arvores != null) {
-            // Árvore canto superior esquerdo
             if (sprites.arvores[2] != null) {
-                d2.drawImage(sprites.arvores[2], -20, -40, 200, 250, null);
+                d2.drawImage(sprites.arvores[2], -20, -40, 200, 250, null);   // sup esq
+                d2.drawImage(sprites.arvores[2], 600, -10, 170, 200, null);   // sup dir
+                d2.drawImage(sprites.arvores[2], 180, 250, 150, 180, null);   // inf esq
+                d2.drawImage(sprites.arvores[2], 420, 180, 150, 200, null);   // inf dir
             }
-
-            // Árvore canto superior direito
-            if (sprites.arvores[2] != null) {
-                d2.drawImage(sprites.arvores[2], 600, -10, 170, 200, null);
-            }
-
-            // Árvore central do topo
             if (sprites.arvores[1] != null) {
-                d2.drawImage(sprites.arvores[1], 280, -120, 250, 250, null);
-            }
-
-            // ---------------- ÁRVORES INFERIORES ESQUERDA ----------------
-            if (sprites.arvores[2] != null) {
-                // Primeira árvore inferior esquerda
-                d2.drawImage(sprites.arvores[2], 180, 250, 150, 180, null);
-            }
-
-            if (sprites.arvores[1] != null) {
-                // Árvore meio esquerda
-                d2.drawImage(sprites.arvores[1], -60, 80, 200, 250, null);
-                // Árvore canto inferior esquerdo
-                d2.drawImage(sprites.arvores[1], -60, 200, 250, 300, null);
-            }
-
-            // ---------------- ÁRVORES INFERIORES DIREITA ----------------
-            if (sprites.arvores[2] != null) {
-                // Primeira árvore inferior direita
-                d2.drawImage(sprites.arvores[2], 420, 180, 150, 200, null);
-            }
-
-            if (sprites.arvores[1] != null) {
-                // Segunda árvore inferior direita
-                d2.drawImage(sprites.arvores[1], 560, 190, 250, 300, null);
+                d2.drawImage(sprites.arvores[1], 280, -120, 250, 250, null);  // central topo
+                d2.drawImage(sprites.arvores[1], -60, 80, 200, 250, null);    // meio esq
+                d2.drawImage(sprites.arvores[1], -60, 200, 250, 300, null);   // canto inf esq
+                d2.drawImage(sprites.arvores[1], 560, 190, 250, 300, null);   // canto inf dir
             }
         }
     }
