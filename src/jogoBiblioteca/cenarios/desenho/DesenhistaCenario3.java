@@ -7,11 +7,21 @@ import jogoBiblioteca.cenarios.Cenario3;
 
 /**
  * Cenário 3 — Interior da Biblioteca.
- * Todos os móveis, tapetes, estantes, lareira, etc.
+ *
+ * Lógica de profundidade:
+ *   pé visual da estante = y + altura
+ *   peJogador < pé visual  → jogador ATRÁS  → estante redesenhada em desenharFrente() (cobre o jogador)
+ *   peJogador >= pé visual → jogador NA FRENTE → estante já visível no fundo, não precisa redesenhar
  */
 public class DesenhistaCenario3 implements DesenhistaCenario {
 
     private static final int T = 48;
+
+    // Pés visuais de cada estante (y + h)
+    private static final int PE_EST_ESQ     = 166 + 90; // = 256  (estante esquerda)
+    private static final int PE_EST_DIR_MID = 200 + 90; // = 290  (estantes direita meio)
+    private static final int PE_EST_DIR_LOW = 350 + 90; // = 440  (estantes direita baixo)
+
     private Cenario3 cenario3ref;
 
     public void setCenario3(Cenario3 c3) { this.cenario3ref = c3; }
@@ -26,13 +36,33 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         desenharPassagem(d2, sprites);
     }
 
+    /**
+     * Redesenha as estantes POR CIMA do jogador quando ele está atrás delas.
+     * As estantes também são desenhadas no fundo em desenharDecoracao(),
+     * garantindo que nunca sumam independente da posição do jogador.
+     */
     @Override
     public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites, int peJogador) {
-        // Elementos que sobrepõem o player (ex: topo de estantes altas)
-        // Adicionar conforme necessário
+        if (sprites.imgEstante == null) return;
+
+        // Estante esquerda — cobre o jogador quando ele está acima de y=256
+        if (peJogador < PE_EST_ESQ)
+            d2.drawImage(sprites.imgEstante, 96, 166, 96, 90, null);
+
+        // Estantes direita meio — cobrem o jogador quando ele está acima de y=290
+        if (peJogador < PE_EST_DIR_MID) {
+            d2.drawImage(sprites.imgEstante, 510, 200, 96, 90, null);
+            d2.drawImage(sprites.imgEstante, 590, 200, 96, 90, null);
+        }
+
+        // Estantes direita baixo — cobrem o jogador quando ele está acima de y=440
+        if (peJogador < PE_EST_DIR_LOW) {
+            d2.drawImage(sprites.imgEstante, 510, 350, 96, 90, null);
+            d2.drawImage(sprites.imgEstante, 590, 350, 96, 90, null);
+        }
     }
 
-    // ---- métodos privados organizados por área ----
+    // -------------------------------------------------------------------------
 
     private void desenharChao(Graphics2D d2, GerenciadorSprites sprites) {
         if (sprites.imgChaoBiblioteca == null) return;
@@ -74,13 +104,21 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
             d2.drawImage(sprites.imgQuadro, 105, 0, 100, 50, null);
 
         if (sprites.imgEstanteCheia != null) {
-            d2.drawImage(sprites.imgEstante,      96, 166, 96, 90, null);
-            d2.drawImage(sprites.imgEstanteCheia, 550, 50,  96, 90, null);
-            d2.drawImage(sprites.imgEstanteCheia, 470, 50,  96, 90, null);
-            d2.drawImage(sprites.imgEstante,      590, 350, 96, 90, null);
-            d2.drawImage(sprites.imgEstante,      510, 350, 96, 90, null);
-            d2.drawImage(sprites.imgEstante,      590, 200, 96, 90, null);
-            d2.drawImage(sprites.imgEstante,      510, 200, 96, 90, null);
+            // Parede norte — sempre atrás do jogador, ficam só no fundo
+            d2.drawImage(sprites.imgEstanteCheia, 550, 50, 96, 90, null);
+            d2.drawImage(sprites.imgEstanteCheia, 470, 50, 96, 90, null);
+        }
+
+        if (sprites.imgEstante != null) {
+            // Desenhadas SEMPRE no fundo.
+            // Quando o jogador estiver ACIMA delas, desenharFrente() as redesenha
+            // por cima do jogador — criando o efeito de profundidade correto.
+            // Nunca somem porque estão sempre aqui no fundo.
+            d2.drawImage(sprites.imgEstante,  96, 166, 96, 90, null);
+            d2.drawImage(sprites.imgEstante, 510, 200, 96, 90, null);
+            d2.drawImage(sprites.imgEstante, 590, 200, 96, 90, null);
+            d2.drawImage(sprites.imgEstante, 510, 350, 96, 90, null);
+            d2.drawImage(sprites.imgEstante, 590, 350, 96, 90, null);
         }
 
         if (sprites.imgMesaLivro != null)
@@ -88,7 +126,6 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
     }
 
     private void desenharMesas(Graphics2D d2, GerenciadorSprites sprites) {
-        // Mesa central grande (com tapete, cadeiras e velas)
         if (sprites.imgTapete != null)
             d2.drawImage(sprites.imgTapete, 288, 195, 192, 124, null);
 
@@ -98,7 +135,6 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         if (sprites.imgVelas != null)
             d2.drawImage(sprites.imgVelas, 359, 210, 44, 40, null);
 
-        // Livro só aparece na mesa enquanto não foi coletado
         if (sprites.imgLivroAberto != null && (cenario3ref == null || !cenario3ref.isLivroColetado()))
             d2.drawImage(sprites.imgLivroAberto, 365, 250, 30, 20, null);
 
@@ -115,14 +151,12 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         if (sprites.imgCadeiraDireita != null)
             d2.drawImage(sprites.imgCadeiraDireita, 420, 220, 44, 50, null);
 
-        // Mesa menor lateral (com livro fechado)
         if (sprites.imgTapete2 != null)
             d2.drawImage(sprites.imgTapete2, 100, 320, 96, 62, null);
 
         if (sprites.imgMesaCentro != null)
             d2.drawImage(sprites.imgMesaCentro, 105, 305, 80, 72, null);
 
-        // Livro só aparece na mesa enquanto não foi coletado
         if (sprites.imgLivroFechado != null && (cenario3ref == null || !cenario3ref.isLivro2Coletado()))
             d2.drawImage(sprites.imgLivroFechado, 130, 320, 30, 30, null);
 
@@ -146,17 +180,12 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         }
     }
 
-    /** Desenha o tile de passagem aberta quando desbloqueado. */
     private void desenharPassagem(Graphics2D d2, GerenciadorSprites sprites) {
         if (cenario3ref == null || !cenario3ref.isPassagemAberta()) return;
-        // Tile [1][14]: x=672, y=48, 48x48 — embaixo da bandeira direita
-        // Desenha o piso de biblioteca por cima do tile de parede para mostrar a passagem
         if (sprites.imgChaoBiblioteca != null)
             d2.drawImage(sprites.imgChaoBiblioteca, 720, 98, 48, 48, null);
-        // Borda sutil dourada para indicar que é uma passagem
         d2.setColor(new Color(255, 215, 0, 180));
         d2.setStroke(new java.awt.BasicStroke(2));
         d2.drawRect(720, 98, 46, 46);
     }
-
 }
