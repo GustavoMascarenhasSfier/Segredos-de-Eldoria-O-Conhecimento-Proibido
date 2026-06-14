@@ -224,4 +224,6 @@ public class Painel extends JPanel {
         int textY = boxY + (boxH - fm.getHeight()) / 2 + fm.getAscent();
         g2.drawString(texto, textX, textY);
     }
+
+
 }
