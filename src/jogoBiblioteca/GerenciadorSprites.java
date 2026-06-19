@@ -75,6 +75,7 @@ public class GerenciadorSprites {
     private static final String MesaRedonda  = "res/cenarios/cenario4/MesaRedonda.png";
     private static final String Globo  = "res/cenarios/cenario4/Globo.png";
     private static final String ArvoreDecoracao = "res/cenarios/cenario4/ArvoreDecoracao.png";
+    private static final String ArvoreDecoracao1 = "res/cenarios/cenario4/ArvoreDecoracao1.png";
     private static final String CadeiraD = "res/cenarios/cenario4/CadeiraD.png";
     private static final String CadeiraL = "res/cenarios/cenario4/CadeiraL.png";
     private static final String CadeiraR = "res/cenarios/cenario4/CadeiraR.png";
@@ -82,6 +83,8 @@ public class GerenciadorSprites {
     private static final String MesaLateral = "res/cenarios/cenario4/MesaLateral.png";
     private static final String QuadroC4 = "res/cenarios/cenario4/Quadro.png";
     private static final String Quadro1C4 = "res/cenarios/cenario4/Quadro1.png";
+    private static final String Quadro2C4 = "res/cenarios/cenario4/Quadro2.png";
+    private static final String Quadro3C4 = "res/cenarios/cenario4/Quadro3.png";
     private static final String Teia1 = "res/cenarios/cenario4/Teia1.png";
     private static final String Teia2 = "res/cenarios/cenario4/Teia2.png";
     private static final String Teia3 = "res/cenarios/cenario4/Teia3.png";
@@ -89,6 +92,9 @@ public class GerenciadorSprites {
     private static final String Teia5 = "res/cenarios/cenario4/Teia5.png";
     private static final String TrofeuDeCervo = "res/cenarios/cenario4/TrofeuDeCervo.png";
     private static final String ChaveItem = "res/cenarios/cenario4/Golden Key.png";
+    private static final String Livro = "res/cenarios/cenario4/Livro.png";
+    private static final String LivroAbertoC4 = "res/cenarios/cenario4/LivroAberto.png";
+
 
 
     //Cenario6
@@ -170,6 +176,7 @@ public class GerenciadorSprites {
     public BufferedImage imgMesaRedonda;
     public BufferedImage imgGlobo;
     public BufferedImage imgArvoreDecoracao;
+    public BufferedImage imgArvoreDecoracao1;
     public BufferedImage imgCadeiraD;
     public BufferedImage imgCadeiraL;
     public BufferedImage imgCadeiraR;
@@ -177,6 +184,8 @@ public class GerenciadorSprites {
     public BufferedImage imgMesaLateral;
     public BufferedImage imgQuadroC4;
     public BufferedImage imgQuadro1C4;
+    public BufferedImage imgQuadro2C4;
+    public BufferedImage imgQuadro3C4;
     public BufferedImage imgTeia1;
     public BufferedImage imgTeia2;
     public BufferedImage imgTeia3;
@@ -184,6 +193,8 @@ public class GerenciadorSprites {
     public BufferedImage imgTeia5;
     public BufferedImage imgTrofeuDeCervo;
     public BufferedImage imgChaveItem;
+    public BufferedImage imgLivro;
+    public BufferedImage imgLivroAbertoC4;
 
     //Cenario6
     public BufferedImage imgLivro1;
@@ -312,6 +323,7 @@ public class GerenciadorSprites {
         imgMesaRedonda = carregarSheet(MesaRedonda);
         imgGlobo = carregarSheet(Globo);
         imgArvoreDecoracao = carregarSheet(ArvoreDecoracao);
+        imgArvoreDecoracao1 = carregarSheet(ArvoreDecoracao1);
         imgCadeiraD = carregarSheet(CadeiraD);
         imgCadeiraL = carregarSheet(CadeiraL);
         imgCadeiraR = carregarSheet(CadeiraR);
@@ -319,6 +331,8 @@ public class GerenciadorSprites {
         imgMesaLateral = carregarSheet(MesaLateral);
         imgQuadroC4 = carregarSheet(QuadroC4);
         imgQuadro1C4 = carregarSheet(Quadro1C4);
+        imgQuadro2C4 = carregarSheet(Quadro2C4);
+        imgQuadro3C4 = carregarSheet(Quadro3C4);
         imgTeia1 = carregarSheet(Teia1);
         imgTeia2 = carregarSheet(Teia2);
         imgTeia3 = carregarSheet(Teia3);
@@ -326,6 +340,8 @@ public class GerenciadorSprites {
         imgTeia5 = carregarSheet(Teia5);
         imgTrofeuDeCervo = carregarSheet(TrofeuDeCervo);
         imgChaveItem = carregarSheet(ChaveItem);
+        imgLivro = carregarSheet(Livro);
+        imgLivroAbertoC4 = carregarSheet(LivroAbertoC4);
 
     }
 
