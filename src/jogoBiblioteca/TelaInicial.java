@@ -186,8 +186,6 @@ public class TelaInicial extends JFrame {
                 drawMenuBotoes(g2);
                 g2.setFont(new Font("Serif", Font.ITALIC, 12));
                 g2.setColor(new Color(90, 72, 40, 160));
-                String cr = "Uma aventura de misterio e sabedoria";
-                g2.drawString(cr, (W - g2.getFontMetrics().stringWidth(cr)) / 2, H - 18);
             }
 
             if (fadeIn < 1f) {
