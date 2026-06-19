@@ -388,6 +388,37 @@ public class tileMap {
     public void desenharElementosFrente(Graphics2D d2, int peJogador) {
         DesenhistaCenario desenhista = desenhistas.get(cenarioValido);
         if (desenhista != null) desenhista.desenharFrente(d2, sprites, peJogador);
+
+        // Escurecimento do cenário 4 — aplicado por último, cobre tudo uniformemente
+        if (cenarioValido == cenario4DoJogo) {
+            java.awt.Composite original = d2.getComposite();
+            d2.setComposite(java.awt.AlphaComposite.getInstance(
+                    java.awt.AlphaComposite.SRC_OVER, 0.25f));
+            d2.setColor(java.awt.Color.BLACK);
+            d2.fillRect(0, 0, 800, 520);
+            d2.setComposite(original);
+        }
+    }
+    // =========================================================================
+// DETECÇÃO DE PROXIMIDADE — mensagens contextuais
+// =========================================================================
+    public void verificarProximidade(Player jogador) {
+        java.awt.Rectangle areaJogador = jogador.getAreaColisao();
+        java.awt.Rectangle alcance = new java.awt.Rectangle(
+                areaJogador.x - 16, areaJogador.y - 16,
+                areaJogador.width + 32, areaJogador.height + 32
+        );
+        // ── CENÁRIO 4 ─────────────────────────────────────────────────────────
+        if (cenarioAtualInstancia instanceof Cenario4 c4) {
+
+            if (!c4.isChaveColetada() && alcance.intersects(Cenario4.ZONA_MESA_CHAVE)) {
+                mostrarMensagem("A CHAVE!!");
+            }
+
+            if (alcance.intersects(Cenario4.ZONA_MURO)) {
+                mostrarMensagem("Uma passagem para o segundo andar... mas está bloqueada por ora.");
+            }
+        }
     }
 
     // =========================================================================
@@ -401,7 +432,7 @@ public class tileMap {
                 areaJogador.width + 64, areaJogador.height + 64
         );
 
-        // ── CENÁRIO 3 ─────────────────────────────────────────────────────────
+        // ── CENÁRIO 3 ─────── ──────────────────────────────────────────────────
         if (cenarioAtualInstancia instanceof jogoBiblioteca.cenarios.Cenario3 c3) {
 
             // ── Livro 1 — mesa central ─────────────────────────────────────────
@@ -493,10 +524,11 @@ public class tileMap {
         // ── CENÁRIO 4 ─────────────────────────────────────────────────────────
         if (cenarioAtualInstancia instanceof Cenario4 c4) {
 
+            // Chave
             if (!c4.isChaveColetada() && alcance.intersects(Cenario4.ZONA_MESA_CHAVE)) {
                 c4.coletarChave();
                 inventario.adicionarItem(new Item("chave", "Chave"));
-                mostrarMensagem("Chave coletada!");
+                mostrarMensagem("Agora posso abrir a porta");
                 if (painel != null) painel.repaint();
                 return;
             }
@@ -508,9 +540,11 @@ public class tileMap {
             if (!c6.isLivro1Coletado() && alcance.intersects(Cenario6.ZONA_LIVRO_1)) {
 
                 c6.coletarLivro1();
-                mostrarMensagem("MEU DEUS, O QUE É ISSO???????????????");
+                mostrarMensagem(
+                        "Sua verdadeira jornada era descobrir a verdade sobre si e sobre o mundo."
+                );
 
-                fecharJogoDepois(3000);
+                fecharJogoDepois(2500);
             }
 
             if (!c6.isLivro2Coletado()

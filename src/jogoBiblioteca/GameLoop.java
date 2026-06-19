@@ -68,8 +68,9 @@ public class GameLoop extends Thread implements Runnable, ActionListener {
                 if (!bateu) {
                     cenaDoJogo.jogador.atualizaPosicaoJogador(direcao);
 
-                    // ✔️ AQUI É ONDE A TRANSIÇÃO ACONTECE
+                    // TRANSIÇÃO
                     cenaDoJogo.cenario.verificarTransicao(cenaDoJogo.jogador);
+                    cenaDoJogo.cenario.verificarProximidade(cenaDoJogo.jogador);
                 }
 
                 // ── INVENTÁRIO ────────────────────────────────────────────
