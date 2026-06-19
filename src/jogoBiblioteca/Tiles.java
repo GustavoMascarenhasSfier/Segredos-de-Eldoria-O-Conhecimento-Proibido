@@ -92,6 +92,9 @@ public class Tiles {
 
         else if (valor == 24) { imgAtual = imgChao4; colisao = false;}
         else if (valor == 23) { imgAtual = imgTileChao; colisao = false; }
+        // Wall com Colisão
+        else if (valor == 26) { imgAtual = imgWall; colisao = true; }
+
     }
 
     public boolean isColisao() { return colisao; }

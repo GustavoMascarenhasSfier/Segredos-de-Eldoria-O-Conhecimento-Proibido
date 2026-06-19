@@ -91,6 +91,14 @@ public class GerenciadorSprites {
     private static final String ChaveItem = "res/cenarios/cenario4/Golden Key.png";
 
 
+    //Cenario6
+    private static final String Caminho_Livro1 = "res/cenarios/cenario6/livro1.png";
+    private static final String Caminho_Livro2 = "res/cenarios/cenario6/livro2.png";
+    private static final String Caminho_Livro3 = "res/cenarios/cenario6/livro3.png";
+    private static final String Caminho_Livro4 = "res/cenarios/cenario6/livro4.png";
+
+
+
     // Sprites do cenário 1
     public BufferedImage[] arvores;
     public BufferedImage   imgCasa;
@@ -177,6 +185,12 @@ public class GerenciadorSprites {
     public BufferedImage imgTrofeuDeCervo;
     public BufferedImage imgChaveItem;
 
+    //Cenario6
+    public BufferedImage imgLivro1;
+    public BufferedImage imgLivro2;
+    public BufferedImage imgLivro3;
+    public BufferedImage imgLivro4;
+
 
 
     public GerenciadorSprites() {
@@ -254,6 +268,12 @@ public class GerenciadorSprites {
         imgCerca          = carregarSheet(CAMINHO_C2_Cerca);
         imgPoste          = carregarSheet(CAMINHO_C2_Poste);
         imgPoste2          = carregarSheet(CAMINHO_C2_Poste2);
+
+        //Livros
+        imgLivro1 = carregarSheet(Caminho_Livro1);
+        imgLivro2 = carregarSheet(Caminho_Livro2);
+        imgLivro3 = carregarSheet(Caminho_Livro3);
+        imgLivro4 = carregarSheet(Caminho_Livro4);
     }
 
     private void carregaImagensBiblioteca() {

@@ -6,6 +6,8 @@ import java.util.Map;
 import jogoBiblioteca.cenarios.*;
 import jogoBiblioteca.cenarios.desenho.*;
 
+import javax.swing.*;
+
 public class tileMap {
 
     Tiles pecaDoCenario;
@@ -80,15 +82,23 @@ public class tileMap {
         this.pecaDoCenario = new Tiles();
 
         desenhistas.put(cenario1DoJogo, new DesenhistaCenario1());
+
         desenhistas.put(cenario2DoJogo, new DesenhistaCenario2());
+
         DesenhistaCenario3 d3 = new DesenhistaCenario3();
         d3.setCenario3(cenario3);
         desenhistas.put(cenario3DoJogo, d3);
+
         DesenhistaCenario4 d4 = new DesenhistaCenario4();
         d4.setCenario4(cenario4);
         desenhistas.put(cenario4DoJogo, d4);
+
         desenhistas.put(cenario5DoJogo, new DesenhistaCenario5());
-        desenhistas.put(cenario6DoJogo, new DesenhistaCenario6());
+
+        DesenhistaCenario6 d6 = new DesenhistaCenario6();
+        d6.setCenario6(cenario6);
+        desenhistas.put(cenario6DoJogo, d6);
+
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // CENÁRIO INICIAL
@@ -491,6 +501,64 @@ public class tileMap {
                 return;
             }
         }
+
+        // ---- CENÁRIO 6 ---------------------
+        if (cenarioAtualInstancia instanceof Cenario6 c6) {
+
+            if (!c6.isLivro1Coletado() && alcance.intersects(Cenario6.ZONA_LIVRO_1)) {
+
+                c6.coletarLivro1();
+                mostrarMensagem("MEU DEUS, O QUE É ISSO???????????????");
+
+                fecharJogoDepois(3000);
+            }
+
+            if (!c6.isLivro2Coletado()
+                    && alcance.intersects(Cenario6.ZONA_LIVRO_2)) {
+
+                c6.coletarLivro2();
+                mostrarMensagem("Livro 2 encontrado! Parece importante... ou é só uma lista de compras.");
+
+                if (painel != null) painel.repaint();
+                return;
+            }
+
+            if (!c6.isLivro3Coletado()
+                    && alcance.intersects(Cenario6.ZONA_LIVRO_3)) {
+
+                c6.coletarLivro3();
+                mostrarMensagem("Livro 3 encontrado! Finalmente um livro com figuras.");
+
+                if (painel != null) painel.repaint();
+                return;
+            }
+
+            if (!c6.isLivro4Coletado()
+                    && alcance.intersects(Cenario6.ZONA_LIVRO_4)) {
+
+                c6.coletarLivro4();
+                mostrarMensagem("Livro 4 encontrado! Parabéns, você leu mais que muita gente este ano.");
+
+                if (painel != null) painel.repaint();
+                return;
+            }
+        }
+    }
+
+    private void fecharJogoDepois (int tempo) {
+        Timer timer = new Timer(tempo, e -> {
+
+            Window janelaAtual = SwingUtilities.getWindowAncestor(painel);
+
+            if (janelaAtual != null) {
+                janelaAtual.dispose();
+            }
+
+            new Final();
+        });
+
+        timer.setRepeats(false);
+        timer.start();
     }
 
     public boolean isInteracaoProcessada() { return interacaoProcessada; }

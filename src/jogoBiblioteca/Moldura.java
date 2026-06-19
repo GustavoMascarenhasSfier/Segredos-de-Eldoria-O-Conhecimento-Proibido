@@ -6,7 +6,7 @@ import java.awt.BorderLayout;
 public class Moldura extends JFrame {
 
     public Moldura() {
-        setTitle("CAP11 – SPRITES & TILES – parte1");
+        setTitle("PLAY");
         setLayout(new BorderLayout());
         setAlwaysOnTop(true);
         setResizable(false);

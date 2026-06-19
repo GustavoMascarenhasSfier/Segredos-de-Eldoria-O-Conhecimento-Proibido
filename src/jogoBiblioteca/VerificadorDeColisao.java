@@ -34,7 +34,6 @@ public class VerificadorDeColisao {
             }
         }
 
-        // ==================== COLISÃO POR TILE (Grid/Piso) ====================
         int tamanhoTile = 48;
 
         if (Direcao.equals("cima")) {
