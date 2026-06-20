@@ -97,6 +97,7 @@ public class tileMap {
 
         DesenhistaCenario6 d6 = new DesenhistaCenario6();
         d6.setCenario6(cenario6);
+        d6.setCenario3(cenario3);
         desenhistas.put(cenario6DoJogo, d6);
 
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
@@ -273,6 +274,10 @@ public class tileMap {
                 if (colJog == Cenario5.COL_SOL && c5.isSolDesbloqueada()) {
                     mudarCenario(6);
                     jogador.teleportar(spawnX1, spawnY1);
+
+                    if (!cenario3.isLanternaColetada()) {
+                        mostrarMensagem("Preciso de algo para iluminar! Melhor eu voltar...");
+                    }
                     return;
                 }
             }
@@ -399,6 +404,22 @@ public class tileMap {
             d2.setComposite(original);
         }
     }
+    //Desenhar a escuridao do mapa 6
+    public void desenharEscuridao(Graphics2D d2, Player jogador) {
+        if (cenarioValido != cenario6DoJogo) return;
+        if (jogador == null) return;
+
+        DesenhistaCenario desenhista = desenhistas.get(cenarioValido);
+
+        if (desenhista instanceof DesenhistaCenario6 d6) {
+            Rectangle area = jogador.getAreaColisao();
+
+            int centroX = area.x + area.width / 2;
+            int centroY = area.y + area.height / 2;
+
+            d6.desenharLanterna(d2, centroX, centroY);
+        }
+    }
     // =========================================================================
 // DETECÇÃO DE PROXIMIDADE — mensagens contextuais
 // =========================================================================
@@ -434,6 +455,15 @@ public class tileMap {
 
         // ── CENÁRIO 3 ─────── ──────────────────────────────────────────────────
         if (cenarioAtualInstancia instanceof jogoBiblioteca.cenarios.Cenario3 c3) {
+
+            // Lanterna - Piano
+            if (!c3.isLanternaColetada() && alcance.intersects(Cenario3.ZONA_PIANO_LANTERNA)) {
+                jogador.ColetarLanterna();
+                c3.coletarLanterna();
+                mostrarMensagem("LanternaColetada!");
+                if (painel != null) painel.repaint();
+                return;
+            }
 
             // ── Livro 1 — mesa central ─────────────────────────────────────────
             if (!c3.isLivroColetado() && alcance.intersects(jogoBiblioteca.cenarios.Cenario3.ZONA_MESA_LIVRO)) {

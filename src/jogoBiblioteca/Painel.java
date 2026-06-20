@@ -167,6 +167,7 @@ public class Painel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(getBackground());
         g2.fillRect(0, 0, getWidth(), getHeight());

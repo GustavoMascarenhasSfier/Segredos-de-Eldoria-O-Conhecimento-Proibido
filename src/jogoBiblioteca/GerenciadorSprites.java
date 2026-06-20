@@ -65,6 +65,8 @@ public class GerenciadorSprites {
     private static final String CAMINHO_TAPETE2         = "res/cenarios/cenario3_biblioteca/tapete2.png";
     private static final String CAMINHO_TAPETE_INFERIOR = "res/cenarios/cenario3_biblioteca/tapeteInferior.png";
     private static final String CAMINHO_TAPETE_LATERAL  = "res/cenarios/cenario3_biblioteca/tapeteLateral.png";
+    private static final String CAMINHO_LANTERNA  = "res/cenarios/cenario3_biblioteca/lanterna.png";
+
 
     //Cenario 4
 
@@ -166,6 +168,8 @@ public class GerenciadorSprites {
     public BufferedImage imgTapete2;
     public BufferedImage imgTapeteInferior;
     public BufferedImage imgTapeteLateral;
+    public BufferedImage imgLanterna;
+
 
     // Cenario 4
 
@@ -285,6 +289,7 @@ public class GerenciadorSprites {
         imgLivro2 = carregarSheet(Caminho_Livro2);
         imgLivro3 = carregarSheet(Caminho_Livro3);
         imgLivro4 = carregarSheet(Caminho_Livro4);
+        imgLanterna = carregarSheet(CAMINHO_LANTERNA);
     }
 
     private void carregaImagensBiblioteca() {

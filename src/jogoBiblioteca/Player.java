@@ -15,6 +15,11 @@ public class Player {
     private Image[] imgPlayerLeft = new Image[3];
     private Image[] imgPlayerUp = new Image[3];
 
+    private Image[] imgPlayerDownLanterna = new Image[3];
+    private Image[] imgPlayerRightLanterna = new Image[3];
+    private Image[] imgPlayerLeftLanterna = new Image[3];
+    private Image[] imgPlayerUpLanterna = new Image[3];
+
     private Image imgPlayer;
     private int frameJogador = 0;
     private long lastnow = 0;
@@ -24,6 +29,8 @@ public class Player {
     private int posX, posY;
     private int Larg, Altu;
     public int passo = 2;
+
+    private boolean lanterna = false;
 
     public Player() {
         this.posX = 352;
@@ -39,70 +46,62 @@ public class Player {
         this.AreaColisao.x = this.posX + (this.Larg - this.AreaColisao.width) / 2;
         this.AreaColisao.y = this.posY + this.Altu - this.AreaColisao.height - 2;
 
-        CorFundo = new Color(0,0,0,0);
-
         for (int i = 0; i < 3; i++) {
-            this.imgPlayerDown[i] = new ImageIcon("res/PLAYERS/down" + (i + 1) + ".png").getImage();
-            this.imgPlayerRight[i] = new ImageIcon("res/PLAYERS/right" + (i + 1) + ".png").getImage();
-            this.imgPlayerLeft[i] = new ImageIcon("res/PLAYERS/left" + (i + 1) + ".png").getImage();
-            this.imgPlayerUp[i] = new ImageIcon("res/PLAYERS/up" + (i + 1) + ".png").getImage();
+            this.imgPlayerDown[i] = new ImageIcon("res/PLAYERS/Normal/down" + (i + 1) + ".png").getImage();
+            this.imgPlayerRight[i] = new ImageIcon("res/PLAYERS/Normal/right" + (i + 1) + ".png").getImage();
+            this.imgPlayerLeft[i] = new ImageIcon("res/PLAYERS/Normal/left" + (i + 1) + ".png").getImage();
+            this.imgPlayerUp[i] = new ImageIcon("res/PLAYERS/Normal/up" + (i + 1) + ".png").getImage();
+
+            this.imgPlayerDownLanterna[i] = new ImageIcon("res/PLAYERS/ComLanterna/down" + (i + 1) + ".png").getImage();
+            this.imgPlayerRightLanterna[i] = new ImageIcon("res/PLAYERS/ComLanterna/right" + (i + 1) + ".png").getImage();
+            this.imgPlayerLeftLanterna[i] = new ImageIcon("res/PLAYERS/ComLanterna/left" + (i + 1) + ".png").getImage();
+            this.imgPlayerUpLanterna[i] = new ImageIcon("res/PLAYERS/ComLanterna/up" + (i + 1) + ".png").getImage();
         }
 
         this.imgPlayer = this.imgPlayerDown[0];
     }
 
     public void atualizaSprite(String direcao) {
-
-        //Tempo Atual//
         long now = System.currentTimeMillis();
 
-        //Se a animação for para uma direção diferente ele reseta o cooldown na hora//
         if (!direcao.equals(lastDirection)) {
             lastDirection = direcao;
             lastnow = 0;
             frameJogador = 0;
         }
-        //Verifica se tem cooldown para atualizar o frame
-        if (now - lastnow > (200/passo)) {
-            lastnow = now;
-        } else return;
 
-        this.frameJogador++;
+        if (now - lastnow <= (200 / passo)) return;
 
-        switch (direcao) {
-            case "esquerda" -> {
-                if (frameJogador >= this.imgPlayerLeft.length)
-                    frameJogador = 0;
+        lastnow = now;
 
-                this.imgPlayer = this.imgPlayerLeft[frameJogador];
+        if (this.lanterna) {
+            switch (direcao) {
+                case "esquerda" -> this.imgPlayer = this.imgPlayerLeftLanterna[frameJogador];
+                case "direita" -> this.imgPlayer = this.imgPlayerRightLanterna[frameJogador];
+                case "cima" -> this.imgPlayer = this.imgPlayerUpLanterna[frameJogador];
+                case "baixo" -> this.imgPlayer = this.imgPlayerDownLanterna[frameJogador];
             }
-            case "direita" -> {
-                if (frameJogador >= this.imgPlayerRight.length)
-                    frameJogador = 0;
-
-                this.imgPlayer = this.imgPlayerRight[frameJogador];
-            }
-            case "cima" -> {
-                if (frameJogador >= this.imgPlayerUp.length)
-                    frameJogador = 0;
-
-                this.imgPlayer = this.imgPlayerUp[frameJogador];
-            }
-            case "baixo" -> {
-                if (frameJogador >= this.imgPlayerDown.length)
-                    frameJogador = 0;
-
-                this.imgPlayer = this.imgPlayerDown[frameJogador];
+        } else {
+            switch (direcao) {
+                case "esquerda" -> this.imgPlayer = this.imgPlayerLeft[frameJogador];
+                case "direita" -> this.imgPlayer = this.imgPlayerRight[frameJogador];
+                case "cima" -> this.imgPlayer = this.imgPlayerUp[frameJogador];
+                case "baixo" -> this.imgPlayer = this.imgPlayerDown[frameJogador];
             }
         }
+
+        frameJogador++;
+
+        if (frameJogador >= 3) {
+            frameJogador = 0;
+        }
     }
-
     public void DesenharPlayer(Graphics2D d2) {
-        d2.setColor(this.CorFundo);
-        d2.fillRect(this.AreaColisao.x, this.AreaColisao.y,
-                this.AreaColisao.width, this.AreaColisao.height);
+        d2.setColor(new Color(0,0,0,0));
+        d2.fillRect(this.AreaColisao.x, this.AreaColisao.y,this.AreaColisao.width, this.AreaColisao.height);
 
-        d2.drawImage(imgPlayer, posX, posY, Larg, Altu, null);
+
+        d2.drawImage(this.imgPlayer, posX, posY, Larg, Altu, null);
     }
 
     public void atualizaPosicaoJogador(String direcao) {
@@ -139,5 +138,9 @@ public class Player {
 
         this.AreaColisao.x = this.posX + (this.Larg - this.AreaColisao.width) / 2;
         this.AreaColisao.y = this.posY + this.Altu - this.AreaColisao.height - 2;
+    }
+
+    public void ColetarLanterna() {
+        this.lanterna = true;
     }
 }

@@ -14,23 +14,19 @@ public class Cenario6 extends CenarioBase {
     private boolean livro3Coletado = false;
     private boolean livro4Coletado = false;
 
+    //Verifica se os livros foram coletados
     public boolean isLivro1Coletado() { return livro1Coletado; }
-    public void coletarLivro1() {
-        livro1Coletado = true;
-    }
+    public void coletarLivro1() { livro1Coletado = true; }
 
     public boolean isLivro2Coletado() { return livro2Coletado; }
-    public void coletarLivro2() {
-        livro2Coletado = true;
-    }
+    public void coletarLivro2() { livro2Coletado = true; }
 
     public boolean isLivro3Coletado() { return livro3Coletado; }
-    public void coletarLivro3() {livro3Coletado = true;}
+    public void coletarLivro3() { livro3Coletado = true; }
 
     public boolean isLivro4Coletado() { return livro4Coletado; }
-    public void coletarLivro4() {
-        livro4Coletado = true;
-    }
+    public void coletarLivro4() { livro4Coletado = true; }
+    //------------------------------------------------------------------------------
 
     public static final int[][] MAPA = {
             {26,26,26,26,26,26,26,23,26,26,26,26,26,26,26,26},
@@ -51,5 +47,5 @@ public class Cenario6 extends CenarioBase {
 
     protected void inicializarHitboxes() {
 
-    };
+    }
 }

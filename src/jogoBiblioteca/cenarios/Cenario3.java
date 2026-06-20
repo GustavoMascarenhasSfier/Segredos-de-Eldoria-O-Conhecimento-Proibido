@@ -8,6 +8,10 @@ import java.awt.*;
 public class Cenario3 extends CenarioBase {
 
     // ── Estado da mecânica de inventário ─────────────────────────────────────
+
+    // Pegou lanterna
+    private boolean lanternaColetada = false;
+
     /** true depois que o jogador pegou o livro da mesa central */
     private boolean livroColetado = false;
 
@@ -16,6 +20,7 @@ public class Cenario3 extends CenarioBase {
     /** true depois que o livro foi depositado no javali — tile de passagem abre */
     private boolean passagemAberta = false;
 
+    public static final Rectangle ZONA_PIANO_LANTERNA = new Rectangle(90, 50, 120, 80);
     // Zona de interação: mesa central (livro aberto em cima)
     public static final Rectangle ZONA_MESA_LIVRO = new Rectangle(310, 195, 160, 100);
 
@@ -66,6 +71,7 @@ public class Cenario3 extends CenarioBase {
     }
 
     // ── Getters de estado ──────────────────────────────────────────────────────
+    public boolean isLanternaColetada() {return lanternaColetada; }
     public boolean isLivroColetado()  { return livroColetado; }
     public boolean isLivro2Coletado() { return livro2Coletado; }
     public boolean isPassagemAberta() { return passagemAberta; }
@@ -75,6 +81,8 @@ public class Cenario3 extends CenarioBase {
     public void coletarLivro() {
         livroColetado = true;
     }
+
+    public  void coletarLanterna() {lanternaColetada = true;}
 
     /** Jogador deposita o livro no javali → abre a passagem. */
     public void depositarLivroNoJavali() {

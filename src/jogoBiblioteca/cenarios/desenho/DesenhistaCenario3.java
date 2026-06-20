@@ -121,6 +121,10 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
             d2.drawImage(sprites.imgEstante, 590, 350, 96, 90, null);
         }
 
+        if (sprites.imgLanterna != null && (cenario3ref == null || !cenario3ref.isLanternaColetada()))
+            d2.drawImage(sprites.imgLanterna, 108, 82, 22, 22, null);
+
+
         if (sprites.imgMesaLivro != null)
             d2.drawImage(sprites.imgMesaLivro, 127, 420, 126, 60, null);
     }
