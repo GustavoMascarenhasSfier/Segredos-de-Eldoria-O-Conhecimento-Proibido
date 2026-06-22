@@ -8,13 +8,6 @@ import jogoBiblioteca.cenarios.Cenario4;
 public class DesenhistaCenario4 implements DesenhistaCenario {
     private Cenario4 cenario4ref;
     public void setCenario4(Cenario4 c4) { this.cenario4ref = c4; }
-
-    // ── Pés visuais para Y-sorting (y + height do sprite) ──────────────────
-    // Estantes de cima:  y=100 + h=90 = 190
-    // Estantes de baixo: y=300 + h=90 = 390
-    // Lustre esquerdo:   y=120 + h=80 = 200
-    // ArvoreDecoracao:   y=310 + h=80 = 390
-    // ArvoreDecoracao1:  y=100 + h=80 = 180
     private static final int PE_ESTANTE_CIMA  = 190;
     private static final int PE_ESTANTE_BAIXO = 390;
     private static final int PE_LUSTRE_ESQ    = 200;
@@ -56,7 +49,7 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
     }
 
     // =========================================================================
-    // DECORAÇÃO DA PAREDE DE CIMA — quadros + troféu
+    // DECORAÇÃO DA PAREDE DE CIMA
     // =========================================================================
     private void desenharParedeDeCimaDecoracao(Graphics2D d2, GerenciadorSprites sprites) {
         if (sprites.imgQuadro      != null) d2.drawImage(sprites.imgQuadro,      290, -20, 200, 140, null); // central
@@ -67,7 +60,7 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
     }
 
     // =========================================================================
-    // LUZES — lustre direito (fixo) + lustre esquerdo (Y-sorting em desenharFrente)
+    // LUZES
     // =========================================================================
     private void desenharLuzes(Graphics2D d2, GerenciadorSprites sprites) {
         if (sprites.imgLustre1 != null) {
@@ -77,8 +70,7 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
     }
 
     // =========================================================================
-    // MOBILIÁRIO DO LADO DIREITO — mesa lateral, estantes cheias, mesas
-    // redondas com cadeiras, chave
+    // MOBILIÁRIO DO LADO DIREITO
     // =========================================================================
     private void desenharMobiliarioDireito(Graphics2D d2, GerenciadorSprites sprites) {
         // MESA LATERAL
@@ -91,11 +83,11 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
         d2.drawImage(sprites.imgEstanteLateral, 730, 410, 48, 100, null);
 
         if (sprites.imgEstanteCheia != null) {
-            // ESTANTES DE CIMA (cheias)
+            // ESTANTES DE CIMA
             d2.drawImage(sprites.imgEstanteCheia, 650, 40, 96, 90, null);
             d2.drawImage(sprites.imgEstanteCheia, 570, 40, 96, 90, null);
 
-            // MESA E CADEIRAS — TOPO DIREITA
+            // MESA E CADEIRAS
             if (sprites.imgCadeiraL    != null) d2.drawImage(sprites.imgCadeiraL,    580, 170, 20, 50, null);
             if (sprites.imgCadeiraD    != null) d2.drawImage(sprites.imgCadeiraD,    620, 230, 30, 30, null);
             if (sprites.imgCadeiraT    != null) d2.drawImage(sprites.imgCadeiraT,    620, 130, 25, 50, null);
@@ -107,7 +99,7 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
             }
             if (sprites.imgLustre2 != null) d2.drawImage(sprites.imgLustre2, 624, 168, 22, 30, null); // vela
 
-            // MESA E CADEIRAS — DIREITA INFERIOR
+            // MESA E CADEIRAS
             if (sprites.imgCadeiraL    != null) d2.drawImage(sprites.imgCadeiraL,    580, 360, 20, 50, null);
             if (sprites.imgCadeiraD    != null) d2.drawImage(sprites.imgCadeiraD,    620, 420, 30, 30, null);
             if (sprites.imgCadeiraT    != null) d2.drawImage(sprites.imgCadeiraT,    620, 320, 25, 50, null);
@@ -119,16 +111,14 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
             }
             if (sprites.imgLustre2 != null) d2.drawImage(sprites.imgLustre2, 624, 358, 22, 30, null); // vela
 
-            // CHAVE (se não coletada)
+            // CHAVE
             if (sprites.imgChaveItem != null && (cenario4ref == null || !cenario4ref.isChaveColetada()))
                 d2.drawImage(sprites.imgChaveItem, 735, 270, 35, 20, null);
         }
     }
 
     // =========================================================================
-    // ESTANTES DO MEIO — desenhadas SEMPRE no fundo (Y-sorting feito em
-    // desenharFrente, que as redesenha por cima do jogador quando ele
-    // estiver atrás delas)
+    // ESTANTES DO MEIO
     // =========================================================================
     private void desenharEstantesDoMeio(Graphics2D d2, GerenciadorSprites sprites) {
         // ESTANTES DE CIMA
@@ -143,7 +133,7 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
     }
 
     // =========================================================================
-    // TEIAS DE ARANHA — sempre por cima, após escurecimento
+    // TEIAS DE ARANHA
     // =========================================================================
     private void desenharTeiasEstantes(Graphics2D d2, GerenciadorSprites sprites) {
         if (sprites.imgTeia1 == null) return;
@@ -169,7 +159,7 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
     }
 
     // =========================================================================
-    // FRENTE — elementos desenhados por cima do jogador + Y-sorting
+    // FRENTE
     // =========================================================================
     @Override
     public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites, int peJogador) {
@@ -211,7 +201,7 @@ public class DesenhistaCenario4 implements DesenhistaCenario {
         if (sprites.imgLustre1 != null && peJogador < PE_LUSTRE_ESQ)
             d2.drawImage(sprites.imgLustre1, 110, 110, 40, 80, null);
 
-        // TEIAS DE ARANHA — sempre por cima (sem Y-sorting)
+        // TEIAS DE ARANHA
         desenharTeiasEstantes(d2, sprites);
 
     }

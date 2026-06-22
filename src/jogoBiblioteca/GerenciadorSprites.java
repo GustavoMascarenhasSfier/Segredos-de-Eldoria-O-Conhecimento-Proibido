@@ -8,9 +8,9 @@ import javax.imageio.ImageIO;
 public class GerenciadorSprites {
 
     // Cenário 1 — Mundo exterior (Constantes de Caminho)
-    private static final String CAMINHO_ARVORES  = "res/cenarios/cenario1/Trees.png";
+    private static final String CAMINHO_ARVORE1  = "res/cenarios/cenario1/Tree1.png";
+    private static final String CAMINHO_ARVORE2  = "res/cenarios/cenario1/Tree2.png";
     private static final String CAMINHO_CASA     = "res/cenarios/cenario1/House.png";
-    private static final String CAMINHO_BAU      = "res/cenarios/cenario1/chest.png";
     private static final String CAMINHO_PLANTAS  = "res/cenarios/cenario1/Plants.png";
     private static final String CAMINHO_DECOR    = "res/cenarios/cenario1/BancoEstatua.png";
 
@@ -108,9 +108,9 @@ public class GerenciadorSprites {
 
 
     // Sprites do cenário 1
-    public BufferedImage[] arvores;
+    public BufferedImage imgArvore1;
+    public BufferedImage imgArvore2;
     public BufferedImage   imgCasa;
-    public BufferedImage[] baus;
     public BufferedImage   imgGirassol;
     public BufferedImage[] bancos;
     public BufferedImage   imgEstatua;
@@ -216,18 +216,8 @@ public class GerenciadorSprites {
     }
 
     private void carregaImagensMundoExterior() {
-        // 1. ÁRVORES
-        try {
-            BufferedImage sheet = ImageIO.read(new File(CAMINHO_ARVORES));
-            arvores = new BufferedImage[3];
-            arvores[0] = sheet.getSubimage(32, 0, 32, 48);  // Pequena
-            arvores[1] = sheet.getSubimage(64, 0, 32, 48);  // Média
-            arvores[2] = sheet.getSubimage(96, 0, 32, 48);  // Grande
-        } catch (IOException e) {
-            System.err.println("Erro ao carregar o arquivo de árvores: " + e.getMessage());
-        }
 
-        // 2. CASA
+        // CASA
         try {
             BufferedImage sheetCasa = ImageIO.read(new File(CAMINHO_CASA));
             imgCasa = sheetCasa.getSubimage(144, 16, 80, 80);
@@ -235,17 +225,7 @@ public class GerenciadorSprites {
             System.err.println("Erro ao carregar o arquivo da casa: " + e.getMessage());
         }
 
-        // 3. BAÚS
-        try {
-            BufferedImage sheetBau = ImageIO.read(new File(CAMINHO_BAU));
-            baus = new BufferedImage[2];
-            baus[0] = sheetBau.getSubimage(0, 0, 32, 16);
-            baus[1] = sheetBau.getSubimage(0, 16, 32, 16);
-        } catch (IOException e) {
-            System.err.println("Erro ao carregar o arquivo do baú: " + e.getMessage());
-        }
-
-        // 4. GIRASSOL
+        // GIRASSOL
         try {
             BufferedImage sheetPlantas = ImageIO.read(new File(CAMINHO_PLANTAS));
             imgGirassol = sheetPlantas.getSubimage(125, 10, 20, 24);
@@ -253,7 +233,7 @@ public class GerenciadorSprites {
             System.err.println("Erro ao carregar o arquivo de plantas: " + e.getMessage());
         }
 
-        // 5. DECORAÇÕES
+        // DECORAÇÕES
         try {
             BufferedImage sheetDecor = ImageIO.read(new File(CAMINHO_DECOR));
             bancos = new BufferedImage[2];
@@ -267,6 +247,9 @@ public class GerenciadorSprites {
     }
 
     private void carregaObjetos() {
+        //ARVORES
+        imgArvore1 = carregarSheet(CAMINHO_ARVORE1);
+        imgArvore2 = carregarSheet(CAMINHO_ARVORE2);
         // CASAS
         imgCasa1           = carregarSheet(CAMINHO_C2_House_1);
         imgCasa2           = carregarSheet(CAMINHO_C2_House_2);

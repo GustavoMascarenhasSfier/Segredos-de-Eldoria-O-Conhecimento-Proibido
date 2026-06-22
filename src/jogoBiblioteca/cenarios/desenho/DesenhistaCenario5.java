@@ -60,12 +60,12 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
 
     @Override
     public void desenharFrente(Graphics2D g2, GerenciadorSprites sprites, int peJogador) {
-        // Estátua — cobre o jogador quando ele está acima da linha de profundidade
+        // Estátua
         if (peJogador < Cenario5.ESTATUA_LINHA_Y) {
             desenharEstatua(g2, sprites);
         }
 
-        // Estantes inferiores — cobrem o jogador quando ele está acima delas
+        // Estantes inferiores
         if (sprites.imgEstante != null && peJogador < PE_ESTANTE_INF) {
             g2.drawImage(sprites.imgEstante, 190, 312, 96, 90, null); // esquerda
             g2.drawImage(sprites.imgEstante, 430, 312, 96, 90, null); // direita
@@ -73,7 +73,7 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
     }
 
     private void desenharEstantes(Graphics2D g2, GerenciadorSprites sprites) {
-        // ---------------- CHEIAS — parede norte ----------------
+        // ---------------- CHEIAS ----------------
         if (sprites.imgEstanteCheia != null) {
             g2.drawImage(sprites.imgEstanteCheia,  48, 4, 96, 90, null);
             g2.drawImage(sprites.imgEstanteCheia, 192, 4, 96, 90, null);
@@ -81,9 +81,7 @@ public class DesenhistaCenario5 implements DesenhistaCenario {
             g2.drawImage(sprites.imgEstanteCheia, 624, 4, 96, 90, null);
         }
 
-        // ---------------- NORMAIS — inferiores (sempre no fundo) ----------------
-        // CORREÇÃO: ambas desenhadas aqui no fundo para não sumirem.
-        // O desenharFrente as redesenha na frente quando o jogador está acima delas.
+        // ---------------- NORMAIS  ----------------
         if (sprites.imgEstante != null) {
             g2.drawImage(sprites.imgEstante, 190, 312, 96, 90, null); // esquerda
             g2.drawImage(sprites.imgEstante, 430, 312, 96, 90, null); // direita

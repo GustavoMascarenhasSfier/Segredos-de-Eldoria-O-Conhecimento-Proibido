@@ -3,35 +3,17 @@ package jogoBiblioteca.cenarios;
 import java.awt.*;
 
 // Cenário 3 — Interior da Biblioteca
-// Tile 48x48px | 16 cols (0-15) x 10 linhas (0-9)
-// 0=parede(colisão) 1=areia(passável) 4=piso branco(passável) 5=cinza(colisão)
 public class Cenario3 extends CenarioBase {
 
-    // ── Estado da mecânica de inventário ─────────────────────────────────────
-
-    // Pegou lanterna
+    // ── Estado da mecânica de inventário ──
     private boolean lanternaColetada = false;
-
-    /** true depois que o jogador pegou o livro da mesa central */
     private boolean livroColetado = false;
-
     private boolean livro2Coletado = false;
-
-    /** true depois que o livro foi depositado no javali — tile de passagem abre */
     private boolean passagemAberta = false;
-
     public static final Rectangle ZONA_PIANO_LANTERNA = new Rectangle(90, 50, 120, 80);
-    // Zona de interação: mesa central (livro aberto em cima)
     public static final Rectangle ZONA_MESA_LIVRO = new Rectangle(310, 195, 160, 100);
-
-    // Zona de interação: mesa pequena (canto inferior esquerdo)
     public static final Rectangle ZONA_MESA_LIVRO2 = new Rectangle(80, 300, 120, 90);
-
-
-    // Zona de interação: javali (bicho2) desenhado em (670, 20) tamanho 48x48
     public static final Rectangle ZONA_JAVALI = new Rectangle(648, 10, 100, 80);// javali x=670 y=20
-
-    // Ao abrir, removemos a hitbox e marcamos passagemAberta para desenho
     public static final Rectangle HITBOX_PASSAGEM = new Rectangle(672, 48, 48, 48);  // tile [1][14] embaixo da bandeira direita
 
     // --------------------------------------------------------------------------------------------------------------------
