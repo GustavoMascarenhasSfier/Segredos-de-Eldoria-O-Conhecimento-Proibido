@@ -17,7 +17,7 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
 
     private static final int T = 48;
 
-    // Pés visuais de cada estante (y + h)
+
     private static final int PE_EST_ESQ     = 166 + 90; // = 256  (estante esquerda)
     private static final int PE_EST_DIR_MID = 200 + 90; // = 290  (estantes direita meio)
     private static final int PE_EST_DIR_LOW = 350 + 90; // = 440  (estantes direita baixo)
@@ -36,26 +36,22 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         desenharPassagem(d2, sprites);
     }
 
-    /**
-     * Redesenha as estantes POR CIMA do jogador quando ele está atrás delas.
-     * As estantes também são desenhadas no fundo em desenharDecoracao(),
-     * garantindo que nunca sumam independente da posição do jogador.
-     */
+
     @Override
     public void desenharFrente(Graphics2D d2, GerenciadorSprites sprites, int peJogador) {
         if (sprites.imgEstante == null) return;
 
-        // Estante esquerda — cobre o jogador quando ele está acima de y=256
+        // Estante esquerda
         if (peJogador < PE_EST_ESQ)
             d2.drawImage(sprites.imgEstante, 96, 166, 96, 90, null);
 
-        // Estantes direita meio — cobrem o jogador quando ele está acima de y=290
+        // Estantes direita meio
         if (peJogador < PE_EST_DIR_MID) {
             d2.drawImage(sprites.imgEstante, 510, 200, 96, 90, null);
             d2.drawImage(sprites.imgEstante, 590, 200, 96, 90, null);
         }
 
-        // Estantes direita baixo — cobrem o jogador quando ele está acima de y=440
+        // Estantes direita baixo
         if (peJogador < PE_EST_DIR_LOW) {
             d2.drawImage(sprites.imgEstante, 510, 350, 96, 90, null);
             d2.drawImage(sprites.imgEstante, 590, 350, 96, 90, null);
@@ -110,10 +106,6 @@ public class DesenhistaCenario3 implements DesenhistaCenario {
         }
 
         if (sprites.imgEstante != null) {
-            // Desenhadas SEMPRE no fundo.
-            // Quando o jogador estiver ACIMA delas, desenharFrente() as redesenha
-            // por cima do jogador — criando o efeito de profundidade correto.
-            // Nunca somem porque estão sempre aqui no fundo.
             d2.drawImage(sprites.imgEstante,  96, 166, 96, 90, null);
             d2.drawImage(sprites.imgEstante, 510, 200, 96, 90, null);
             d2.drawImage(sprites.imgEstante, 590, 200, 96, 90, null);

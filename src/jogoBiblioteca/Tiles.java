@@ -61,7 +61,7 @@ public class Tiles {
     }
 
     public void carregaPecaDaMatriz(int valor) {
-        if (valor == 0) { imgAtual = imgWall; colisao = false; }
+        if (valor == 0) { imgAtual = imgWall; colisao = true; }
         // SAND
         else if (valor == 1) { imgAtual = imgSand; colisao = false; }
         else if (valor == 13) { imgAtual = imgSandL; colisao = false; }

@@ -103,7 +103,7 @@ public class tileMap {
         desenhistas.put(cenario7DoJogo, new DesenhistaCenario7());
 
         // CENÁRIO INICIAL
-        mudarCenario(1);
+        mudarCenario(2);
     }
 
     /** Chamado pelo Painel logo após construção */
@@ -421,8 +421,8 @@ public class tileMap {
         }
     }
     // =========================================================================
-// DETECÇÃO DE PROXIMIDADE — mensagens contextuais
-// =========================================================================
+    // DETECÇÃO DE PROXIMIDADE — mensagens contextuais
+    // =========================================================================
     public void verificarProximidade(Player jogador) {
         java.awt.Rectangle areaJogador = jogador.getAreaColisao();
         java.awt.Rectangle alcance = new java.awt.Rectangle(

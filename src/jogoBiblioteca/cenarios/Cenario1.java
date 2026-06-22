@@ -17,56 +17,44 @@ public class Cenario1 extends CenarioBase {
             {25, 25, 12, 12, 25, 12, 12, 25, 12, 25, 12, 25, 25, 25, 12, 12}
     };
 
-    // Estátua — constantes usadas no DesenhistaCenario1
-    // Sprite: x=200, y=90, w=110, h=170
     public static final int ESTATUA_X       = 200;
     public static final int ESTATUA_Y       = 90;
     public static final int ESTATUA_W       = 110;
     public static final int ESTATUA_H       = 170;
-
-    // Linha de profundidade: pé do jogador abaixo disso → estátua fica atrás
-    public static final int ESTATUA_LINHA_Y = ESTATUA_Y + ESTATUA_H - 25; // ≈ 235
+    public static final int ESTATUA_LINHA_Y = ESTATUA_Y + ESTATUA_H - 25;
 
     public Cenario1() {
         inicializarHitboxes();
     }
 
-    @Override
+  @Override
     protected void inicializarHitboxes() {
 
-        // ---------------- ÁRVORES PEQUENAS ----------------
-        hitboxesObjetos.add(new Rectangle( 40, 280, 40, 30));   // árvore inferior esquerda
-        hitboxesObjetos.add(new Rectangle(365,  90, 80, 25));   // árvore superior central
-        hitboxesObjetos.add(new Rectangle(630, 390,  0,  0));   // árvore inferior direita (sem colisão)
+        // ---------------- ÁRVORE ----------------
+        hitboxesObjetos.add(new Rectangle(240, 50, 80, 30));
 
-        // ---------------- ÁRVORES GRANDES — topo ----------------
-        hitboxesObjetos.add(new Rectangle( 70, 150, 50, 50));   // árvore superior esquerda
-        hitboxesObjetos.add(new Rectangle(640, 150, 80, 50));   // árvore superior direita
-        hitboxesObjetos.add(new Rectangle(240,  20, 50, 50));   // árvore atrás do baú
+        // ---------------- ÁRVORES DA FRENTE ----------------
+        // sup esq
+        hitboxesObjetos.add(new Rectangle(65, 140, 80, 30));
+        // sup dir
+        hitboxesObjetos.add(new Rectangle(660, 170, 80, 30));
 
-        // ---------------- ÁRVORES INFERIORES — ESQUERDA ----------------
-        // arvores[2] em (180, 250, 150, 180) → base ≈ y=430, x=180..330
-        hitboxesObjetos.add(new Rectangle(200, 390, 110, 40));  // primeira árvore inf esquerda
-        // arvores[1] em (-60, 80, 200, 250) → base ≈ y=330, x=0..140
-        hitboxesObjetos.add(new Rectangle(  0, 300,  90, 40));  // árvore meio esquerda
-        // arvores[1] em (-60, 200, 250, 300) → base ≈ y=500 (fora da tela)
-        hitboxesObjetos.add(new Rectangle(  0, 440, 130, 40));  // árvore canto inf esquerdo
+        // inf dir
+        hitboxesObjetos.add(new Rectangle(450, 355, 90, 30));
 
-        // ---------------- ÁRVORES INFERIORES — DIREITA ----------------
-        // arvores[2] em (420, 180, 150, 200) → base ≈ y=380, x=420..570
-        hitboxesObjetos.add(new Rectangle(440, 340, 110, 40));  // primeira árvore inf direita
-        // arvores[1] em (560, 190, 250, 300) → base ≈ y=490, x=560..810
-        hitboxesObjetos.add(new Rectangle(580, 430, 150, 40));  // segunda árvore inf direita
+        // central topo
+        hitboxesObjetos.add(new Rectangle(385, 85, 80, 30));
+        // canto inf esq
+        hitboxesObjetos.add(new Rectangle(20, 335, 90, 40));
 
         // ---------------- OBJETOS ----------------
         hitboxesObjetos.add(new Rectangle(480,  40, 170, 90));  // Casa
-        hitboxesObjetos.add(new Rectangle(300,  35, 800, 50));  // Baú
 
-        // ESTÁTUA — hitbox na base do pedestal
-        hitboxesObjetos.add(new Rectangle(215, 190, 90, 40));   // Estátua
+        // ---------------- ESTÁTUA ----------------
+        hitboxesObjetos.add(new Rectangle(215, 190,  90, 40));
 
-
-        hitboxesObjetos.add(new Rectangle(180,  80,  60, 30));  // Banco 0 (superior esquerdo)
-        hitboxesObjetos.add(new Rectangle(410, 360,  20, 45));  // Banco 1 (inferior central)
+        // ---------------- BANCOS ----------------
+        hitboxesObjetos.add(new Rectangle(180,  80,  60, 30));  // Banco 0
+        hitboxesObjetos.add(new Rectangle(410, 360,  20, 45));  // Banco 1
     }
 }

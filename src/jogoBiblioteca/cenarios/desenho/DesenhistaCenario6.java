@@ -48,16 +48,12 @@ public class DesenhistaCenario6 implements DesenhistaCenario {
 
     }
 
-    // Desenha a escuridão do cenário 6 e cria uma área iluminada ao redor do jogador.
-    // centroX e centroY são a posição central da lanterna/ o centro da hitbox do jogador.
     public void desenharLanterna(Graphics2D d2, int centroX, int centroY) {
         if (cenario6ref == null) return;
 
         //Tela do jogador
         int largura = 768;
         int altura = 480;
-
-        // Varial do tamanho da area de luz e a força da escuridao definido no Cenario6.
         int raio = 120;
         int alpha = 255;
 

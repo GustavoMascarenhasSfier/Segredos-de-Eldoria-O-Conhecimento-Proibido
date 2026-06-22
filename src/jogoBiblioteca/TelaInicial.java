@@ -34,7 +34,7 @@ public class TelaInicial extends JFrame {
         private static final Color BTN_FILL    = new Color(22, 16, 8);// fundo escuro dos botões
         private static final Color BTN_HOVER   = new Color(60, 42, 12);// fundo do botão quando o mouse está em cima
 
-        // valor entre 0.82 e 1.0 que oscila — controla o brilho do título
+
         private float flickerAlpha = 1f;
         private float flickerTimer = 0f;
 
